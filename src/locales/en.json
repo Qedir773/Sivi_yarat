@@ -160,5 +160,23 @@
       "title": "Start building your CV now",
       "subtitle": "No signup, no hidden fees — just a professional CV."
     }
+  },
+  "templatesPage": {
+    "title": "All CV templates",
+    "subtitle": "Pick the design that fits you and fill it with your own details.",
+    "filterAll": "All",
+    "free": "Free",
+    "pro": "Pro",
+    "useTemplate": "Use this template",
+    "categories": {
+      "professional": "Professional",
+      "modern": "Modern",
+      "minimal": "Minimal",
+      "ats": "ATS",
+      "academic": "Academic",
+      "creative": "Creative",
+      "student": "Student",
+      "it": "IT"
+    }
   }
 }

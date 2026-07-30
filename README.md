@@ -36,12 +36,13 @@ src/
     ui/           shadcn/ui primitiv komponentləri
     layout/       Header, Footer, ThemeProvider və s.
     cv/           CV render komponentləri (gələcək faza)
-    templates/    CV şablon komponentləri (gələcək faza)
+    templates/    8 CV şablonu (Professional/Modern/Minimal/ATS/Akademik/Kreativ/Tələbə/IT) + qalereya
     editor/       Builder editor komponentləri (gələcək faza)
     forms/        Form bölmələri (gələcək faza)
     pricing/      Pricing UI (gələcək faza)
     admin/        Admin panel UI (gələcək faza)
   features/       Domain-səviyyəli məntiq (cv, templates, export, ats, pricing, ads)
+  lib/mock/       Şablon preview-ları üçün nümunə CV datası
   lib/            db, validation, export, security, utils
   store/          Zustand store-ları (gələcək faza)
   types/          Paylaşılan TypeScript tipləri
@@ -72,7 +73,7 @@ Hazırda məcburi environment variable yoxdur. `.env.example` faylı gələcək 
 
 ## Faza Statusu
 
-- [x] Phase 1 — Project setup (bu commit)
-- [ ] Phase 2 — Landing page
-- [ ] Phase 3 — Template system
-- [ ] Phase 4+ — bax `.claude/plans` (daxili plan sənədi)
+- [x] Phase 1 — Project setup
+- [x] Phase 2 — Landing page
+- [x] Phase 3 — Template system
+- [ ] Phase 4+ — CV data editor, local storage, PDF/DOCX export, ATS, pricing, admin panel

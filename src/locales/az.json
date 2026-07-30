@@ -160,5 +160,23 @@
       "title": "İndi öz CV-ni yaratmağa başla",
       "subtitle": "Qeydiyyat yoxdur, gizli ödəniş yoxdur — sadəcə peşəkar CV."
     }
+  },
+  "templatesPage": {
+    "title": "Bütün CV şablonları",
+    "subtitle": "Sənə uyğun dizaynı seç, öz məlumatlarınla doldur.",
+    "filterAll": "Hamısı",
+    "free": "Pulsuz",
+    "pro": "Pro",
+    "useTemplate": "Bu şablonla başla",
+    "categories": {
+      "professional": "Professional",
+      "modern": "Modern",
+      "minimal": "Minimal",
+      "ats": "ATS",
+      "academic": "Akademik",
+      "creative": "Kreativ",
+      "student": "Tələbə",
+      "it": "IT"
+    }
   }
 }
