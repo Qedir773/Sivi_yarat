@@ -1,5 +1,11 @@
 import type { CVData } from "@/types/cv";
 
+export const samplePhotoUrls = [
+  "/sample-photos/sample-photo-1.jpg",
+  "/sample-photos/sample-photo-2.jpg",
+  "/sample-photos/sample-photo-3.jpg",
+];
+
 export const sampleCV: CVData = {
   personalInfo: {
     fullName: "Aysel Məmmədova",

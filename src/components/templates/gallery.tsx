@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
-import { sampleCV } from "@/lib/mock/sample-cv";
+import { sampleCV, samplePhotoUrls } from "@/lib/mock/sample-cv";
 import { getTemplateComponent } from "@/lib/templates/component-loader";
 import type { TemplateConfig } from "@/lib/templates/discovery";
 
@@ -30,6 +30,16 @@ function categoryLabel(categoryId: string) {
   return labels[categoryId] ?? capitalize(categoryId);
 }
 
+function cvDataForIndex(index: number) {
+  return {
+    ...sampleCV,
+    personalInfo: {
+      ...sampleCV.personalInfo,
+      photoUrl: samplePhotoUrls[index % samplePhotoUrls.length],
+    },
+  };
+}
+
 interface GalleryProps {
   templates: TemplateConfig[];
   pricing: Record<string, boolean>;
@@ -38,7 +48,9 @@ interface GalleryProps {
 export function TemplatesGallery({ templates, pricing }: GalleryProps) {
   const { templatesPage } = dict;
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [previewTemplate, setPreviewTemplate] = useState<TemplateConfig | null>(null);
+  const [previewTemplate, setPreviewTemplate] = useState<
+    { config: TemplateConfig; index: number } | null
+  >(null);
   const [isExporting, setIsExporting] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
@@ -66,7 +78,7 @@ export function TemplatesGallery({ templates, pricing }: GalleryProps) {
       });
       const link = document.createElement("a");
       link.href = canvas.toDataURL("image/png");
-      link.download = `${previewTemplate.id}.png`;
+      link.download = `${previewTemplate.config.id}.png`;
       link.click();
     } finally {
       setIsExporting(false);
@@ -115,14 +127,14 @@ export function TemplatesGallery({ templates, pricing }: GalleryProps) {
             >
               <div className="relative aspect-[1/1.414] w-full overflow-hidden bg-neutral-100">
                 <div className="absolute top-0 left-0 w-[250%] origin-top-left scale-[0.4] transition-transform duration-300 group-hover:scale-[0.42]">
-                  <TemplateComponent data={sampleCV} />
+                  <TemplateComponent data={cvDataForIndex(index)} />
                 </div>
                 <div className="absolute inset-0 flex items-end justify-center gap-1.5 bg-gradient-to-t from-black/50 via-transparent to-transparent p-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                   <Button
                     size="icon-sm"
                     variant="secondary"
                     aria-label={templatesPage.fullPreview}
-                    onClick={() => setPreviewTemplate(tpl)}
+                    onClick={() => setPreviewTemplate({ config: tpl, index })}
                   >
                     <Search />
                   </Button>
@@ -160,13 +172,13 @@ export function TemplatesGallery({ templates, pricing }: GalleryProps) {
           {previewTemplate && (
             <>
               <DialogHeader>
-                <DialogTitle>{previewTemplate.name}</DialogTitle>
+                <DialogTitle>{previewTemplate.config.name}</DialogTitle>
               </DialogHeader>
               <div className="max-h-[65vh] overflow-y-auto rounded-lg border">
                 <div ref={previewRef}>
                   {(() => {
-                    const PreviewComponent = getTemplateComponent(previewTemplate.id);
-                    return <PreviewComponent data={sampleCV} />;
+                    const PreviewComponent = getTemplateComponent(previewTemplate.config.id);
+                    return <PreviewComponent data={cvDataForIndex(previewTemplate.index)} />;
                   })()}
                 </div>
               </div>
