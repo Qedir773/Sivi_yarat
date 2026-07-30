@@ -1,0 +1,12 @@
+{
+  "id": "modern-two-column",
+  "name": "Modern Two-Column",
+  "category": "modern",
+  "primaryColor": "#0f172a",
+  "secondaryColor": "#22d3ee",
+  "sidebar": "left",
+  "photo": true,
+  "columns": 2,
+  "atsCompatible": true,
+  "premium": true
+}

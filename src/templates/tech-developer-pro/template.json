@@ -1,0 +1,12 @@
+{
+  "id": "tech-developer-pro",
+  "name": "Tech / Developer Pro",
+  "category": "it",
+  "primaryColor": "#0f172a",
+  "secondaryColor": "#4ade80",
+  "sidebar": "none",
+  "photo": true,
+  "columns": 1,
+  "atsCompatible": true,
+  "premium": true
+}
