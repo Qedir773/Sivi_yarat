@@ -114,7 +114,7 @@ export function TemplatesGallery({ templates, pricing }: GalleryProps) {
               className="group overflow-hidden rounded-xl border bg-card transition-all hover:-translate-y-0.5 hover:shadow-lg"
             >
               <div className="relative aspect-[1/1.414] w-full overflow-hidden bg-neutral-100">
-                <div className="absolute top-0 left-0 w-[400%] origin-top-left scale-[0.25] transition-transform duration-300 group-hover:scale-[0.255]">
+                <div className="absolute top-0 left-0 w-[250%] origin-top-left scale-[0.4] transition-transform duration-300 group-hover:scale-[0.42]">
                   <TemplateComponent data={sampleCV} />
                 </div>
                 <div className="absolute inset-0 flex items-end justify-center gap-1.5 bg-gradient-to-t from-black/50 via-transparent to-transparent p-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
