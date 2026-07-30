@@ -8,23 +8,28 @@ import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
 import { sampleCV } from "@/lib/mock/sample-cv";
 import {
-  templateRegistry,
+  templateComponents,
   templateCategoryIds,
   type TemplateCategoryId,
 } from "@/features/templates/registry";
 
 const dict = getDictionary(siteConfig.defaultLocale);
 
-export function TemplatesGallery() {
+export function TemplatesGallery({ pricing }: { pricing: Record<string, boolean> }) {
   const { templatesPage } = dict;
   const [activeCategory, setActiveCategory] = useState<TemplateCategoryId | "all">("all");
+
+  const templates = useMemo(
+    () => templateComponents.map((tpl) => ({ ...tpl, isPro: pricing[tpl.id] ?? false })),
+    [pricing],
+  );
 
   const filtered = useMemo(
     () =>
       activeCategory === "all"
-        ? templateRegistry
-        : templateRegistry.filter((tpl) => tpl.category === activeCategory),
-    [activeCategory],
+        ? templates
+        : templates.filter((tpl) => tpl.category === activeCategory),
+    [templates, activeCategory],
   );
 
   return (

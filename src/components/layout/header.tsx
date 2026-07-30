@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { createTranslator, type TranslationKey } from "@/lib/i18n";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -44,16 +45,11 @@ export function Header() {
           <ThemeToggle />
           <Sheet>
             <SheetTrigger
-              render={
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label={t("common.openMenu")}
-                >
-                  <Menu className="size-5" />
-                </Button>
-              }
-            />
+              className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
+              aria-label={t("common.openMenu")}
+            >
+              <Menu className="size-5" />
+            </SheetTrigger>
             <SheetContent side="right" className="w-72">
               <SheetHeader>
                 <SheetTitle>{siteConfig.shortName}</SheetTitle>
@@ -76,13 +72,9 @@ export function Header() {
                 <SheetClose
                   nativeButton={false}
                   render={
-                    <Button
-                      className="mt-2"
-                      nativeButton={false}
-                      render={
-                        <Link href="/builder">{t("nav.createCv")}</Link>
-                      }
-                    />
+                    <Link href="/builder" className={cn(buttonVariants(), "mt-2")}>
+                      {t("nav.createCv")}
+                    </Link>
                   }
                 />
               </nav>

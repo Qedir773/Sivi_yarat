@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
 import { TemplatesGallery } from "@/components/templates/gallery";
+import { getTemplatePricing } from "@/lib/db/templates";
 
 const dict = getDictionary(siteConfig.defaultLocale);
 
@@ -11,5 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default function TemplatesPage() {
-  return <TemplatesGallery />;
+  const pricing = getTemplatePricing();
+  return <TemplatesGallery pricing={pricing} />;
 }
