@@ -169,6 +169,8 @@
     "free": "Pulsuz",
     "pro": "Pro",
     "useTemplate": "Bu şablonla başla",
+    "fullPreview": "Tam önizləmə",
+    "downloadPng": "PNG kimi yüklə",
     "categories": {
       "professional": "Professional",
       "modern": "Modern",
@@ -178,7 +180,8 @@
       "creative": "Kreativ",
       "student": "Tələbə",
       "it": "IT",
-      "executive": "Executive"
+      "executive": "Executive",
+      "corporate": "Korporativ"
     }
   }
 }

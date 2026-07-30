@@ -169,6 +169,8 @@
     "free": "Ücretsiz",
     "pro": "Pro",
     "useTemplate": "Bu şablonla başla",
+    "fullPreview": "Tam önizleme",
+    "downloadPng": "PNG olarak indir",
     "categories": {
       "professional": "Profesyonel",
       "modern": "Modern",
@@ -178,7 +180,8 @@
       "creative": "Yaratıcı",
       "student": "Öğrenci",
       "it": "IT",
-      "executive": "Yönetici"
+      "executive": "Yönetici",
+      "corporate": "Kurumsal"
     }
   }
 }

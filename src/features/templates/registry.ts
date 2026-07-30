@@ -10,6 +10,7 @@ import { StudentTemplate } from "@/components/templates/student";
 import { ItTemplate } from "@/components/templates/it";
 import { ExecutiveClassicTemplate } from "@/components/templates/executive-classic";
 import { ExecutiveModernTemplate } from "@/components/templates/executive-modern";
+import { CorporateTemplate } from "@/components/templates/corporate";
 
 export type TemplateCategoryId =
   | "professional"
@@ -20,7 +21,8 @@ export type TemplateCategoryId =
   | "creative"
   | "student"
   | "it"
-  | "executive";
+  | "executive"
+  | "corporate";
 
 export const templateCategoryIds: TemplateCategoryId[] = [
   "professional",
@@ -32,6 +34,7 @@ export const templateCategoryIds: TemplateCategoryId[] = [
   "student",
   "it",
   "executive",
+  "corporate",
 ];
 
 export interface TemplateComponentMeta {
@@ -60,6 +63,7 @@ export const templateComponents: TemplateComponentMeta[] = [
   { id: "it-1", category: "it", component: ItTemplate },
   { id: "executive-classic", category: "executive", component: ExecutiveClassicTemplate },
   { id: "executive-modern", category: "executive", component: ExecutiveModernTemplate },
+  { id: "corporate-1", category: "corporate", component: CorporateTemplate },
 ];
 
 /**
@@ -78,4 +82,5 @@ export const defaultTemplatePricing: Record<string, boolean> = {
   "it-1": true,
   "executive-classic": true,
   "executive-modern": true,
+  "corporate-1": true,
 };

@@ -169,6 +169,8 @@
     "free": "Free",
     "pro": "Pro",
     "useTemplate": "Use this template",
+    "fullPreview": "Full preview",
+    "downloadPng": "Download as PNG",
     "categories": {
       "professional": "Professional",
       "modern": "Modern",
@@ -178,7 +180,8 @@
       "creative": "Creative",
       "student": "Student",
       "it": "IT",
-      "executive": "Executive"
+      "executive": "Executive",
+      "corporate": "Corporate"
     }
   }
 }

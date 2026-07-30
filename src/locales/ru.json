@@ -169,6 +169,8 @@
     "free": "Бесплатно",
     "pro": "Pro",
     "useTemplate": "Использовать этот шаблон",
+    "fullPreview": "Полный просмотр",
+    "downloadPng": "Скачать как PNG",
     "categories": {
       "professional": "Профессиональный",
       "modern": "Современный",
@@ -178,7 +180,8 @@
       "creative": "Креативный",
       "student": "Студенческий",
       "it": "IT",
-      "executive": "Руководитель"
+      "executive": "Руководитель",
+      "corporate": "Корпоративный"
     }
   }
 }
