@@ -22,5 +22,143 @@
     "darkMode": "Qaranlıq rejim",
     "openMenu": "Menyunu aç",
     "closeMenu": "Menyunu bağla"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "100% pulsuz · qeydiyyatsız",
+      "title": "Peşəkar CV-ni bir neçə dəqiqəyə hazırla",
+      "subtitle": "Hazır professional şablon seç, məlumatlarını daxil et və CV-ni dərhal PDF formatında əldə et.",
+      "mockupName": "Aysel Məmmədova",
+      "mockupRole": "Marketinq Meneceri",
+      "mockupExperience": "İş təcrübəsi",
+      "mockupEducation": "Təhsil",
+      "mockupSkills": "Bacarıqlar"
+    },
+    "features": {
+      "title": "Niyə CV Pro?",
+      "subtitle": "Sürətli, təhlükəsiz və tamamilə sizin nəzarətinizdə.",
+      "items": [
+        {
+          "title": "Pulsuz əsas CV yaratma",
+          "description": "Əsas CV yaratma funksiyaları heç bir ödəniş və qeydiyyat tələb etmir."
+        },
+        {
+          "title": "Professional şablonlar",
+          "description": "ATS-uyğun, müasir dizaynlı hazır şablonlardan seç."
+        },
+        {
+          "title": "Canlı preview",
+          "description": "Məlumatlarını daxil etdikcə CV-ni real vaxtda gör."
+        },
+        {
+          "title": "PDF export",
+          "description": "Bir kliklə A4 formatında PDF çıxışı al."
+        },
+        {
+          "title": "Local-first & privacy",
+          "description": "Məlumatların brauzerində saxlanılır, üçüncü tərəfə göndərilmir."
+        },
+        {
+          "title": "Çoxdillilik",
+          "description": "Azərbaycan, türk, ingilis və rus dillərində istifadə et."
+        }
+      ]
+    },
+    "howItWorks": {
+      "title": "Necə işləyir",
+      "subtitle": "Bir neçə addımda hazır CV",
+      "steps": [
+        {
+          "title": "Şablon seç",
+          "description": "Peşən və zövqünə uyğun professional şablon seç."
+        },
+        {
+          "title": "Məlumatlarını daxil et",
+          "description": "Şəxsi məlumat, təcrübə, təhsil və bacarıqlarını əlavə et."
+        },
+        {
+          "title": "Canlı preview-a bax",
+          "description": "Dəyişikliklərini dərhal A4 formatında gör."
+        },
+        {
+          "title": "PDF yüklə",
+          "description": "Hazır CV-ni bir kliklə PDF formatında endir."
+        }
+      ]
+    },
+    "templates": {
+      "title": "Peşəkar CV şablonları",
+      "subtitle": "Hər sahə üçün hazır dizaynlar — sadəcə seç və istifadə et.",
+      "categories": [
+        "Professional",
+        "Modern",
+        "Minimal",
+        "ATS",
+        "Akademik",
+        "Kreativ",
+        "Tələbə",
+        "IT"
+      ],
+      "cta": "Bütün şablonlara bax"
+    },
+    "pricing": {
+      "title": "Pulsuz başla, lazım olduqda Pro-ya keç",
+      "subtitle": "Əsas CV yaratmaq həmişə pulsuzdur.",
+      "free": {
+        "title": "Free",
+        "description": "CV yaratmaq üçün lazım olan hər şey",
+        "features": [
+          "Professional şablonlar",
+          "Canlı preview",
+          "PDF export",
+          "Local yaddaş"
+        ]
+      },
+      "pro": {
+        "title": "Pro",
+        "description": "Əlavə professional imkanlar",
+        "features": [
+          "DOCX export",
+          "Geniş ATS analizi",
+          "İş elanına uyğunluq",
+          "Cover Letter",
+          "QR kod"
+        ]
+      },
+      "cta": "Qiymətlərə bax"
+    },
+    "faq": {
+      "title": "Tez-tez verilən suallar",
+      "items": [
+        {
+          "question": "CV-ni pulsuz yarada bilərəm?",
+          "answer": "Bəli. Əsas CV yaratma, şablon seçimi və PDF export tamamilə pulsuzdur."
+        },
+        {
+          "question": "CV məlumatlarım harada saxlanılır?",
+          "answer": "Məlumatların brauzerinizdə (lokal yaddaşda) saxlanılır və serverə göndərilmir."
+        },
+        {
+          "question": "PDF pulsuzdur?",
+          "answer": "Bəli, PDF export bütün istifadəçilər üçün pulsuzdur."
+        },
+        {
+          "question": "Pro paket nə verir?",
+          "answer": "DOCX export, geniş ATS analizi, iş elanına uyğunluq yoxlaması, Cover Letter və QR kod kimi əlavə funksiyalar."
+        },
+        {
+          "question": "Foto yükləyə bilərəm?",
+          "answer": "Bəli, CV-nizə profil şəkli əlavə edə, kəsə və redaktə edə bilərsiniz."
+        },
+        {
+          "question": "CV məlumatlarımı necə backup edə bilərəm?",
+          "answer": "CV-ni JSON formatında ixrac edib istənilən vaxt geri yükləyə bilərsiniz."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "İndi öz CV-ni yaratmağa başla",
+      "subtitle": "Qeydiyyat yoxdur, gizli ödəniş yoxdur — sadəcə peşəkar CV."
+    }
   }
 }

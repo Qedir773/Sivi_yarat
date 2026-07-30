@@ -22,5 +22,143 @@
     "darkMode": "Dark mode",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "100% free · no signup",
+      "title": "Build a professional CV in minutes",
+      "subtitle": "Pick a ready-made professional template, fill in your details, and get your CV as a PDF instantly.",
+      "mockupName": "Aysel Mammadova",
+      "mockupRole": "Marketing Manager",
+      "mockupExperience": "Work experience",
+      "mockupEducation": "Education",
+      "mockupSkills": "Skills"
+    },
+    "features": {
+      "title": "Why CV Pro?",
+      "subtitle": "Fast, secure, and entirely under your control.",
+      "items": [
+        {
+          "title": "Free core CV builder",
+          "description": "Core CV building features require no payment and no signup."
+        },
+        {
+          "title": "Professional templates",
+          "description": "Choose from ready-made, ATS-friendly, modern designs."
+        },
+        {
+          "title": "Live preview",
+          "description": "See your CV update in real time as you type."
+        },
+        {
+          "title": "PDF export",
+          "description": "Download an A4-formatted PDF with one click."
+        },
+        {
+          "title": "Local-first & privacy",
+          "description": "Your data stays in your browser and is never sent to third parties."
+        },
+        {
+          "title": "Multilingual",
+          "description": "Use it in Azerbaijani, Turkish, English, and Russian."
+        }
+      ]
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "subtitle": "A ready CV in a few steps",
+      "steps": [
+        {
+          "title": "Pick a template",
+          "description": "Choose a professional template that fits your role and taste."
+        },
+        {
+          "title": "Fill in your details",
+          "description": "Add your personal info, experience, education, and skills."
+        },
+        {
+          "title": "Check the live preview",
+          "description": "See your changes instantly in A4 format."
+        },
+        {
+          "title": "Download the PDF",
+          "description": "Download your finished CV as a PDF with one click."
+        }
+      ]
+    },
+    "templates": {
+      "title": "Professional CV templates",
+      "subtitle": "Ready-made designs for every field — pick one and go.",
+      "categories": [
+        "Professional",
+        "Modern",
+        "Minimal",
+        "ATS",
+        "Academic",
+        "Creative",
+        "Student",
+        "IT"
+      ],
+      "cta": "Browse all templates"
+    },
+    "pricing": {
+      "title": "Start free, upgrade to Pro when you need to",
+      "subtitle": "Building your core CV is always free.",
+      "free": {
+        "title": "Free",
+        "description": "Everything you need to build a CV",
+        "features": [
+          "Professional templates",
+          "Live preview",
+          "PDF export",
+          "Local storage"
+        ]
+      },
+      "pro": {
+        "title": "Pro",
+        "description": "Extra professional features",
+        "features": [
+          "DOCX export",
+          "Advanced ATS analysis",
+          "Job description matching",
+          "Cover Letter",
+          "QR code"
+        ]
+      },
+      "cta": "See pricing"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "Can I build a CV for free?",
+          "answer": "Yes. Core CV building, template selection, and PDF export are completely free."
+        },
+        {
+          "question": "Where is my CV data stored?",
+          "answer": "Your data is stored in your browser (local storage) and is never sent to a server."
+        },
+        {
+          "question": "Is the PDF free?",
+          "answer": "Yes, PDF export is free for all users."
+        },
+        {
+          "question": "What does the Pro plan include?",
+          "answer": "DOCX export, advanced ATS analysis, job description matching, Cover Letter, and QR code, among other features."
+        },
+        {
+          "question": "Can I upload a photo?",
+          "answer": "Yes, you can add, crop, and edit a profile photo on your CV."
+        },
+        {
+          "question": "How can I back up my CV data?",
+          "answer": "You can export your CV as a JSON file and restore it at any time."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Start building your CV now",
+      "subtitle": "No signup, no hidden fees — just a professional CV."
+    }
   }
 }

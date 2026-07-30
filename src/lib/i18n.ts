@@ -3,9 +3,11 @@ import { siteConfig, type Locale } from "@/config/site";
 
 type Join<K extends string, V> = V extends string
   ? K
-  : V extends Record<string, unknown>
-    ? `${K}.${DotPath<V>}`
-    : never;
+  : V extends readonly unknown[]
+    ? never
+    : V extends Record<string, unknown>
+      ? `${K}.${DotPath<V>}`
+      : never;
 
 type DotPath<T> = {
   [K in Extract<keyof T, string>]: Join<K, T[K]>;
