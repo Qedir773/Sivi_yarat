@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, Download, FileDown, Printer } from "lucide-react";
+import { ArrowLeft, Download, FileDown, ImageDown, Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PersonalInfoForm } from "@/components/forms/personal-info-form";
 import { SummaryForm } from "@/components/forms/summary-form";
@@ -25,6 +25,7 @@ import { getSavedCv, updateSavedCvData } from "@/lib/storage/cv-database";
 import { getTemplateComponent } from "@/lib/templates/component-loader";
 import { generateCvDocx, downloadBlob } from "@/lib/export/docx-export";
 import { downloadCvAsPdf } from "@/lib/export/pdf-export";
+import { downloadCvAsImage } from "@/lib/export/image-export";
 import { AtsPanel } from "@/components/editor/ats-panel";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
@@ -42,6 +43,7 @@ export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: stri
 
   const [isExportingDocx, setIsExportingDocx] = useState(false);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
+  const [isExportingImage, setIsExportingImage] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
   // In single-draft mode (no cvId) this is the one global localStorage draft;
@@ -101,6 +103,17 @@ export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: stri
     }
   }
 
+  async function handleDownloadImage() {
+    if (!previewRef.current) return;
+    setIsExportingImage(true);
+    try {
+      const filename = `${cvData.personalInfo.fullName || "cv"}.png`;
+      await downloadCvAsImage(previewRef.current, filename);
+    } finally {
+      setIsExportingImage(false);
+    }
+  }
+
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <div className="mb-8">
@@ -146,6 +159,15 @@ export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: stri
                 disabled={isExportingPdf}
               >
                 <FileDown /> {builderPage.actions.downloadPdf}
+              </Button>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                onClick={handleDownloadImage}
+                disabled={isExportingImage}
+              >
+                <ImageDown /> {builderPage.actions.downloadImage}
               </Button>
               <Button
                 type="button"

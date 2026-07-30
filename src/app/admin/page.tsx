@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
 import { discoverTemplates } from "@/lib/templates/discovery";
-import { getTemplatePricing } from "@/lib/db/templates";
+import { getTemplatePricing, getTemplateOrder } from "@/lib/db/templates";
 import { getProPrice } from "@/lib/db/settings";
 import { AdminPanel } from "@/components/admin/admin-panel";
 
@@ -14,7 +14,10 @@ export const metadata: Metadata = {
 };
 
 export default function AdminPage() {
-  const templates = discoverTemplates();
+  const templatesById = new Map(discoverTemplates().map((template) => [template.id, template]));
+  const templates = getTemplateOrder()
+    .map((id) => templatesById.get(id))
+    .filter((template) => template !== undefined);
   const pricing = getTemplatePricing();
   const proPrice = getProPrice();
 

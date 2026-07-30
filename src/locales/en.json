@@ -28,12 +28,7 @@
     "hero": {
       "eyebrow": "100% free · no signup",
       "title": "Build a professional CV in minutes",
-      "subtitle": "Pick a ready-made professional template, fill in your details, and get your CV as a PDF instantly.",
-      "mockupName": "Aysel Mammadova",
-      "mockupRole": "Marketing Manager",
-      "mockupExperience": "Work experience",
-      "mockupEducation": "Education",
-      "mockupSkills": "Skills"
+      "subtitle": "Pick a ready-made professional template, fill in your details, and get your CV as a PDF instantly."
     },
     "features": {
       "title": "Why CV Pro?",
@@ -238,6 +233,7 @@
       "cancel": "Cancel",
       "print": "Print",
       "downloadPdf": "Download PDF",
+      "downloadImage": "Download Image",
       "downloadDocx": "Download DOCX",
       "reorder": "Reorder"
     },
@@ -322,6 +318,9 @@
     "title": "Admin Panel",
     "subtitle": "Template pricing and Pro plan configuration.",
     "templatesSectionTitle": "Templates",
+    "orderColumn": "Order",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
     "templateName": "Name",
     "templateCategory": "Category",
     "templateStatus": "Status",

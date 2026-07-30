@@ -4,13 +4,17 @@ import { Button } from "@/components/ui/button";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
 import { createTranslator } from "@/lib/i18n";
-import { CvMockup } from "@/components/marketing/cv-mockup";
+import { discoverTemplates } from "@/lib/templates/discovery";
+import { HeroTemplateShowcase } from "@/components/marketing/hero-template-showcase";
 
 const t = createTranslator();
 const dict = getDictionary(siteConfig.defaultLocale);
 
 export function Hero() {
   const { hero } = dict.home;
+  const templateIds = discoverTemplates()
+    .filter((template) => template.photo)
+    .map((template) => template.id);
 
   return (
     <section className="overflow-hidden border-b bg-gradient-to-b from-primary/5 to-transparent">
@@ -43,13 +47,7 @@ export function Hero() {
           </div>
         </div>
 
-        <CvMockup
-          name={hero.mockupName}
-          role={hero.mockupRole}
-          experienceLabel={hero.mockupExperience}
-          educationLabel={hero.mockupEducation}
-          skillsLabel={hero.mockupSkills}
-        />
+        <HeroTemplateShowcase templateIds={templateIds} />
       </div>
     </section>
   );

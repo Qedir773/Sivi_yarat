@@ -28,12 +28,7 @@
     "hero": {
       "eyebrow": "100% pulsuz · qeydiyyatsız",
       "title": "Peşəkar CV-ni bir neçə dəqiqəyə hazırla",
-      "subtitle": "Hazır professional şablon seç, məlumatlarını daxil et və CV-ni dərhal PDF formatında əldə et.",
-      "mockupName": "Aysel Məmmədova",
-      "mockupRole": "Marketinq Meneceri",
-      "mockupExperience": "İş təcrübəsi",
-      "mockupEducation": "Təhsil",
-      "mockupSkills": "Bacarıqlar"
+      "subtitle": "Hazır professional şablon seç, məlumatlarını daxil et və CV-ni dərhal PDF formatında əldə et."
     },
     "features": {
       "title": "Niyə CV Pro?",
@@ -238,6 +233,7 @@
       "cancel": "İmtina",
       "print": "Çap et",
       "downloadPdf": "PDF yüklə",
+      "downloadImage": "Şəkil yüklə",
       "downloadDocx": "DOCX yüklə",
       "reorder": "Sıranı dəyiş"
     },
@@ -322,6 +318,9 @@
     "title": "Admin Panel",
     "subtitle": "Şablon qiymətləndirməsi və Pro planının konfiqurasiyası.",
     "templatesSectionTitle": "Şablonlar",
+    "orderColumn": "Sıra",
+    "moveUp": "Yuxarı daşı",
+    "moveDown": "Aşağı daşı",
     "templateName": "Ad",
     "templateCategory": "Kateqoriya",
     "templateStatus": "Status",
