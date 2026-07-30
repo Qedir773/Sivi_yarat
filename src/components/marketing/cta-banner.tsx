@@ -12,7 +12,7 @@ export function CtaBanner() {
 
   return (
     <section className="border-t">
-      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6">
+      <div className="mx-auto max-w-5xl px-4 py-20 text-center sm:px-6">
         <h2 className="text-3xl font-semibold tracking-tight">
           {finalCta.title}
         </h2>

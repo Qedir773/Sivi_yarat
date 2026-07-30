@@ -8,7 +8,7 @@ export function HowItWorks() {
 
   return (
     <section className="border-t bg-muted/30">
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-semibold tracking-tight">
             {howItWorks.title}

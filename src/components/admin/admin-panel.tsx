@@ -49,7 +49,7 @@ export function AdminPanel({ templates, pricing, proPrice }: AdminPanelProps) {
   }
 
   return (
-    <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+    <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
       <div className="mb-8">
         <h1 className="text-3xl font-semibold tracking-tight">{adminPage.title}</h1>
         <p className="mt-2 text-muted-foreground">{adminPage.subtitle}</p>

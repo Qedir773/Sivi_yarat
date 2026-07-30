@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, Download, FileText } from "lucide-react";
+import { ArrowLeft, Download, FileDown, Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PersonalInfoForm } from "@/components/forms/personal-info-form";
 import { SummaryForm } from "@/components/forms/summary-form";
@@ -24,6 +24,7 @@ import { loadDraft, saveDraft } from "@/lib/storage/cv-draft";
 import { getSavedCv, updateSavedCvData } from "@/lib/storage/cv-database";
 import { getTemplateComponent } from "@/lib/templates/component-loader";
 import { generateCvDocx, downloadBlob } from "@/lib/export/docx-export";
+import { downloadCvAsPdf } from "@/lib/export/pdf-export";
 import { AtsPanel } from "@/components/editor/ats-panel";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
@@ -40,6 +41,8 @@ export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: stri
   });
 
   const [isExportingDocx, setIsExportingDocx] = useState(false);
+  const [isExportingPdf, setIsExportingPdf] = useState(false);
+  const previewRef = useRef<HTMLDivElement>(null);
 
   // In single-draft mode (no cvId) this is the one global localStorage draft;
   // in multi-CV mode (cvId present, from /my-cvs) each CV is its own Dexie record.
@@ -87,6 +90,17 @@ export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: stri
     }
   }
 
+  async function handleDownloadPdf() {
+    if (!previewRef.current) return;
+    setIsExportingPdf(true);
+    try {
+      const filename = `${cvData.personalInfo.fullName || "cv"}.pdf`;
+      await downloadCvAsPdf(previewRef.current, filename);
+    } finally {
+      setIsExportingPdf(false);
+    }
+  }
+
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <div className="mb-8">
@@ -120,9 +134,18 @@ export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: stri
             <p className="text-sm font-medium text-muted-foreground">
               {builderPage.actions.livePreview}
             </p>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button type="button" size="sm" variant="outline" onClick={() => window.print()}>
-                <FileText /> {builderPage.actions.downloadPdf}
+                <Printer /> {builderPage.actions.print}
+              </Button>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                onClick={handleDownloadPdf}
+                disabled={isExportingPdf}
+              >
+                <FileDown /> {builderPage.actions.downloadPdf}
               </Button>
               <Button
                 type="button"
@@ -135,7 +158,7 @@ export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: stri
               </Button>
             </div>
           </div>
-          <div id="cv-print-area" className="overflow-hidden rounded-xl border shadow-sm">
+          <div id="cv-print-area" ref={previewRef} className="overflow-hidden rounded-xl border shadow-sm">
             {/* getTemplateComponent caches by id in a module-level map, so the same
                 templateId always resolves to the identical component reference —
                 safe despite the rule's generic "don't build components in render" check. */}
