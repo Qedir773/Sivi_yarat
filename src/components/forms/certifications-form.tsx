@@ -1,11 +1,12 @@
 "use client";
 
 import { useFieldArray, type Control, type UseFormRegister } from "react-hook-form";
-import { Plus, Trash2 } from "lucide-react";
+import { GripVertical, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SortableFieldList, SortableRow } from "@/components/forms/sortable-field-list";
 import type { CVFormValues } from "@/lib/validation/cv-schema";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
@@ -21,7 +22,7 @@ export function CertificationsForm({
   register: UseFormRegister<CVFormValues>;
 }) {
   const { builderPage } = dict;
-  const { fields, append, remove } = useFieldArray({ control, name: "certifications" });
+  const { fields, append, remove, move } = useFieldArray({ control, name: "certifications" });
 
   return (
     <Card>
@@ -36,33 +37,48 @@ export function CertificationsForm({
         </Button>
       </CardHeader>
       <CardContent className="space-y-3">
-        {fields.map((field, index) => (
-          <div key={field.id} className="grid gap-2 rounded-lg border p-3 sm:grid-cols-[1fr_1fr_1fr_auto]">
-            <div className="space-y-1.5">
-              <Label>{builderPage.fields.certName}</Label>
-              <Input {...register(`certifications.${index}.name`)} />
-            </div>
-            <div className="space-y-1.5">
-              <Label>{builderPage.fields.issuer}</Label>
-              <Input {...register(`certifications.${index}.issuer`)} />
-            </div>
-            <div className="space-y-1.5">
-              <Label>{builderPage.fields.date}</Label>
-              <Input {...register(`certifications.${index}.date`)} />
-            </div>
-            <div className="flex items-end">
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon-sm"
-                aria-label={builderPage.actions.remove}
-                onClick={() => remove(index)}
-              >
-                <Trash2 />
-              </Button>
-            </div>
-          </div>
-        ))}
+        <SortableFieldList ids={fields.map((field) => field.id)} onReorder={move}>
+          {fields.map((field, index) => (
+            <SortableRow key={field.id} id={field.id}>
+              {({ attributes, listeners }) => (
+                <div className="grid gap-2 rounded-lg border p-3 sm:grid-cols-[auto_1fr_1fr_1fr_auto]">
+                  <button
+                    type="button"
+                    className="flex items-end justify-center cursor-grab touch-none pb-2 text-muted-foreground hover:text-foreground active:cursor-grabbing"
+                    aria-label={builderPage.actions.reorder}
+                    {...attributes}
+                    {...listeners}
+                  >
+                    <GripVertical className="size-4" />
+                  </button>
+                  <div className="space-y-1.5">
+                    <Label>{builderPage.fields.certName}</Label>
+                    <Input {...register(`certifications.${index}.name`)} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label>{builderPage.fields.issuer}</Label>
+                    <Input {...register(`certifications.${index}.issuer`)} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label>{builderPage.fields.date}</Label>
+                    <Input {...register(`certifications.${index}.date`)} />
+                  </div>
+                  <div className="flex items-end">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon-sm"
+                      aria-label={builderPage.actions.remove}
+                      onClick={() => remove(index)}
+                    >
+                      <Trash2 />
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </SortableRow>
+          ))}
+        </SortableFieldList>
       </CardContent>
     </Card>
   );

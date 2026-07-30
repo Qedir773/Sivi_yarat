@@ -1,7 +1,7 @@
 "use client";
 
 import { Controller, useFieldArray, type Control, type UseFormRegister } from "react-hook-form";
-import { Plus, Trash2 } from "lucide-react";
+import { GripVertical, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SortableFieldList, SortableRow } from "@/components/forms/sortable-field-list";
 import type { CVFormValues } from "@/lib/validation/cv-schema";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
@@ -29,7 +30,7 @@ export function LanguagesForm({
   register: UseFormRegister<CVFormValues>;
 }) {
   const { builderPage } = dict;
-  const { fields, append, remove } = useFieldArray({ control, name: "languages" });
+  const { fields, append, remove, move } = useFieldArray({ control, name: "languages" });
 
   return (
     <Card>
@@ -44,44 +45,59 @@ export function LanguagesForm({
         </Button>
       </CardHeader>
       <CardContent className="space-y-3">
-        {fields.map((field, index) => (
-          <div key={field.id} className="flex items-end gap-2">
-            <div className="flex-1 space-y-1.5">
-              <Label>{builderPage.fields.languageName}</Label>
-              <Input {...register(`languages.${index}.name`)} />
-            </div>
-            <div className="w-28 space-y-1.5">
-              <Label>{builderPage.fields.level}</Label>
-              <Controller
-                control={control}
-                name={`languages.${index}.level`}
-                render={({ field: f }) => (
-                  <Select value={f.value} onValueChange={f.onChange}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {LANGUAGE_LEVELS.map((level) => (
-                        <SelectItem key={level} value={level}>
-                          {level}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-            </div>
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-sm"
-              aria-label={builderPage.actions.remove}
-              onClick={() => remove(index)}
-            >
-              <Trash2 />
-            </Button>
-          </div>
-        ))}
+        <SortableFieldList ids={fields.map((field) => field.id)} onReorder={move}>
+          {fields.map((field, index) => (
+            <SortableRow key={field.id} id={field.id}>
+              {({ attributes, listeners }) => (
+                <div className="flex items-end gap-2">
+                  <button
+                    type="button"
+                    className="mb-2 cursor-grab touch-none text-muted-foreground hover:text-foreground active:cursor-grabbing"
+                    aria-label={builderPage.actions.reorder}
+                    {...attributes}
+                    {...listeners}
+                  >
+                    <GripVertical className="size-4" />
+                  </button>
+                  <div className="flex-1 space-y-1.5">
+                    <Label>{builderPage.fields.languageName}</Label>
+                    <Input {...register(`languages.${index}.name`)} />
+                  </div>
+                  <div className="w-28 space-y-1.5">
+                    <Label>{builderPage.fields.level}</Label>
+                    <Controller
+                      control={control}
+                      name={`languages.${index}.level`}
+                      render={({ field: f }) => (
+                        <Select value={f.value} onValueChange={f.onChange}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {LANGUAGE_LEVELS.map((level) => (
+                              <SelectItem key={level} value={level}>
+                                {level}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                  </div>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-sm"
+                    aria-label={builderPage.actions.remove}
+                    onClick={() => remove(index)}
+                  >
+                    <Trash2 />
+                  </Button>
+                </div>
+              )}
+            </SortableRow>
+          ))}
+        </SortableFieldList>
       </CardContent>
     </Card>
   );

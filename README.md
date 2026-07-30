@@ -20,8 +20,10 @@ Pulsuz, local-first, açıq mənbəli komponentlərlə qurulan professional CV B
 - React Hook Form + Zod (CV redaktoru formu və validasiya)
 - react-easy-crop (foto kəsmə/zoom/rotate)
 - docx (DOCX export) + brauzerin native print-to-PDF-i (PDF export)
+- Dexie (IndexedDB) — çoxlu CV dəstəyi (/my-cvs)
+- dnd-kit (drag & drop sıralama)
 
-Növbəti fazalarda əlavə olunacaq: Dexie/IndexedDB (genişləndirilmiş local storage), dnd-kit (drag & drop), Zustand (admin panel state), real Payment Provider inteqrasiyası.
+Növbəti fazalarda əlavə olunacaq: Zustand (admin panel state), real Payment Provider inteqrasiyası.
 
 ## Development
 
@@ -46,15 +48,18 @@ src/
     layout/       Header, Footer, ThemeProvider və s.
     templates/    shared.tsx (bütün şablonlar üçün ortaq bloklar) + gallery.tsx
     editor/       cv-editor.tsx (orkestrator), photo-crop-dialog.tsx, ats-panel.tsx
-    forms/        Hər CVData bölməsi üçün ayrıca form komponenti (RHF+Zod)
+    forms/        Hər CVData bölməsi üçün ayrıca form komponenti (RHF+Zod),
+                  sortable-field-list.tsx — dnd-kit drag & drop sıralama sarğısı
     admin/        admin-panel.tsx — şablon Free/Pro toggle + Pro qiymət redaktəsi
+    my-cvs/       my-cvs-manager.tsx — çoxlu CV siyahısı (yarat/aç/kopyala/sil)
     cv/           CV render komponentləri (gələcək faza)
   features/       Domain-səviyyəli məntiq
     ats/          analyze.ts — client-side ATS bal hesablama (completeness + açar söz uyğunluğu)
   lib/
     db/           node:sqlite client + template_pricing və site_settings (Pro qiymət) sorğuları
     templates/    Filesystem auto-discovery (discovery.ts) + dinamik komponent loader
-    storage/      localStorage draft saxlama (cv-draft.ts)
+    storage/      cv-draft.ts (tək draft, localStorage) + cv-database.ts (Dexie/IndexedDB,
+                  çoxlu adlandırılmış CV)
     validation/   Zod sxemləri (cv-schema.ts) + form<->CVData çevrilməsi
     image/        crop-image.ts — canvas əsaslı foto kəsmə/döndürmə
     export/       docx-export.ts — CVData -> Word sənədi
@@ -62,6 +67,7 @@ src/
     security, utils
   app/
     admin/        actions.ts (Server Actions) + page.tsx
+    my-cvs/       page.tsx — /my-cvs route
   store/          Zustand store-ları (gələcək faza)
   types/          Paylaşılan TypeScript tipləri
   config/         site.ts və digər config-driven ayarlar
@@ -81,7 +87,7 @@ Bütün istifadəçiyə görünən mətnlər `src/locales/*.json` açar-dəyər 
 
 ## Local-first / Privacy
 
-İstifadəçinin CV məlumatları `localStorage`-da (`cvpro:draft`) avtomatik saxlanılır — server-ə göndərilmir. Genişləndirilmiş IndexedDB dəstəyi (çoxlu CV, versiya tarixçəsi) gələcək fazadadır. Foto yükləmə brauzerdə base64 data URL kimi işlənir, üçüncü tərəfə göndərilmir.
+İki paralel saxlama rejimi var, ikisi də tamamilə lokaldır (server-ə heç nə göndərilmir): birbaşa `/builder`-ə keçəndə (məs. `/templates`-dən) tək CV `localStorage`-da (`cvpro:draft`) avtomatik saxlanılır; `/my-cvs`-dən adlandırılmış bir CV açılanda (`?cv=<id>`) isə həmin CV Dexie/IndexedDB-də ayrıca qeyd kimi saxlanılır — bu, çoxlu adlandırılmış CV-yə imkan verir. Foto yükləmə brauzerdə base64 data URL kimi işlənir, üçüncü tərəfə göndərilmir.
 
 ## Ödəniş / Pro sistemi
 
@@ -99,4 +105,5 @@ Hazırda məcburi environment variable yoxdur. `.env.example` faylı gələcək 
 - [x] Phase 4 — CV data editor (React Hook Form + Zod), canlı preview, localStorage autosave
 - [x] Phase 5 — PDF export (print-to-PDF), DOCX export (docx), foto kəsmə/zoom/rotate (react-easy-crop)
 - [x] Phase 6 — Genişləndirilmiş ATS analizi (client-side bal + açar söz uyğunluğu), Pro qiymət (DB-driven) + Pricing səhifəsi, Admin panel (/admin)
-- [ ] Phase 7+ — Dexie/IndexedDB (çoxlu CV), drag & drop, real Payment Provider
+- [x] Phase 7 — Dexie/IndexedDB ilə çoxlu CV dəstəyi (/my-cvs: yarat/aç/kopyala/sil), form bölmələrində drag & drop sıralama (dnd-kit)
+- [ ] Phase 8+ — real Payment Provider inteqrasiyası, Zustand (admin panel state)

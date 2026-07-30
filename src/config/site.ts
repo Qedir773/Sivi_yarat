@@ -37,6 +37,7 @@ export const siteConfig: SiteConfig = {
   social: {},
   nav: [
     { label: "nav.templates", href: "/templates" },
+    { label: "nav.myCvs", href: "/my-cvs" },
     { label: "nav.pricing", href: "/pricing" },
     { label: "nav.howItWorks", href: "/how-it-works" },
     { label: "nav.faq", href: "/faq" },

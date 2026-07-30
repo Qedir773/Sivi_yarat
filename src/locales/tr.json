@@ -236,7 +236,8 @@
       "autosaved": "Otomatik kaydedildi",
       "cancel": "İptal",
       "downloadPdf": "PDF indir",
-      "downloadDocx": "DOCX indir"
+      "downloadDocx": "DOCX indir",
+      "reorder": "Sırayı değiştir"
     },
     "photoCrop": {
       "title": "Fotoğrafı kırp",
@@ -265,6 +266,23 @@
     "freeCta": "Ücretsiz başla",
     "proCta": "Yakında",
     "proNotice": "Ödeme sistemi henüz entegre edilmedi — Pro fiyatı yalnızca bilgilendirme amaçlıdır."
+  },
+  "myCvsPage": {
+    "title": "CV'lerim",
+    "subtitle": "Kaydettiğiniz tüm CV'ler bu tarayıcıda yerel olarak saklanır.",
+    "createNew": "Yeni CV oluştur",
+    "nameLabel": "CV adı",
+    "namePlaceholder": "Örneğin: Pazarlama CV'si",
+    "templateLabel": "Şablon",
+    "create": "Oluştur",
+    "open": "Aç",
+    "duplicate": "Kopyala",
+    "delete": "Sil",
+    "confirmDelete": "Silmek istediğinizden emin misiniz?",
+    "confirmYes": "Evet, sil",
+    "confirmNo": "İptal",
+    "empty": "Henüz hiç CV oluşturmadınız.",
+    "updatedAt": "Güncellendi:"
   },
   "adminPage": {
     "title": "Yönetim Paneli",

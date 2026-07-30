@@ -236,7 +236,8 @@
       "autosaved": "Avtomatik saxlanıldı",
       "cancel": "İmtina",
       "downloadPdf": "PDF yüklə",
-      "downloadDocx": "DOCX yüklə"
+      "downloadDocx": "DOCX yüklə",
+      "reorder": "Sıranı dəyiş"
     },
     "photoCrop": {
       "title": "Fotonu kəs",
@@ -265,6 +266,23 @@
     "freeCta": "Pulsuz başla",
     "proCta": "Tezliklə",
     "proNotice": "Ödəniş sistemi hələ qoşulmayıb — Pro qiyməti yalnız məlumat xarakterlidir."
+  },
+  "myCvsPage": {
+    "title": "CV-lərim",
+    "subtitle": "Bütün saxladığınız CV-lər bu brauzerdə lokal saxlanılır.",
+    "createNew": "Yeni CV yarat",
+    "nameLabel": "CV adı",
+    "namePlaceholder": "Məsələn: Marketinq CV-si",
+    "templateLabel": "Şablon",
+    "create": "Yarat",
+    "open": "Aç",
+    "duplicate": "Kopyala",
+    "delete": "Sil",
+    "confirmDelete": "Silmək istədiyinizə əminsiniz?",
+    "confirmYes": "Bəli, sil",
+    "confirmNo": "İmtina",
+    "empty": "Hələ heç bir CV yaratmamısınız.",
+    "updatedAt": "Yeniləndi:"
   },
   "adminPage": {
     "title": "Admin Panel",

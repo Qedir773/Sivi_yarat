@@ -236,7 +236,8 @@
       "autosaved": "Autosaved",
       "cancel": "Cancel",
       "downloadPdf": "Download PDF",
-      "downloadDocx": "Download DOCX"
+      "downloadDocx": "Download DOCX",
+      "reorder": "Reorder"
     },
     "photoCrop": {
       "title": "Crop photo",
@@ -265,6 +266,23 @@
     "freeCta": "Start free",
     "proCta": "Coming soon",
     "proNotice": "Payments aren't wired up yet — the Pro price is informational only."
+  },
+  "myCvsPage": {
+    "title": "My CVs",
+    "subtitle": "All your saved CVs are stored locally in this browser.",
+    "createNew": "Create new CV",
+    "nameLabel": "CV name",
+    "namePlaceholder": "e.g. Marketing CV",
+    "templateLabel": "Template",
+    "create": "Create",
+    "open": "Open",
+    "duplicate": "Duplicate",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete this?",
+    "confirmYes": "Yes, delete",
+    "confirmNo": "Cancel",
+    "empty": "You haven't created any CVs yet.",
+    "updatedAt": "Updated:"
   },
   "adminPage": {
     "title": "Admin Panel",

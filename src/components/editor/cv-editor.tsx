@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Download, FileText } from "lucide-react";
+import { ArrowLeft, Download, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PersonalInfoForm } from "@/components/forms/personal-info-form";
 import { SummaryForm } from "@/components/forms/summary-form";
@@ -20,6 +21,7 @@ import {
   type CVFormValues,
 } from "@/lib/validation/cv-schema";
 import { loadDraft, saveDraft } from "@/lib/storage/cv-draft";
+import { getSavedCv, updateSavedCvData } from "@/lib/storage/cv-database";
 import { getTemplateComponent } from "@/lib/templates/component-loader";
 import { generateCvDocx, downloadBlob } from "@/lib/export/docx-export";
 import { AtsPanel } from "@/components/editor/ats-panel";
@@ -28,7 +30,7 @@ import { siteConfig } from "@/config/site";
 
 const dict = getDictionary(siteConfig.defaultLocale);
 
-export function CvEditor({ templateId }: { templateId: string }) {
+export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: string }) {
   const { builderPage } = dict;
 
   const { control, register, reset } = useForm<CVFormValues>({
@@ -39,12 +41,22 @@ export function CvEditor({ templateId }: { templateId: string }) {
 
   const [isExportingDocx, setIsExportingDocx] = useState(false);
 
+  // In single-draft mode (no cvId) this is the one global localStorage draft;
+  // in multi-CV mode (cvId present, from /my-cvs) each CV is its own Dexie record.
   const hasLoadedDraft = useRef(false);
   useEffect(() => {
-    const draft = loadDraft();
-    if (draft) reset(draft);
-    hasLoadedDraft.current = true;
-  }, [reset]);
+    hasLoadedDraft.current = false;
+    if (cvId) {
+      getSavedCv(cvId).then((cv) => {
+        if (cv) reset(cv.data);
+        hasLoadedDraft.current = true;
+      });
+    } else {
+      const draft = loadDraft();
+      if (draft) reset(draft);
+      hasLoadedDraft.current = true;
+    }
+  }, [reset, cvId]);
 
   // react-hook-form types watch results as DeepPartial for safety; defaultValues
   // guarantee every field is actually populated at runtime.
@@ -52,9 +64,15 @@ export function CvEditor({ templateId }: { templateId: string }) {
 
   useEffect(() => {
     if (!hasLoadedDraft.current) return;
-    const timeout = setTimeout(() => saveDraft(values), 500);
+    const timeout = setTimeout(() => {
+      if (cvId) {
+        updateSavedCvData(cvId, values);
+      } else {
+        saveDraft(values);
+      }
+    }, 500);
     return () => clearTimeout(timeout);
-  }, [values]);
+  }, [values, cvId]);
 
   const cvData = formValuesToCVData(values);
 
@@ -72,6 +90,14 @@ export function CvEditor({ templateId }: { templateId: string }) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <div className="mb-8">
+        {cvId ? (
+          <Link
+            href="/my-cvs"
+            className="mb-2 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+          >
+            <ArrowLeft className="size-4" /> {dict.nav.myCvs}
+          </Link>
+        ) : null}
         <h1 className="text-3xl font-semibold tracking-tight">{builderPage.title}</h1>
         <p className="mt-2 text-muted-foreground">{builderPage.subtitle}</p>
       </div>

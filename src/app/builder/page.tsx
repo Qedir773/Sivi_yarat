@@ -15,10 +15,10 @@ const DEFAULT_TEMPLATE_ID = "professional-1";
 export default async function BuilderPage({
   searchParams,
 }: {
-  searchParams: Promise<{ template?: string }>;
+  searchParams: Promise<{ template?: string; cv?: string }>;
 }) {
   const params = await searchParams;
   const templateId = params.template || DEFAULT_TEMPLATE_ID;
 
-  return <CvEditor templateId={templateId} />;
+  return <CvEditor templateId={templateId} cvId={params.cv} />;
 }
