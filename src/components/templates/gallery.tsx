@@ -74,7 +74,7 @@ export function TemplatesGallery({ templates, pricing }: GalleryProps) {
   }
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
       <div className="mx-auto max-w-2xl text-center">
         <h1 className="text-3xl font-semibold tracking-tight">{templatesPage.title}</h1>
         <p className="mt-3 text-muted-foreground">{templatesPage.subtitle}</p>
@@ -100,7 +100,7 @@ export function TemplatesGallery({ templates, pricing }: GalleryProps) {
         ))}
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-10 grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-4">
         {filtered.map((tpl, index) => {
           const TemplateComponent = getTemplateComponent(tpl.id);
           const isPro = pricing[tpl.id] ?? tpl.premium;
@@ -117,7 +117,7 @@ export function TemplatesGallery({ templates, pricing }: GalleryProps) {
                 <div className="absolute top-0 left-0 w-[400%] origin-top-left scale-[0.25] transition-transform duration-300 group-hover:scale-[0.255]">
                   <TemplateComponent data={sampleCV} />
                 </div>
-                <div className="absolute inset-0 flex items-end justify-center gap-2 bg-gradient-to-t from-black/50 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                <div className="absolute inset-0 flex items-end justify-center gap-1.5 bg-gradient-to-t from-black/50 via-transparent to-transparent p-2 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                   <Button
                     size="icon-sm"
                     variant="secondary"
@@ -136,12 +136,14 @@ export function TemplatesGallery({ templates, pricing }: GalleryProps) {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between gap-2 p-4">
-                <div>
-                  <p className="font-medium">{tpl.name}</p>
-                  <p className="text-xs text-muted-foreground">{categoryLabel(tpl.category)}</p>
+              <div className="flex items-center justify-between gap-1.5 p-2.5">
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium">{tpl.name}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {categoryLabel(tpl.category)}
+                  </p>
                 </div>
-                <Badge variant={isPro ? "default" : "secondary"}>
+                <Badge variant={isPro ? "default" : "secondary"} className="shrink-0">
                   {isPro ? templatesPage.pro : templatesPage.free}
                 </Badge>
               </div>
