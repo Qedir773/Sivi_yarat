@@ -1,0 +1,12 @@
+{
+  "id": "admin-assistant-pro",
+  "name": "Admin Assistant Pro",
+  "category": "professional",
+  "primaryColor": "#0369a1",
+  "secondaryColor": "#e0f2fe",
+  "sidebar": "left",
+  "photo": true,
+  "columns": 2,
+  "atsCompatible": true,
+  "premium": true
+}

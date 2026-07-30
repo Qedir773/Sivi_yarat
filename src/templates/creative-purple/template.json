@@ -1,0 +1,12 @@
+{
+  "id": "creative-purple",
+  "name": "Kreativ Bənövşəyi",
+  "category": "creative",
+  "primaryColor": "#6d28d9",
+  "secondaryColor": "#ede9fe",
+  "sidebar": "left",
+  "photo": true,
+  "columns": 2,
+  "atsCompatible": false,
+  "premium": true
+}
