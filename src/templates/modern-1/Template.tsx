@@ -11,9 +11,9 @@ import {
   Languages as LanguagesIcon,
 } from "lucide-react";
 import type { CVData } from "@/types/cv";
-import { TemplateSection, SkillDots, formatDateRange, Avatar } from "./shared";
+import { TemplateSection, SkillDots, formatDateRange, Avatar } from "@/components/templates/shared";
 
-export function ModernTemplate({ data }: { data: CVData }) {
+export default function Template({ data }: { data: CVData }) {
   const { personalInfo, summary, experience, education, skills, languages } = data;
 
   return (

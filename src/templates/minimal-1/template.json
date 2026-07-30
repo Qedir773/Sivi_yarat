@@ -1,0 +1,12 @@
+{
+  "id": "minimal-1",
+  "name": "Minimal Light",
+  "category": "minimal",
+  "primaryColor": "#171717",
+  "secondaryColor": "#a3a3a3",
+  "sidebar": "none",
+  "photo": false,
+  "columns": 1,
+  "atsCompatible": true,
+  "premium": false
+}

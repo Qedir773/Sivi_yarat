@@ -1,7 +1,7 @@
 import type { CVData } from "@/types/cv";
-import { TemplateSection, formatDateRange } from "./shared";
+import { TemplateSection, formatDateRange } from "@/components/templates/shared";
 
-export function MinimalTemplate({ data }: { data: CVData }) {
+export default function Template({ data }: { data: CVData }) {
   const { personalInfo, summary, experience, education, skills, languages } = data;
 
   return (

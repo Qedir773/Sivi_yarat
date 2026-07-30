@@ -3,6 +3,7 @@ import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
 import { TemplatesGallery } from "@/components/templates/gallery";
 import { getTemplatePricing } from "@/lib/db/templates";
+import { discoverTemplates } from "@/lib/templates/discovery";
 
 const dict = getDictionary(siteConfig.defaultLocale);
 
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default function TemplatesPage() {
+  const templates = discoverTemplates();
   const pricing = getTemplatePricing();
-  return <TemplatesGallery pricing={pricing} />;
+  return <TemplatesGallery templates={templates} pricing={pricing} />;
 }

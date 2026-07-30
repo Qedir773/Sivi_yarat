@@ -16,27 +16,35 @@ import {
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
 import { sampleCV } from "@/lib/mock/sample-cv";
-import {
-  templateComponents,
-  templateCategoryIds,
-  type TemplateCategoryId,
-  type TemplateComponentMeta,
-} from "@/features/templates/registry";
+import { getTemplateComponent } from "@/lib/templates/component-loader";
+import type { TemplateConfig } from "@/lib/templates/discovery";
 
 const dict = getDictionary(siteConfig.defaultLocale);
 
-type GalleryTemplate = TemplateComponentMeta & { isPro: boolean };
+function capitalize(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
 
-export function TemplatesGallery({ pricing }: { pricing: Record<string, boolean> }) {
+function categoryLabel(categoryId: string) {
+  const labels = dict.templatesPage.categories as Record<string, string>;
+  return labels[categoryId] ?? capitalize(categoryId);
+}
+
+interface GalleryProps {
+  templates: TemplateConfig[];
+  pricing: Record<string, boolean>;
+}
+
+export function TemplatesGallery({ templates, pricing }: GalleryProps) {
   const { templatesPage } = dict;
-  const [activeCategory, setActiveCategory] = useState<TemplateCategoryId | "all">("all");
-  const [previewTemplate, setPreviewTemplate] = useState<GalleryTemplate | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("all");
+  const [previewTemplate, setPreviewTemplate] = useState<TemplateConfig | null>(null);
   const [isExporting, setIsExporting] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
-  const templates = useMemo(
-    () => templateComponents.map((tpl) => ({ ...tpl, isPro: pricing[tpl.id] ?? false })),
-    [pricing],
+  const categories = useMemo(
+    () => Array.from(new Set(templates.map((tpl) => tpl.category))).sort(),
+    [templates],
   );
 
   const filtered = useMemo(
@@ -80,21 +88,22 @@ export function TemplatesGallery({ pricing }: { pricing: Record<string, boolean>
         >
           {templatesPage.filterAll}
         </Button>
-        {templateCategoryIds.map((categoryId) => (
+        {categories.map((categoryId) => (
           <Button
             key={categoryId}
             size="sm"
             variant={activeCategory === categoryId ? "default" : "outline"}
             onClick={() => setActiveCategory(categoryId)}
           >
-            {templatesPage.categories[categoryId]}
+            {categoryLabel(categoryId)}
           </Button>
         ))}
       </div>
 
       <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((tpl, index) => {
-          const TemplateComponent = tpl.component;
+          const TemplateComponent = getTemplateComponent(tpl.id);
+          const isPro = pricing[tpl.id] ?? tpl.premium;
           return (
             <motion.div
               key={tpl.id}
@@ -128,9 +137,12 @@ export function TemplatesGallery({ pricing }: { pricing: Record<string, boolean>
               </div>
 
               <div className="flex items-center justify-between gap-2 p-4">
-                <p className="font-medium">{templatesPage.categories[tpl.category]}</p>
-                <Badge variant={tpl.isPro ? "default" : "secondary"}>
-                  {tpl.isPro ? templatesPage.pro : templatesPage.free}
+                <div>
+                  <p className="font-medium">{tpl.name}</p>
+                  <p className="text-xs text-muted-foreground">{categoryLabel(tpl.category)}</p>
+                </div>
+                <Badge variant={isPro ? "default" : "secondary"}>
+                  {isPro ? templatesPage.pro : templatesPage.free}
                 </Badge>
               </div>
             </motion.div>
@@ -146,11 +158,14 @@ export function TemplatesGallery({ pricing }: { pricing: Record<string, boolean>
           {previewTemplate && (
             <>
               <DialogHeader>
-                <DialogTitle>{templatesPage.categories[previewTemplate.category]}</DialogTitle>
+                <DialogTitle>{previewTemplate.name}</DialogTitle>
               </DialogHeader>
               <div className="max-h-[65vh] overflow-y-auto rounded-lg border">
                 <div ref={previewRef}>
-                  <previewTemplate.component data={sampleCV} />
+                  {(() => {
+                    const PreviewComponent = getTemplateComponent(previewTemplate.id);
+                    return <PreviewComponent data={sampleCV} />;
+                  })()}
                 </div>
               </div>
               <DialogFooter>

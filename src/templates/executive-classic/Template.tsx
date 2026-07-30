@@ -1,8 +1,8 @@
 import { Mail, Phone, MapPin, Globe } from "lucide-react";
 import type { CVData } from "@/types/cv";
-import { formatDateRange, Avatar } from "./shared";
+import { formatDateRange, Avatar } from "@/components/templates/shared";
 
-export function ExecutiveClassicTemplate({ data }: { data: CVData }) {
+export default function Template({ data }: { data: CVData }) {
   const { personalInfo, summary, experience, education, skills, languages, certifications } = data;
 
   return (

@@ -1,0 +1,12 @@
+{
+  "id": "corporate-1",
+  "name": "Corporate Split",
+  "category": "corporate",
+  "primaryColor": "#1d4ed8",
+  "secondaryColor": "#1e3a8a",
+  "sidebar": "left",
+  "photo": true,
+  "columns": 2,
+  "atsCompatible": false,
+  "premium": true
+}

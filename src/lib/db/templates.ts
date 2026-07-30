@@ -1,6 +1,6 @@
 import type { DatabaseSync } from "node:sqlite";
 import { getDb } from "./client";
-import { defaultTemplatePricing } from "@/features/templates/registry";
+import { discoverTemplates } from "@/lib/templates/discovery";
 
 function ensureSchema(db: DatabaseSync) {
   db.exec(`
@@ -20,31 +20,36 @@ function seedIfEmpty(db: DatabaseSync) {
   const insert = db.prepare(
     "INSERT INTO template_pricing (template_id, is_pro) VALUES (?, ?)",
   );
-  for (const [templateId, isPro] of Object.entries(defaultTemplatePricing)) {
-    insert.run(templateId, isPro ? 1 : 0);
+  for (const template of discoverTemplates()) {
+    insert.run(template.id, template.premium ? 1 : 0);
   }
 }
 
 /**
- * Server-only: reads Free/Pro flags from SQLite (seeding on first run from
- * the static defaults). Returns plain serializable data — the React
- * component references stay in `templateComponents` and are only ever
- * imported client-side, since components can't cross the RSC boundary as
- * props. A future admin panel can update the `template_pricing` table
- * without a code change.
+ * Server-only: reads Free/Pro flags from SQLite. Defaults come from each
+ * discovered template's own `template.json` `premium` field (so a newly
+ * dropped-in template folder works before it's ever been seeded); once
+ * seeded, the `template_pricing` table is the editable source of truth for
+ * a future admin panel.
  */
 export function getTemplatePricing(): Record<string, boolean> {
   const db = getDb();
   ensureSchema(db);
   seedIfEmpty(db);
 
+  const pricing: Record<string, boolean> = {};
+  for (const template of discoverTemplates()) {
+    pricing[template.id] = template.premium;
+  }
+
   const rows = db
     .prepare("SELECT template_id, is_pro FROM template_pricing")
     .all() as { template_id: string; is_pro: number }[];
-
-  const pricing: Record<string, boolean> = { ...defaultTemplatePricing };
   for (const row of rows) {
-    pricing[row.template_id] = row.is_pro === 1;
+    if (row.template_id in pricing) {
+      pricing[row.template_id] = row.is_pro === 1;
+    }
   }
+
   return pricing;
 }

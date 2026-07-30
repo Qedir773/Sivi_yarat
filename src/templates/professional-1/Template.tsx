@@ -11,9 +11,9 @@ import {
   Award,
 } from "lucide-react";
 import type { CVData } from "@/types/cv";
-import { TemplateSection, SkillBar, formatDateRange, Avatar } from "./shared";
+import { TemplateSection, SkillBar, formatDateRange, Avatar } from "@/components/templates/shared";
 
-export function ProfessionalTemplate({ data }: { data: CVData }) {
+export default function Template({ data }: { data: CVData }) {
   const { personalInfo, summary, experience, education, skills, languages, certifications } = data;
 
   return (

@@ -1,0 +1,12 @@
+{
+  "id": "modern-1",
+  "name": "Modern Blue",
+  "category": "modern",
+  "primaryColor": "#1d4ed8",
+  "secondaryColor": "#93c5fd",
+  "sidebar": "left",
+  "photo": true,
+  "columns": 2,
+  "atsCompatible": false,
+  "premium": true
+}

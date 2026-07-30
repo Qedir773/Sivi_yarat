@@ -1,8 +1,8 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import type { CVData } from "@/types/cv";
-import { TemplateSection, formatDateRange, Avatar } from "./shared";
+import { TemplateSection, formatDateRange, Avatar } from "@/components/templates/shared";
 
-export function StudentTemplate({ data }: { data: CVData }) {
+export default function Template({ data }: { data: CVData }) {
   const { personalInfo, summary, education, experience, skills, languages, projects } = data;
 
   return (

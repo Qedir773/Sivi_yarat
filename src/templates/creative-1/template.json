@@ -1,0 +1,12 @@
+{
+  "id": "creative-1",
+  "name": "Creative Gradient",
+  "category": "creative",
+  "primaryColor": "#c026d3",
+  "secondaryColor": "#7c3aed",
+  "sidebar": "right",
+  "photo": true,
+  "columns": 2,
+  "atsCompatible": false,
+  "premium": true
+}

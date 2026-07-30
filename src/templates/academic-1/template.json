@@ -1,0 +1,12 @@
+{
+  "id": "academic-1",
+  "name": "Academic Formal",
+  "category": "academic",
+  "primaryColor": "#1e293b",
+  "secondaryColor": "#64748b",
+  "sidebar": "none",
+  "photo": false,
+  "columns": 1,
+  "atsCompatible": true,
+  "premium": true
+}

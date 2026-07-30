@@ -1,0 +1,12 @@
+{
+  "id": "executive-classic",
+  "name": "Executive Classic",
+  "category": "executive",
+  "primaryColor": "#0f172a",
+  "secondaryColor": "#b45309",
+  "sidebar": "none",
+  "photo": true,
+  "columns": 1,
+  "atsCompatible": true,
+  "premium": true
+}

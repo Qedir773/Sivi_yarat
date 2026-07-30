@@ -14,8 +14,11 @@ Pulsuz, local-first, açıq mənbəli komponentlərlə qurulan professional CV B
 - shadcn/ui (Base UI əsaslı)
 - lucide-react (ikonlar)
 - next-themes (dark mode)
+- node:sqlite (yerli DB — template pricing/admin-configurable bayraqlar)
+- Framer Motion (animasiyalar)
+- html2canvas (PNG export)
 
-Növbəti fazalarda əlavə olunacaq: React Hook Form + Zod (formlar), Zustand (state), Dexie/IndexedDB (local storage), jsPDF (PDF export), docx (DOCX export), dnd-kit (drag & drop).
+Növbəti fazalarda əlavə olunacaq: React Hook Form + Zod (formlar), Dexie/IndexedDB (local storage), pdf-lib/docx (PDF/DOCX export), react-easy-crop (foto kəsmə), dnd-kit (drag & drop).
 
 ## Development
 
@@ -32,23 +35,31 @@ npm run build
 ```
 src/
   app/            Next.js route-ları (App Router)
+  templates/      Hər qovluq bir CV şablonu (bax: src/templates/README.md)
+                  <id>/template.json + Template.tsx — avtomatik aşkarlanır,
+                  registry faylı redaktə etmək lazım deyil
   components/
-    ui/           shadcn/ui primitiv komponentləri
+    ui/           shadcn/ui primitiv komponentləri (Button, Dialog, Sheet, s.)
     layout/       Header, Footer, ThemeProvider və s.
+    templates/    shared.tsx (bütün şablonlar üçün ortaq bloklar) + gallery.tsx
     cv/           CV render komponentləri (gələcək faza)
-    templates/    8 CV şablonu (Professional/Modern/Minimal/ATS/Akademik/Kreativ/Tələbə/IT) + qalereya
     editor/       Builder editor komponentləri (gələcək faza)
     forms/        Form bölmələri (gələcək faza)
     pricing/      Pricing UI (gələcək faza)
     admin/        Admin panel UI (gələcək faza)
   features/       Domain-səviyyəli məntiq (cv, templates, export, ats, pricing, ads)
-  lib/mock/       Şablon preview-ları üçün nümunə CV datası
-  lib/            db, validation, export, security, utils
+  lib/
+    db/           node:sqlite client + template pricing sorğuları
+    templates/    Filesystem auto-discovery (discovery.ts) + dinamik komponent loader
+    mock/         Şablon preview-ları üçün nümunə CV datası
+    validation, export, security, utils
   store/          Zustand store-ları (gələcək faza)
   types/          Paylaşılan TypeScript tipləri
   config/         site.ts və digər config-driven ayarlar
   locales/        az.json, tr.json, en.json, ru.json + i18n helper-lər
   hooks/          Paylaşılan React hook-lar
+data/
+  cvpro.db        Runtime SQLite faylı (gitignored, ilk işə düşmədə seed olunur)
 ```
 
 ## Branding / Config

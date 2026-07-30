@@ -1,0 +1,12 @@
+{
+  "id": "ats-1",
+  "name": "ATS Safe",
+  "category": "ats",
+  "primaryColor": "#000000",
+  "secondaryColor": "#404040",
+  "sidebar": "none",
+  "photo": false,
+  "columns": 1,
+  "atsCompatible": true,
+  "premium": false
+}

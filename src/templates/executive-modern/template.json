@@ -1,0 +1,12 @@
+{
+  "id": "executive-modern",
+  "name": "Executive Modern",
+  "category": "executive",
+  "primaryColor": "#020617",
+  "secondaryColor": "#f59e0b",
+  "sidebar": "none",
+  "photo": true,
+  "columns": 1,
+  "atsCompatible": true,
+  "premium": true
+}

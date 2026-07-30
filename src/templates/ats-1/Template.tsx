@@ -1,7 +1,7 @@
 import type { CVData } from "@/types/cv";
-import { formatDateRange } from "./shared";
+import { formatDateRange } from "@/components/templates/shared";
 
-export function AtsTemplate({ data }: { data: CVData }) {
+export default function Template({ data }: { data: CVData }) {
   const { personalInfo, summary, experience, education, skills, languages, certifications } = data;
 
   return (

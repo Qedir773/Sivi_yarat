@@ -1,0 +1,12 @@
+{
+  "id": "student-1",
+  "name": "Student Fresh",
+  "category": "student",
+  "primaryColor": "#059669",
+  "secondaryColor": "#6ee7b7",
+  "sidebar": "none",
+  "photo": false,
+  "columns": 1,
+  "atsCompatible": true,
+  "premium": false
+}

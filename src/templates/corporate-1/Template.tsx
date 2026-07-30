@@ -1,8 +1,8 @@
 import { Mail, Phone, MapPin, Globe } from "lucide-react";
 import type { CVData } from "@/types/cv";
-import { TemplateSection, formatDateRange, initialsOf } from "./shared";
+import { TemplateSection, formatDateRange, initialsOf } from "@/components/templates/shared";
 
-export function CorporateTemplate({ data }: { data: CVData }) {
+export default function Template({ data }: { data: CVData }) {
   const { personalInfo, summary, experience, education, skills, languages } = data;
 
   return (

@@ -1,0 +1,12 @@
+{
+  "id": "professional-1",
+  "name": "Professional Classic",
+  "category": "professional",
+  "primaryColor": "#171717",
+  "secondaryColor": "#737373",
+  "sidebar": "none",
+  "photo": true,
+  "columns": 2,
+  "atsCompatible": true,
+  "premium": false
+}
