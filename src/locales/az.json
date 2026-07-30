@@ -97,7 +97,8 @@
         "Akademik",
         "Kreativ",
         "Tələbə",
-        "IT"
+        "IT",
+        "Executive"
       ],
       "cta": "Bütün şablonlara bax"
     },
@@ -176,7 +177,8 @@
       "academic": "Akademik",
       "creative": "Kreativ",
       "student": "Tələbə",
-      "it": "IT"
+      "it": "IT",
+      "executive": "Executive"
     }
   }
 }

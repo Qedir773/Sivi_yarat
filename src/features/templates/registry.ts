@@ -8,6 +8,8 @@ import { AcademicTemplate } from "@/components/templates/academic";
 import { CreativeTemplate } from "@/components/templates/creative";
 import { StudentTemplate } from "@/components/templates/student";
 import { ItTemplate } from "@/components/templates/it";
+import { ExecutiveClassicTemplate } from "@/components/templates/executive-classic";
+import { ExecutiveModernTemplate } from "@/components/templates/executive-modern";
 
 export type TemplateCategoryId =
   | "professional"
@@ -17,7 +19,8 @@ export type TemplateCategoryId =
   | "academic"
   | "creative"
   | "student"
-  | "it";
+  | "it"
+  | "executive";
 
 export const templateCategoryIds: TemplateCategoryId[] = [
   "professional",
@@ -28,6 +31,7 @@ export const templateCategoryIds: TemplateCategoryId[] = [
   "creative",
   "student",
   "it",
+  "executive",
 ];
 
 export interface TemplateMeta {
@@ -46,4 +50,6 @@ export const templateRegistry: TemplateMeta[] = [
   { id: "creative-1", category: "creative", isPro: true, component: CreativeTemplate },
   { id: "student-1", category: "student", isPro: false, component: StudentTemplate },
   { id: "it-1", category: "it", isPro: true, component: ItTemplate },
+  { id: "executive-classic", category: "executive", isPro: true, component: ExecutiveClassicTemplate },
+  { id: "executive-modern", category: "executive", isPro: true, component: ExecutiveModernTemplate },
 ];

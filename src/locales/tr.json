@@ -97,7 +97,8 @@
         "Akademik",
         "Yaratıcı",
         "Öğrenci",
-        "IT"
+        "IT",
+        "Yönetici"
       ],
       "cta": "Tüm şablonlara göz at"
     },
@@ -176,7 +177,8 @@
       "academic": "Akademik",
       "creative": "Yaratıcı",
       "student": "Öğrenci",
-      "it": "IT"
+      "it": "IT",
+      "executive": "Yönetici"
     }
   }
 }

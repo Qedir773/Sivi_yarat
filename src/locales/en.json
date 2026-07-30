@@ -97,7 +97,8 @@
         "Academic",
         "Creative",
         "Student",
-        "IT"
+        "IT",
+        "Executive"
       ],
       "cta": "Browse all templates"
     },
@@ -176,7 +177,8 @@
       "academic": "Academic",
       "creative": "Creative",
       "student": "Student",
-      "it": "IT"
+      "it": "IT",
+      "executive": "Executive"
     }
   }
 }
