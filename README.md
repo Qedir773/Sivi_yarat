@@ -26,6 +26,11 @@ Pulsuz, local-first, açıq mənbəli komponentlərlə qurulan professional CV B
   mətn generasiyası (`onnx-community/Qwen2.5-0.5B-Instruct`) və foto fonu silmə (`Xenova/modnet`),
   hər ikisi Apache-2.0, sıfır server xərci, API açarı tələb etmir
 - `qrcode` — CV şablonlarında portfolio/LinkedIn linki üçün QR kod
+- **Opsional** Google Gemini inteqrasiyası (`.env`-də `GEMINI_API_KEY` təyin olunarsa) — daha
+  keyfiyyətli motivasiya məktubu/mətn təkmilləşdirmə üçün; açar `/api/ai/generate` Route
+  Handler-i vasitəsilə yalnız serverdə istifadə olunur, frontend-ə heç vaxt göndərilmir, əsas
+  rate-limitlə qorunur. Açar təyin olunmasa (default) tətbiq avtomatik yuxarıdakı pulsuz
+  brauzerdaxili modelə keçir — heç vaxt sınmır.
 
 Növbəti fazalarda əlavə olunacaq: Zustand (admin panel state), real Payment Provider inteqrasiyası.
 
@@ -63,8 +68,10 @@ src/
   features/       Domain-səviyyəli məntiq
     ats/          analyze.ts — client-side ATS bal hesablama (completeness + açar söz uyğunluğu)
     ai/           types.ts + registry.ts (provider abstraksiyası) + providers/
-                  local-text-generation-provider.ts — @huggingface/transformers,
-                  onnx-community/Qwen2.5-0.5B-Instruct, tamamilə brauzerdə, API açarı yoxdur
+                  local-text-generation-provider.ts (brauzerdaxili, Qwen2.5-0.5B) +
+                  api-text-generation-provider.ts (/api/ai/generate-ə sorğu) +
+                  auto-text-generation-provider.ts — əvvəlcə remote (Gemini, konfiqurasiya
+                  olunubsa), uğursuz olarsa avtomatik lokal modelə keçid
   lib/
     db/           node:sqlite client + template_pricing və site_settings (Pro qiymət) sorğuları
     templates/    Filesystem auto-discovery (discovery.ts) + dinamik komponent loader
@@ -80,6 +87,7 @@ src/
     admin/        actions.ts (Server Actions) + page.tsx
     my-cvs/       page.tsx — /my-cvs route
     cover-letter/ page.tsx — /cover-letter route
+    api/ai/generate/route.ts — Gemini üçün Route Handler (server-only, opsional)
   store/          Zustand store-ları (gələcək faza)
   types/          Paylaşılan TypeScript tipləri
   config/         site.ts və digər config-driven ayarlar
@@ -107,7 +115,10 @@ Bütün istifadəçiyə görünən mətnlər `src/locales/*.json` açar-dəyər 
 
 ## Environment Variables
 
-Hazırda məcburi environment variable yoxdur. `.env.example` faylı gələcək inteqrasiyalar üçün nümunə saxlayır — real secret dəyər saxlamayın.
+Heç bir environment variable məcburi deyil — tətbiq bunlarsız da tam işləyir. `.env.example`
+faylı optional dəyərlərin nümunəsini saxlayır (real secret dəyər saxlamayın):
+- `GEMINI_API_KEY` / `GEMINI_MODEL` — təyin olunarsa, motivasiya məktubu/mətn təkmilləşdirmə
+  Google Gemini ilə (daha keyfiyyətli) işləyir; olmasa avtomatik pulsuz brauzerdaxili modelə keçir.
 
 ## Faza Statusu
 

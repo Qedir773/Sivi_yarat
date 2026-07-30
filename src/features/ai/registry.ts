@@ -1,10 +1,11 @@
 import type { TextGenerationProvider } from "@/features/ai/types";
-import { LocalTextGenerationProvider } from "@/features/ai/providers/local-text-generation-provider";
+import { AutoTextGenerationProvider } from "@/features/ai/providers/auto-text-generation-provider";
 
-const localTextGenerationProvider = new LocalTextGenerationProvider();
+const textGenerationProvider = new AutoTextGenerationProvider();
 
-/** Single seam for swapping the AI backend later (e.g. a remote provider) —
- * every caller goes through this function instead of importing a provider directly. */
+/** Single seam for swapping the AI backend later — every caller goes through
+ * this function instead of importing a provider directly. Currently returns
+ * AutoTextGenerationProvider (remote-if-configured, else the free local model). */
 export function getTextGenerationProvider(): TextGenerationProvider {
-  return localTextGenerationProvider;
+  return textGenerationProvider;
 }
