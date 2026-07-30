@@ -5,6 +5,7 @@
     "howItWorks": "How it works",
     "faq": "FAQ",
     "myCvs": "My CVs",
+    "coverLetter": "Cover Letter",
     "createCv": "Create CV"
   },
   "footer": {
@@ -244,7 +245,18 @@
       "zoom": "Zoom",
       "rotateLeft": "Rotate left",
       "rotateRight": "Rotate right",
+      "removeBackground": "Remove background",
+      "removingBackground": "Removing background (loading the model the first time may take a moment)...",
       "confirm": "Confirm"
+    },
+    "aiEnhance": {
+      "button": "Enhance with AI",
+      "dialogTitle": "AI-Enhanced Text",
+      "loadingModel": "Loading AI model (first time only)...",
+      "generating": "Enhancing text...",
+      "note": "The result comes from a small in-browser AI model — review and edit it if needed before applying.",
+      "apply": "Apply",
+      "cancel": "Cancel"
     },
     "ats": {
       "title": "ATS Analysis",
@@ -283,6 +295,25 @@
     "confirmNo": "Cancel",
     "empty": "You haven't created any CVs yet.",
     "updatedAt": "Updated:"
+  },
+  "coverLetterPage": {
+    "title": "Cover Letter Generator",
+    "subtitle": "Generate a professional cover letter tailored to a job posting — in your browser, with a local AI model, completely free.",
+    "aiNotice": "The result comes from a small in-browser AI model — always review and edit it yourself.",
+    "fullNameLabel": "Full name",
+    "jobTitleLabel": "Position you're applying for",
+    "companyLabel": "Company name",
+    "jobDescriptionLabel": "Job description text",
+    "jobDescriptionPlaceholder": "Paste the job posting text here...",
+    "keyPointsLabel": "Skills/achievements to highlight (optional)",
+    "keyPointsPlaceholder": "e.g. 5 years of experience, team management, project wins...",
+    "generate": "Generate",
+    "loadingModel": "Loading AI model (first time only)...",
+    "generating": "Generating text...",
+    "resultLabel": "Generated text (you can edit it)",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "download": "Download (.txt)"
   },
   "adminPage": {
     "title": "Admin Panel",

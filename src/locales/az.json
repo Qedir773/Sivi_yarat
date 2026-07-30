@@ -5,6 +5,7 @@
     "howItWorks": "Necə işləyir",
     "faq": "FAQ",
     "myCvs": "CV-lərim",
+    "coverLetter": "Motivasiya Məktubu",
     "createCv": "CV yarat"
   },
   "footer": {
@@ -244,7 +245,18 @@
       "zoom": "Yaxınlaşdırma",
       "rotateLeft": "Sola çevir",
       "rotateRight": "Sağa çevir",
+      "removeBackground": "Fonu sil",
+      "removingBackground": "Fon silinir (yalnız ilk dəfə modelin yüklənməsi vaxt ala bilər)...",
       "confirm": "Təsdiqlə"
+    },
+    "aiEnhance": {
+      "button": "AI ilə Gücləndir",
+      "dialogTitle": "AI ilə Təkmilləşdirilmiş Mətn",
+      "loadingModel": "AI modeli yüklənir (yalnız ilk dəfə)...",
+      "generating": "Mətn təkmilləşdirilir...",
+      "note": "Nəticə kiçik, brauzerdaxili AI modelindən gəlir — tətbiq etməzdən əvvəl yoxlayıb lazım gələrsə redaktə edin.",
+      "apply": "Tətbiq et",
+      "cancel": "İmtina"
     },
     "ats": {
       "title": "ATS Analizi",
@@ -283,6 +295,25 @@
     "confirmNo": "İmtina",
     "empty": "Hələ heç bir CV yaratmamısınız.",
     "updatedAt": "Yeniləndi:"
+  },
+  "coverLetterPage": {
+    "title": "Motivasiya Məktubu Generatoru",
+    "subtitle": "Vakansiya elanına uyğun peşəkar motivasiya məktubu yaradın — brauzerinizdə, lokal AI modeli ilə, heç bir ödəniş olmadan.",
+    "aiNotice": "Nəticə kiçik, brauzerdaxili AI modelindən gəlir — mütləq özünüz oxuyub redaktə edin.",
+    "fullNameLabel": "Ad Soyad",
+    "jobTitleLabel": "Müraciət etdiyiniz vəzifə",
+    "companyLabel": "Şirkət adı",
+    "jobDescriptionLabel": "Vakansiya elanının mətni",
+    "jobDescriptionPlaceholder": "Vakansiya elanının mətnini bura yapışdırın...",
+    "keyPointsLabel": "Vurğulamaq istədiyiniz bacarıq/nailiyyətlər (istəyə bağlı)",
+    "keyPointsPlaceholder": "Məsələn: 5 illik təcrübə, komanda idarəetməsi, layihə uğurları...",
+    "generate": "Generasiya et",
+    "loadingModel": "AI modeli yüklənir (yalnız ilk dəfə)...",
+    "generating": "Mətn generasiya olunur...",
+    "resultLabel": "Yaradılan mətn (redaktə edə bilərsiniz)",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı!",
+    "download": "Yüklə (.txt)"
   },
   "adminPage": {
     "title": "Admin Panel",

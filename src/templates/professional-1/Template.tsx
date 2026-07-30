@@ -11,7 +11,13 @@ import {
   Award,
 } from "lucide-react";
 import type { CVData } from "@/types/cv";
-import { TemplateSection, SkillBar, formatDateRange, Avatar } from "@/components/templates/shared";
+import {
+  TemplateSection,
+  SkillBar,
+  formatDateRange,
+  Avatar,
+  WebsiteQrCode,
+} from "@/components/templates/shared";
 
 export default function Template({ data }: { data: CVData }) {
   const { personalInfo, summary, experience, education, skills, languages, certifications } = data;
@@ -132,6 +138,13 @@ export default function Template({ data }: { data: CVData }) {
                 ))}
               </div>
             </TemplateSection>
+          )}
+
+          {personalInfo.website && (
+            <div className="flex flex-col items-center gap-1.5 text-center">
+              <WebsiteQrCode website={personalInfo.website} size={64} />
+              <p className="text-[9px] text-neutral-400">{personalInfo.website}</p>
+            </div>
           )}
         </div>
       </div>

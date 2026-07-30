@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SortableFieldList, SortableRow } from "@/components/forms/sortable-field-list";
+import { AiEnhanceButton } from "@/components/editor/ai-enhance-button";
 import type { CVFormValues } from "@/lib/validation/cv-schema";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
@@ -104,10 +105,19 @@ export function ExperienceForm({
                     />
                     {builderPage.fields.current}
                   </Label>
-                  <div className="space-y-1.5">
-                    <Label>{builderPage.fields.description}</Label>
-                    <Textarea rows={2} {...register(`experience.${index}.description`)} />
-                  </div>
+                  <Controller
+                    control={control}
+                    name={`experience.${index}.description`}
+                    render={({ field: f }) => (
+                      <div className="space-y-1.5">
+                        <div className="flex items-center justify-between">
+                          <Label>{builderPage.fields.description}</Label>
+                          <AiEnhanceButton currentText={f.value ?? ""} onApply={f.onChange} />
+                        </div>
+                        <Textarea rows={2} value={f.value ?? ""} onChange={f.onChange} onBlur={f.onBlur} />
+                      </div>
+                    )}
+                  />
                   <div className="space-y-1.5">
                     <Label>{builderPage.fields.highlights}</Label>
                     <Textarea rows={3} {...register(`experience.${index}.highlightsText`)} />

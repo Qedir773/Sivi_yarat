@@ -5,7 +5,7 @@ Pulsuz, local-first, açıq mənbəli komponentlərlə qurulan professional CV B
 
 ## Məqsəd
 
-İstifadəçi qeydiyyatsız və ödənişsiz saytа daxil olub bir neçə dəqiqəyə professional CV hazırlaya bilsin: şablon seçsin, məlumatlarını daxil etsin, canlı preview görsün və PDF export etsin. Əlavə funksiyalar (DOCX, geniş ATS, iş elanı uyğunluğu, QR kod və s.) Pro paket altında təklif olunur. Layihə zero-cost/open-source-first prinsipi ilə qurulur — məcburi ödənişli backend, database və ya API yoxdur.
+İstifadəçi qeydiyyatsız və ödənişsiz saytа daxil olub bir neçə dəqiqəyə professional CV hazırlaya bilsin: şablon seçsin, məlumatlarını daxil etsin, canlı preview görsün, PDF/DOCX export etsin, ATS analizi və AI köməyi (motivasiya məktubu, mətn təkmilləşdirmə, foto fonu silmə, QR kod) alsın. Layihə zero-cost/open-source-first prinsipi ilə qurulur — məcburi ödənişli backend, database, API açarı və ya xarici AI xidməti yoxdur; bütün AI funksiyaları brauzerdə, açıq mənbəli modellərlə işləyir.
 
 ## Texnologiya Stack
 
@@ -22,6 +22,10 @@ Pulsuz, local-first, açıq mənbəli komponentlərlə qurulan professional CV B
 - docx (DOCX export) + brauzerin native print-to-PDF-i (PDF export)
 - Dexie (IndexedDB) — çoxlu CV dəstəyi (/my-cvs)
 - dnd-kit (drag & drop sıralama)
+- `@huggingface/transformers` (transformers.js) — brauzer-daxili (client-side), açıq mənbəli AI:
+  mətn generasiyası (`onnx-community/Qwen2.5-0.5B-Instruct`) və foto fonu silmə (`Xenova/modnet`),
+  hər ikisi Apache-2.0, sıfır server xərci, API açarı tələb etmir
+- `qrcode` — CV şablonlarında portfolio/LinkedIn linki üçün QR kod
 
 Növbəti fazalarda əlavə olunacaq: Zustand (admin panel state), real Payment Provider inteqrasiyası.
 
@@ -46,28 +50,36 @@ src/
   components/
     ui/           shadcn/ui primitiv komponentləri (Button, Dialog, Sheet, s.)
     layout/       Header, Footer, ThemeProvider və s.
-    templates/    shared.tsx (bütün şablonlar üçün ortaq bloklar) + gallery.tsx
-    editor/       cv-editor.tsx (orkestrator), photo-crop-dialog.tsx, ats-panel.tsx
+    templates/    shared.tsx (bütün şablonlar üçün ortaq bloklar, o cümlədən WebsiteQrCode) +
+                  gallery.tsx + qr-code.tsx (brauzerdaxili QR kod, "qrcode" paketi)
+    editor/       cv-editor.tsx (orkestrator), photo-crop-dialog.tsx (+ foto fonu silmə),
+                  ats-panel.tsx, ai-enhance-button.tsx — "AI ilə Gücləndir" mətn təkmilləşdirici
     forms/        Hər CVData bölməsi üçün ayrıca form komponenti (RHF+Zod),
                   sortable-field-list.tsx — dnd-kit drag & drop sıralama sarğısı
     admin/        admin-panel.tsx — şablon Free/Pro toggle + Pro qiymət redaktəsi
     my-cvs/       my-cvs-manager.tsx — çoxlu CV siyahısı (yarat/aç/kopyala/sil)
+    cover-letter/ cover-letter-generator.tsx — AI Motivasiya Məktubu Generatoru
     cv/           CV render komponentləri (gələcək faza)
   features/       Domain-səviyyəli məntiq
     ats/          analyze.ts — client-side ATS bal hesablama (completeness + açar söz uyğunluğu)
+    ai/           types.ts + registry.ts (provider abstraksiyası) + providers/
+                  local-text-generation-provider.ts — @huggingface/transformers,
+                  onnx-community/Qwen2.5-0.5B-Instruct, tamamilə brauzerdə, API açarı yoxdur
   lib/
     db/           node:sqlite client + template_pricing və site_settings (Pro qiymət) sorğuları
     templates/    Filesystem auto-discovery (discovery.ts) + dinamik komponent loader
     storage/      cv-draft.ts (tək draft, localStorage) + cv-database.ts (Dexie/IndexedDB,
                   çoxlu adlandırılmış CV)
     validation/   Zod sxemləri (cv-schema.ts) + form<->CVData çevrilməsi
-    image/        crop-image.ts — canvas əsaslı foto kəsmə/döndürmə
+    image/        crop-image.ts (canvas əsaslı foto kəsmə/döndürmə) +
+                  remove-background.ts (@huggingface/transformers, Xenova/modnet)
     export/       docx-export.ts — CVData -> Word sənədi
     mock/         Şablon preview-ları üçün nümunə CV datası
     security, utils
   app/
     admin/        actions.ts (Server Actions) + page.tsx
     my-cvs/       page.tsx — /my-cvs route
+    cover-letter/ page.tsx — /cover-letter route
   store/          Zustand store-ları (gələcək faza)
   types/          Paylaşılan TypeScript tipləri
   config/         site.ts və digər config-driven ayarlar
@@ -106,4 +118,5 @@ Hazırda məcburi environment variable yoxdur. `.env.example` faylı gələcək 
 - [x] Phase 5 — PDF export (print-to-PDF), DOCX export (docx), foto kəsmə/zoom/rotate (react-easy-crop)
 - [x] Phase 6 — Genişləndirilmiş ATS analizi (client-side bal + açar söz uyğunluğu), Pro qiymət (DB-driven) + Pricing səhifəsi, Admin panel (/admin)
 - [x] Phase 7 — Dexie/IndexedDB ilə çoxlu CV dəstəyi (/my-cvs: yarat/aç/kopyala/sil), form bölmələrində drag & drop sıralama (dnd-kit)
-- [ ] Phase 8+ — real Payment Provider inteqrasiyası, Zustand (admin panel state)
+- [x] Phase 8 — Client-side AI modulları: Motivasiya Məktubu Generatoru (/cover-letter), "AI ilə Gücləndir" mətn təkmilləşdirici (Xülasə + Təcrübə təsviri), foto fonunu silmə (foto kəsmə dialoqunda), QR kod (professional-1 şablonunda, portfolio linki üçün) — hamısı brauzerdaxili, sıfır server xərci
+- [ ] Phase 9+ — real Payment Provider inteqrasiyası, Zustand (admin panel state)

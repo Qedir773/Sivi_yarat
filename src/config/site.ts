@@ -38,6 +38,7 @@ export const siteConfig: SiteConfig = {
   nav: [
     { label: "nav.templates", href: "/templates" },
     { label: "nav.myCvs", href: "/my-cvs" },
+    { label: "nav.coverLetter", href: "/cover-letter" },
     { label: "nav.pricing", href: "/pricing" },
     { label: "nav.howItWorks", href: "/how-it-works" },
     { label: "nav.faq", href: "/faq" },

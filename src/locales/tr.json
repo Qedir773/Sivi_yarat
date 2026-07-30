@@ -5,6 +5,7 @@
     "howItWorks": "Nasıl çalışır",
     "faq": "SSS",
     "myCvs": "CV'lerim",
+    "coverLetter": "Ön Yazı",
     "createCv": "CV oluştur"
   },
   "footer": {
@@ -244,7 +245,18 @@
       "zoom": "Yakınlaştırma",
       "rotateLeft": "Sola döndür",
       "rotateRight": "Sağa döndür",
+      "removeBackground": "Arka planı kaldır",
+      "removingBackground": "Arka plan kaldırılıyor (ilk seferde model yüklemesi biraz sürebilir)...",
       "confirm": "Onayla"
+    },
+    "aiEnhance": {
+      "button": "AI ile Geliştir",
+      "dialogTitle": "AI ile Geliştirilmiş Metin",
+      "loadingModel": "AI modeli yükleniyor (yalnızca ilk seferde)...",
+      "generating": "Metin geliştiriliyor...",
+      "note": "Sonuç küçük, tarayıcı içi bir AI modelinden geliyor — uygulamadan önce kontrol edip gerekirse düzenleyin.",
+      "apply": "Uygula",
+      "cancel": "İptal"
     },
     "ats": {
       "title": "ATS Analizi",
@@ -283,6 +295,25 @@
     "confirmNo": "İptal",
     "empty": "Henüz hiç CV oluşturmadınız.",
     "updatedAt": "Güncellendi:"
+  },
+  "coverLetterPage": {
+    "title": "Ön Yazı Oluşturucu",
+    "subtitle": "İlana uygun profesyonel bir ön yazı oluştur — tarayıcında, yerel AI modeliyle, tamamen ücretsiz.",
+    "aiNotice": "Sonuç küçük, tarayıcı içi bir AI modelinden geliyor — mutlaka kendin okuyup düzenle.",
+    "fullNameLabel": "Ad Soyad",
+    "jobTitleLabel": "Başvurduğun pozisyon",
+    "companyLabel": "Şirket adı",
+    "jobDescriptionLabel": "İlan metni",
+    "jobDescriptionPlaceholder": "İlan metnini buraya yapıştır...",
+    "keyPointsLabel": "Vurgulamak istediğin beceri/başarılar (opsiyonel)",
+    "keyPointsPlaceholder": "Örneğin: 5 yıllık deneyim, takım yönetimi, proje başarıları...",
+    "generate": "Oluştur",
+    "loadingModel": "AI modeli yükleniyor (yalnızca ilk seferde)...",
+    "generating": "Metin oluşturuluyor...",
+    "resultLabel": "Oluşturulan metin (düzenleyebilirsin)",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı!",
+    "download": "İndir (.txt)"
   },
   "adminPage": {
     "title": "Yönetim Paneli",

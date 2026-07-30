@@ -1,5 +1,6 @@
 import type { ComponentType, ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { QrCode } from "@/components/templates/qr-code";
 
 export function formatDateRange(
   startDate: string,
@@ -119,6 +120,22 @@ export function SkillDots({
       ))}
     </div>
   );
+}
+
+/** Renders a small QR code linking to the CV's website/portfolio field — renders
+ * nothing when that field is empty, so templates without a website are unaffected. */
+export function WebsiteQrCode({
+  website,
+  size = 56,
+  className,
+}: {
+  website?: string;
+  size?: number;
+  className?: string;
+}) {
+  if (!website) return null;
+  const url = /^https?:\/\//i.test(website) ? website : `https://${website}`;
+  return <QrCode url={url} size={size} className={cn("rounded-sm", className)} />;
 }
 
 export function SkillBar({

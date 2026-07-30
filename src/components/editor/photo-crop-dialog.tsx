@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Cropper, { type Area } from "react-easy-crop";
-import { RotateCcw, RotateCw, ZoomIn, ZoomOut } from "lucide-react";
+import { Eraser, Loader2, RotateCcw, RotateCw, ZoomIn, ZoomOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,6 +12,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { getCroppedImage } from "@/lib/image/crop-image";
+import { removeImageBackground } from "@/lib/image/remove-background";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
 
@@ -30,6 +31,18 @@ export function PhotoCropDialog({ imageSrc, onOpenChange, onConfirm }: PhotoCrop
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isRemovingBg, setIsRemovingBg] = useState(false);
+
+  // Mirrors the imageSrc prop into local state that background-removal can
+  // replace, resetting it whenever a new photo comes in for cropping — the
+  // React-recommended "adjust state during render" pattern instead of an
+  // effect, since this only ever needs to react to the prop, not an external system.
+  const [lastImageSrc, setLastImageSrc] = useState(imageSrc);
+  const [processedImageSrc, setProcessedImageSrc] = useState(imageSrc);
+  if (imageSrc !== lastImageSrc) {
+    setLastImageSrc(imageSrc);
+    setProcessedImageSrc(imageSrc);
+  }
 
   function resetState() {
     setCrop({ x: 0, y: 0 });
@@ -38,11 +51,22 @@ export function PhotoCropDialog({ imageSrc, onOpenChange, onConfirm }: PhotoCrop
     setCroppedAreaPixels(null);
   }
 
+  async function handleRemoveBackground() {
+    if (!processedImageSrc) return;
+    setIsRemovingBg(true);
+    try {
+      const result = await removeImageBackground(processedImageSrc);
+      setProcessedImageSrc(result);
+    } finally {
+      setIsRemovingBg(false);
+    }
+  }
+
   async function handleConfirm() {
-    if (!imageSrc || !croppedAreaPixels) return;
+    if (!processedImageSrc || !croppedAreaPixels) return;
     setIsSaving(true);
     try {
-      const dataUrl = await getCroppedImage(imageSrc, croppedAreaPixels, rotation);
+      const dataUrl = await getCroppedImage(processedImageSrc, croppedAreaPixels, rotation);
       onConfirm(dataUrl);
       resetState();
     } finally {
@@ -63,10 +87,12 @@ export function PhotoCropDialog({ imageSrc, onOpenChange, onConfirm }: PhotoCrop
           <DialogTitle>{builderPage.photoCrop.title}</DialogTitle>
         </DialogHeader>
 
-        {imageSrc ? (
-          <div className="relative h-72 w-full overflow-hidden rounded-lg bg-neutral-900">
+        {processedImageSrc ? (
+          <div
+            className="relative h-72 w-full overflow-hidden rounded-lg bg-neutral-900 bg-[linear-gradient(45deg,#27272a_25%,transparent_25%),linear-gradient(-45deg,#27272a_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#27272a_75%),linear-gradient(-45deg,transparent_75%,#27272a_75%)] bg-[length:16px_16px] bg-[position:0_0,0_8px,8px_-8px,-8px_0]"
+          >
             <Cropper
-              image={imageSrc}
+              image={processedImageSrc}
               crop={crop}
               zoom={zoom}
               rotation={rotation}
@@ -78,6 +104,12 @@ export function PhotoCropDialog({ imageSrc, onOpenChange, onConfirm }: PhotoCrop
               onRotationChange={setRotation}
               onCropComplete={(_area, areaPixels) => setCroppedAreaPixels(areaPixels)}
             />
+            {isRemovingBg ? (
+              <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/60 text-sm text-white">
+                <Loader2 className="size-4 animate-spin" />
+                {builderPage.photoCrop.removingBackground}
+              </div>
+            ) : null}
           </div>
         ) : null}
 
@@ -96,7 +128,7 @@ export function PhotoCropDialog({ imageSrc, onOpenChange, onConfirm }: PhotoCrop
           <ZoomIn className="size-4 shrink-0 text-muted-foreground" />
         </div>
 
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-2">
           <Button
             type="button"
             variant="outline"
@@ -113,6 +145,15 @@ export function PhotoCropDialog({ imageSrc, onOpenChange, onConfirm }: PhotoCrop
           >
             <RotateCw /> {builderPage.photoCrop.rotateRight}
           </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={handleRemoveBackground}
+            disabled={isRemovingBg}
+          >
+            <Eraser /> {builderPage.photoCrop.removeBackground}
+          </Button>
         </div>
 
         <DialogFooter>
@@ -126,7 +167,11 @@ export function PhotoCropDialog({ imageSrc, onOpenChange, onConfirm }: PhotoCrop
           >
             {builderPage.actions.cancel}
           </Button>
-          <Button type="button" onClick={handleConfirm} disabled={isSaving || !croppedAreaPixels}>
+          <Button
+            type="button"
+            onClick={handleConfirm}
+            disabled={isSaving || isRemovingBg || !croppedAreaPixels}
+          >
             {builderPage.photoCrop.confirm}
           </Button>
         </DialogFooter>

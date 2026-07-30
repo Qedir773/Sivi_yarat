@@ -33,7 +33,7 @@ const dict = getDictionary(siteConfig.defaultLocale);
 export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: string }) {
   const { builderPage } = dict;
 
-  const { control, register, reset } = useForm<CVFormValues>({
+  const { control, register, reset, setValue } = useForm<CVFormValues>({
     resolver: zodResolver(cvFormSchema),
     defaultValues: emptyFormValues(),
     mode: "onBlur",
@@ -105,7 +105,7 @@ export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: stri
       <div className="grid gap-8 lg:grid-cols-[1fr_420px]">
         <div className="space-y-6">
           <PersonalInfoForm control={control} register={register} />
-          <SummaryForm register={register} />
+          <SummaryForm control={control} register={register} setValue={setValue} />
           <ExperienceForm control={control} register={register} />
           <EducationForm control={control} register={register} />
           <SkillsForm control={control} register={register} />
