@@ -20,6 +20,7 @@ export function CtaBanner() {
         <div className="mt-8 flex justify-center">
           <Button
             size="lg"
+            nativeButton={false}
             render={<Link href="/builder">{t("common.getStarted")}</Link>}
           />
         </div>

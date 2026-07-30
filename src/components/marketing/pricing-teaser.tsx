@@ -59,7 +59,7 @@ export function PricingTeaser() {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <Button render={<Link href="/pricing">{pricing.cta}</Link>} />
+          <Button nativeButton={false} render={<Link href="/pricing">{pricing.cta}</Link>} />
         </div>
       </div>
     </section>

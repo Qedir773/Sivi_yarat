@@ -5,7 +5,7 @@ export function AtsTemplate({ data }: { data: CVData }) {
   const { personalInfo, summary, experience, education, skills, languages, certifications } = data;
 
   return (
-    <div className="flex aspect-[1/1.414] w-full flex-col gap-4 bg-white p-8 text-[11px] leading-normal text-black">
+    <div className="flex aspect-[1/1.414] w-full flex-col gap-4 bg-white p-8 text-[11px] leading-normal text-black shadow-sm ring-1 ring-black/5">
       <header>
         <h1 className="text-lg font-bold">{personalInfo.fullName}</h1>
         <p>{personalInfo.title}</p>

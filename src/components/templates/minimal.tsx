@@ -28,7 +28,7 @@ export function MinimalTemplate({ data }: { data: CVData }) {
 
       {summary && <p className="text-neutral-500">{summary}</p>}
 
-      <TemplateSection title="İş Təcrübəsi" titleClassName="font-normal text-neutral-400">
+      <TemplateSection title="İş Təcrübəsi" titleClassName="font-normal text-neutral-400" divider={false}>
         <div className="space-y-3">
           {experience.map((exp) => (
             <div key={exp.id}>
@@ -52,7 +52,7 @@ export function MinimalTemplate({ data }: { data: CVData }) {
         </div>
       </TemplateSection>
 
-      <TemplateSection title="Təhsil" titleClassName="font-normal text-neutral-400">
+      <TemplateSection title="Təhsil" titleClassName="font-normal text-neutral-400" divider={false}>
         <div className="space-y-1.5">
           {education.map((edu) => (
             <div key={edu.id} className="flex items-baseline justify-between">
@@ -70,12 +70,12 @@ export function MinimalTemplate({ data }: { data: CVData }) {
       </TemplateSection>
 
       <div className="grid grid-cols-2 gap-6">
-        <TemplateSection title="Bacarıqlar" titleClassName="font-normal text-neutral-400">
+        <TemplateSection title="Bacarıqlar" titleClassName="font-normal text-neutral-400" divider={false}>
           <p className="text-neutral-500">{skills.map((s) => s.name).join(" · ")}</p>
         </TemplateSection>
 
         {languages && languages.length > 0 && (
-          <TemplateSection title="Dillər" titleClassName="font-normal text-neutral-400">
+          <TemplateSection title="Dillər" titleClassName="font-normal text-neutral-400" divider={false}>
             <p className="text-neutral-500">
               {languages.map((l) => `${l.name} (${l.level})`).join(" · ")}
             </p>

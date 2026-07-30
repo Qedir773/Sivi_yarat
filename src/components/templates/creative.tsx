@@ -1,26 +1,24 @@
 import { Mail, Phone, MapPin, Globe } from "lucide-react";
 import type { CVData } from "@/types/cv";
-import { TemplateSection, SkillDots, formatDateRange } from "./shared";
+import { TemplateSection, SkillDots, formatDateRange, Avatar } from "./shared";
 
 export function CreativeTemplate({ data }: { data: CVData }) {
   const { personalInfo, summary, experience, education, skills, languages } = data;
 
   return (
-    <div className="flex aspect-[1/1.414] w-full flex-col bg-white text-[11px] leading-snug text-neutral-800">
+    <div className="flex aspect-[1/1.414] w-full flex-col bg-white text-[11px] leading-snug text-neutral-800 shadow-sm ring-1 ring-black/5">
       <header className="relative overflow-hidden bg-gradient-to-r from-fuchsia-600 to-violet-600 p-6 text-white">
         <div className="absolute -top-8 -right-8 size-32 rounded-full bg-white/10" />
         <div className="absolute -bottom-10 right-16 size-20 rounded-full bg-white/10" />
         <div className="relative flex items-center gap-4">
-          <div className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-white/20 text-xl font-bold">
-            {personalInfo.fullName
-              .split(" ")
-              .map((p) => p[0])
-              .slice(0, 2)
-              .join("")}
-          </div>
+          <Avatar
+            photoUrl={personalInfo.photoUrl}
+            fullName={personalInfo.fullName}
+            className="rounded-2xl border-2 border-white/30 bg-white/20 shadow-md"
+          />
           <div>
-            <h1 className="text-xl font-bold">{personalInfo.fullName}</h1>
-            <p className="text-fuchsia-100">{personalInfo.title}</p>
+            <h1 className="text-2xl leading-tight font-bold">{personalInfo.fullName}</h1>
+            <p className="mt-0.5 text-fuchsia-100">{personalInfo.title}</p>
           </div>
         </div>
         <div className="relative mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-fuchsia-50">

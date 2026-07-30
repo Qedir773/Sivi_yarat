@@ -37,7 +37,7 @@ export function Header() {
 
         <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle />
-          <Button render={<Link href="/builder">{t("nav.createCv")}</Link>} />
+          <Button nativeButton={false} render={<Link href="/builder">{t("nav.createCv")}</Link>} />
         </div>
 
         <div className="flex items-center gap-1 md:hidden">
@@ -62,6 +62,7 @@ export function Header() {
                 {siteConfig.nav.map((item) => (
                   <SheetClose
                     key={item.href}
+                    nativeButton={false}
                     render={
                       <Link
                         href={item.href}
@@ -73,9 +74,11 @@ export function Header() {
                   />
                 ))}
                 <SheetClose
+                  nativeButton={false}
                   render={
                     <Button
                       className="mt-2"
+                      nativeButton={false}
                       render={
                         <Link href="/builder">{t("nav.createCv")}</Link>
                       }

@@ -60,25 +60,28 @@ export function TemplatesGallery() {
           return (
             <div
               key={tpl.id}
-              className="overflow-hidden rounded-xl border bg-card transition-shadow hover:shadow-md"
+              className="group overflow-hidden rounded-xl border bg-card transition-all hover:-translate-y-0.5 hover:shadow-lg"
             >
               <div className="relative aspect-[1/1.414] w-full overflow-hidden bg-neutral-100">
-                <div className="absolute top-0 left-0 w-[400%] origin-top-left scale-[0.25]">
+                <div className="absolute top-0 left-0 w-[400%] origin-top-left scale-[0.25] transition-transform duration-300 group-hover:scale-[0.255]">
                   <TemplateComponent data={sampleCV} />
+                </div>
+                <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/50 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                  <Button
+                    size="sm"
+                    nativeButton={false}
+                    render={
+                      <Link href={`/builder?template=${tpl.id}`}>{templatesPage.useTemplate}</Link>
+                    }
+                  />
                 </div>
               </div>
 
               <div className="flex items-center justify-between gap-2 p-4">
-                <div>
-                  <p className="font-medium">{templatesPage.categories[tpl.category]}</p>
-                  <Badge variant={tpl.isPro ? "default" : "secondary"} className="mt-1">
-                    {tpl.isPro ? templatesPage.pro : templatesPage.free}
-                  </Badge>
-                </div>
-                <Button
-                  size="sm"
-                  render={<Link href={`/builder?template=${tpl.id}`}>{templatesPage.useTemplate}</Link>}
-                />
+                <p className="font-medium">{templatesPage.categories[tpl.category]}</p>
+                <Badge variant={tpl.isPro ? "default" : "secondary"}>
+                  {tpl.isPro ? templatesPage.pro : templatesPage.free}
+                </Badge>
               </div>
             </div>
           );

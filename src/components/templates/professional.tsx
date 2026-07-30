@@ -1,13 +1,31 @@
-import { Mail, Phone, MapPin, Globe } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Globe,
+  FileText,
+  Briefcase,
+  GraduationCap,
+  Sparkles,
+  Languages as LanguagesIcon,
+  Award,
+} from "lucide-react";
 import type { CVData } from "@/types/cv";
-import { TemplateSection, SkillBar, formatDateRange } from "./shared";
+import { TemplateSection, SkillBar, formatDateRange, Avatar } from "./shared";
 
 export function ProfessionalTemplate({ data }: { data: CVData }) {
   const { personalInfo, summary, experience, education, skills, languages, certifications } = data;
 
   return (
     <div className="flex aspect-[1/1.414] w-full flex-col bg-white p-8 text-[11px] leading-snug text-neutral-800">
-      <header className="border-b-2 border-neutral-800 pb-4 text-center">
+      <header className="flex flex-col items-center border-b-2 border-neutral-800 pb-4 text-center">
+        {personalInfo.photoUrl && (
+          <Avatar
+            photoUrl={personalInfo.photoUrl}
+            fullName={personalInfo.fullName}
+            className="mb-3 size-20 ring-2 ring-neutral-200"
+          />
+        )}
         <h1 className="text-2xl font-bold tracking-wide text-neutral-900 uppercase">
           {personalInfo.fullName}
         </h1>
@@ -33,12 +51,12 @@ export function ProfessionalTemplate({ data }: { data: CVData }) {
       <div className="mt-5 grid flex-1 grid-cols-3 gap-6">
         <div className="col-span-2 space-y-5">
           {summary && (
-            <TemplateSection title="Xülasə" titleClassName="text-neutral-900">
+            <TemplateSection title="Xülasə" icon={FileText} titleClassName="text-neutral-900">
               <p className="text-neutral-600">{summary}</p>
             </TemplateSection>
           )}
 
-          <TemplateSection title="İş Təcrübəsi" titleClassName="text-neutral-900">
+          <TemplateSection title="İş Təcrübəsi" icon={Briefcase} titleClassName="text-neutral-900">
             <div className="space-y-3">
               {experience.map((exp) => (
                 <div key={exp.id}>
@@ -61,7 +79,7 @@ export function ProfessionalTemplate({ data }: { data: CVData }) {
             </div>
           </TemplateSection>
 
-          <TemplateSection title="Təhsil" titleClassName="text-neutral-900">
+          <TemplateSection title="Təhsil" icon={GraduationCap} titleClassName="text-neutral-900">
             <div className="space-y-2">
               {education.map((edu) => (
                 <div key={edu.id} className="flex items-baseline justify-between">
@@ -82,7 +100,7 @@ export function ProfessionalTemplate({ data }: { data: CVData }) {
         </div>
 
         <div className="space-y-5">
-          <TemplateSection title="Bacarıqlar" titleClassName="text-neutral-900">
+          <TemplateSection title="Bacarıqlar" icon={Sparkles} titleClassName="text-neutral-900">
             <div className="space-y-1.5">
               {skills.map((skill) => (
                 <div key={skill.id}>
@@ -94,7 +112,7 @@ export function ProfessionalTemplate({ data }: { data: CVData }) {
           </TemplateSection>
 
           {languages && languages.length > 0 && (
-            <TemplateSection title="Dillər" titleClassName="text-neutral-900">
+            <TemplateSection title="Dillər" icon={LanguagesIcon} titleClassName="text-neutral-900">
               <div className="space-y-1 text-neutral-600">
                 {languages.map((lang) => (
                   <div key={lang.id} className="flex justify-between">
@@ -107,7 +125,7 @@ export function ProfessionalTemplate({ data }: { data: CVData }) {
           )}
 
           {certifications && certifications.length > 0 && (
-            <TemplateSection title="Sertifikatlar" titleClassName="text-neutral-900">
+            <TemplateSection title="Sertifikatlar" icon={Award} titleClassName="text-neutral-900">
               <div className="space-y-1 text-neutral-600">
                 {certifications.map((cert) => (
                   <p key={cert.id}>{cert.name}</p>

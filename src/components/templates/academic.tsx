@@ -5,7 +5,7 @@ export function AcademicTemplate({ data }: { data: CVData }) {
   const { personalInfo, summary, experience, education, skills, languages, certifications } = data;
 
   return (
-    <div className="flex aspect-[1/1.414] w-full flex-col gap-4 bg-white p-8 text-[11px] leading-snug text-neutral-800">
+    <div className="flex aspect-[1/1.414] w-full flex-col gap-4 bg-white p-8 text-[11px] leading-snug text-neutral-800 shadow-sm ring-1 ring-black/5">
       <header className="text-center">
         <h1 className="text-xl font-semibold tracking-wide text-neutral-900">
           {personalInfo.fullName}

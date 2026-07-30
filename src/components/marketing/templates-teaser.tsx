@@ -34,6 +34,7 @@ export function TemplatesTeaser() {
       <div className="mt-10 flex justify-center">
         <Button
           variant="outline"
+          nativeButton={false}
           render={
             <Link href="/templates">
               {templates.cta}

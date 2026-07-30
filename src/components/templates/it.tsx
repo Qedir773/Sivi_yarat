@@ -1,6 +1,17 @@
-import { Mail, Phone, MapPin, Globe } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Globe,
+  UserCircle,
+  Code2,
+  Briefcase,
+  FolderGit2,
+  GraduationCap,
+  Languages as LanguagesIcon,
+} from "lucide-react";
 import type { CVData } from "@/types/cv";
-import { TemplateSection, formatDateRange } from "./shared";
+import { TemplateSection, formatDateRange, Avatar } from "./shared";
 
 export function ItTemplate({ data }: { data: CVData }) {
   const { personalInfo, summary, experience, education, skills, languages, projects } = data;
@@ -8,9 +19,16 @@ export function ItTemplate({ data }: { data: CVData }) {
   return (
     <div className="flex aspect-[1/1.414] w-full flex-col bg-white text-[11px] leading-snug text-neutral-800">
       <header className="flex items-center justify-between bg-slate-900 p-6 text-slate-100">
-        <div>
-          <h1 className="text-xl font-bold text-white">{personalInfo.fullName}</h1>
-          <p className="text-cyan-400">{personalInfo.title}</p>
+        <div className="flex items-center gap-4">
+          <Avatar
+            photoUrl={personalInfo.photoUrl}
+            fullName={personalInfo.fullName}
+            className="rounded-lg bg-slate-800 text-cyan-400 ring-1 ring-slate-700"
+          />
+          <div>
+            <h1 className="text-xl font-bold text-white">{personalInfo.fullName}</h1>
+            <p className="text-cyan-400">{personalInfo.title}</p>
+          </div>
         </div>
         <div className="space-y-1 text-right text-[10px] text-slate-300">
           <p className="inline-flex items-center gap-1">
@@ -32,12 +50,12 @@ export function ItTemplate({ data }: { data: CVData }) {
 
       <div className="flex-1 space-y-4 p-6">
         {summary && (
-          <TemplateSection title="Profil" titleClassName="text-slate-900">
+          <TemplateSection title="Profil" icon={UserCircle} titleClassName="text-slate-900">
             <p className="text-neutral-600">{summary}</p>
           </TemplateSection>
         )}
 
-        <TemplateSection title="Texniki Bacarıqlar" titleClassName="text-slate-900">
+        <TemplateSection title="Texniki Bacarıqlar" icon={Code2} titleClassName="text-slate-900">
           <div className="flex flex-wrap gap-1.5">
             {skills.map((skill) => (
               <span
@@ -50,7 +68,7 @@ export function ItTemplate({ data }: { data: CVData }) {
           </div>
         </TemplateSection>
 
-        <TemplateSection title="İş Təcrübəsi" titleClassName="text-slate-900">
+        <TemplateSection title="İş Təcrübəsi" icon={Briefcase} titleClassName="text-slate-900">
           <div className="space-y-3">
             {experience.map((exp) => (
               <div key={exp.id}>
@@ -75,7 +93,7 @@ export function ItTemplate({ data }: { data: CVData }) {
         </TemplateSection>
 
         {projects && projects.length > 0 && (
-          <TemplateSection title="Layihələr" titleClassName="text-slate-900">
+          <TemplateSection title="Layihələr" icon={FolderGit2} titleClassName="text-slate-900">
             <div className="space-y-1">
               {projects.map((proj) => (
                 <div key={proj.id}>
@@ -91,7 +109,7 @@ export function ItTemplate({ data }: { data: CVData }) {
         )}
 
         <div className="grid grid-cols-2 gap-6">
-          <TemplateSection title="Təhsil" titleClassName="text-slate-900">
+          <TemplateSection title="Təhsil" icon={GraduationCap} titleClassName="text-slate-900">
             <div className="space-y-1">
               {education.map((edu) => (
                 <div key={edu.id}>
@@ -102,7 +120,7 @@ export function ItTemplate({ data }: { data: CVData }) {
             </div>
           </TemplateSection>
           {languages && languages.length > 0 && (
-            <TemplateSection title="Dillər" titleClassName="text-slate-900">
+            <TemplateSection title="Dillər" icon={LanguagesIcon} titleClassName="text-slate-900">
               <p className="text-neutral-600">
                 {languages.map((l) => `${l.name} (${l.level})`).join(", ")}
               </p>

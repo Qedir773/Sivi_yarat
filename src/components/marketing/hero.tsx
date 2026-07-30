@@ -29,11 +29,13 @@ export function Hero() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
             <Button
               size="lg"
+              nativeButton={false}
               render={<Link href="/builder">{t("common.getStarted")}</Link>}
             />
             <Button
               size="lg"
               variant="outline"
+              nativeButton={false}
               render={
                 <Link href="/templates">{t("common.browseTemplates")}</Link>
               }

@@ -1,25 +1,32 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import type { CVData } from "@/types/cv";
-import { TemplateSection, formatDateRange } from "./shared";
+import { TemplateSection, formatDateRange, Avatar } from "./shared";
 
 export function StudentTemplate({ data }: { data: CVData }) {
   const { personalInfo, summary, education, experience, skills, languages, projects } = data;
 
   return (
     <div className="flex aspect-[1/1.414] w-full flex-col gap-4 bg-white p-8 text-[11px] leading-snug text-neutral-800">
-      <header className="rounded-2xl bg-emerald-50 p-4">
-        <h1 className="text-lg font-bold text-emerald-900">{personalInfo.fullName}</h1>
-        <p className="text-emerald-700">{personalInfo.title}</p>
-        <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-emerald-800">
-          <span className="inline-flex items-center gap-1">
-            <Mail className="size-3" /> {personalInfo.email}
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <Phone className="size-3" /> {personalInfo.phone}
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <MapPin className="size-3" /> {personalInfo.location}
-          </span>
+      <header className="flex items-center gap-4 rounded-2xl bg-emerald-50 p-4">
+        <Avatar
+          photoUrl={personalInfo.photoUrl}
+          fullName={personalInfo.fullName}
+          className="size-14 bg-emerald-100 text-emerald-900"
+        />
+        <div>
+          <h1 className="text-lg font-bold text-emerald-900">{personalInfo.fullName}</h1>
+          <p className="text-emerald-700">{personalInfo.title}</p>
+          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-emerald-800">
+            <span className="inline-flex items-center gap-1">
+              <Mail className="size-3" /> {personalInfo.email}
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <Phone className="size-3" /> {personalInfo.phone}
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <MapPin className="size-3" /> {personalInfo.location}
+            </span>
+          </div>
         </div>
       </header>
 
