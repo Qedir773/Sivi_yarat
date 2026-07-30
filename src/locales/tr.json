@@ -183,5 +183,56 @@
       "executive": "Yönetici",
       "corporate": "Kurumsal"
     }
+  },
+  "builderPage": {
+    "title": "CV Düzenleyici",
+    "subtitle": "Bilgilerini gir, CV'nin canlı olarak nasıl göründüğünü izle.",
+    "sections": {
+      "personalInfo": "Kişisel bilgiler",
+      "summary": "Özet",
+      "experience": "İş deneyimi",
+      "education": "Eğitim",
+      "skills": "Yetenekler",
+      "languages": "Diller",
+      "projects": "Projeler",
+      "certifications": "Sertifikalar"
+    },
+    "fields": {
+      "fullName": "Ad Soyad",
+      "jobTitle": "Pozisyon",
+      "email": "E-posta",
+      "phone": "Telefon",
+      "location": "Konum",
+      "website": "Web sitesi",
+      "photo": "Fotoğraf",
+      "uploadPhoto": "Fotoğraf yükle",
+      "removePhoto": "Fotoğrafı kaldır",
+      "summary": "Kendin hakkında kısa bilgi",
+      "company": "Şirket",
+      "role": "Pozisyon",
+      "institution": "Eğitim kurumu",
+      "degree": "Derece",
+      "field": "Bölüm",
+      "startDate": "Başlangıç tarihi",
+      "endDate": "Bitiş tarihi",
+      "current": "Halen devam ediyor",
+      "description": "Açıklama",
+      "highlights": "Öne çıkanlar",
+      "addHighlight": "Öne çıkan ekle",
+      "skillName": "Yetenek adı",
+      "level": "Seviye",
+      "languageName": "Dil",
+      "projectName": "Proje adı",
+      "url": "Bağlantı",
+      "certName": "Sertifika adı",
+      "issuer": "Veren kurum",
+      "date": "Tarih"
+    },
+    "actions": {
+      "add": "Ekle",
+      "remove": "Kaldır",
+      "livePreview": "Canlı Önizleme",
+      "autosaved": "Otomatik kaydedildi"
+    }
   }
 }

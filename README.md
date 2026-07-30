@@ -17,8 +17,9 @@ Pulsuz, local-first, açıq mənbəli komponentlərlə qurulan professional CV B
 - node:sqlite (yerli DB — template pricing/admin-configurable bayraqlar)
 - Framer Motion (animasiyalar)
 - html2canvas (PNG export)
+- React Hook Form + Zod (CV redaktoru formu və validasiya)
 
-Növbəti fazalarda əlavə olunacaq: React Hook Form + Zod (formlar), Dexie/IndexedDB (local storage), pdf-lib/docx (PDF/DOCX export), react-easy-crop (foto kəsmə), dnd-kit (drag & drop).
+Növbəti fazalarda əlavə olunacaq: Dexie/IndexedDB (genişləndirilmiş local storage), pdf-lib/docx (PDF/DOCX export), react-easy-crop (foto kəsmə/zoom/rotate), dnd-kit (drag & drop), Zustand (admin panel state).
 
 ## Development
 
@@ -42,17 +43,19 @@ src/
     ui/           shadcn/ui primitiv komponentləri (Button, Dialog, Sheet, s.)
     layout/       Header, Footer, ThemeProvider və s.
     templates/    shared.tsx (bütün şablonlar üçün ortaq bloklar) + gallery.tsx
+    editor/       cv-editor.tsx — CV redaktoru orkestratoru (form + canlı preview)
+    forms/        Hər CVData bölməsi üçün ayrıca form komponenti (RHF+Zod)
     cv/           CV render komponentləri (gələcək faza)
-    editor/       Builder editor komponentləri (gələcək faza)
-    forms/        Form bölmələri (gələcək faza)
     pricing/      Pricing UI (gələcək faza)
     admin/        Admin panel UI (gələcək faza)
   features/       Domain-səviyyəli məntiq (cv, templates, export, ats, pricing, ads)
   lib/
     db/           node:sqlite client + template pricing sorğuları
     templates/    Filesystem auto-discovery (discovery.ts) + dinamik komponent loader
+    storage/      localStorage draft saxlama (cv-draft.ts)
+    validation/   Zod sxemləri (cv-schema.ts) + form<->CVData çevrilməsi
     mock/         Şablon preview-ları üçün nümunə CV datası
-    validation, export, security, utils
+    export, security, utils
   store/          Zustand store-ları (gələcək faza)
   types/          Paylaşılan TypeScript tipləri
   config/         site.ts və digər config-driven ayarlar
@@ -72,7 +75,7 @@ Bütün istifadəçiyə görünən mətnlər `src/locales/*.json` açar-dəyər 
 
 ## Local-first / Privacy
 
-Sistem server database tələb etmir — istifadəçi CV-ləri brauzerdə (IndexedDB) saxlanılacaq (gələcək faza). Foto yükləmə və CV məlumatları üçüncü tərəfə göndərilmir.
+İstifadəçinin CV məlumatları `localStorage`-da (`cvpro:draft`) avtomatik saxlanılır — server-ə göndərilmir. Genişləndirilmiş IndexedDB dəstəyi (çoxlu CV, versiya tarixçəsi) gələcək fazadadır. Foto yükləmə brauzerdə base64 data URL kimi işlənir, üçüncü tərəfə göndərilmir.
 
 ## Ödəniş / Pro sistemi
 
@@ -87,4 +90,5 @@ Hazırda məcburi environment variable yoxdur. `.env.example` faylı gələcək 
 - [x] Phase 1 — Project setup
 - [x] Phase 2 — Landing page
 - [x] Phase 3 — Template system
-- [ ] Phase 4+ — CV data editor, local storage, PDF/DOCX export, ATS, pricing, admin panel
+- [x] Phase 4 — CV data editor (React Hook Form + Zod), canlı preview, localStorage autosave
+- [ ] Phase 5+ — PDF/DOCX export, geniş ATS analizi, foto kəsmə/zoom, pricing, admin panel

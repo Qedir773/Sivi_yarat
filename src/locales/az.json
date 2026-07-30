@@ -183,5 +183,56 @@
       "executive": "Executive",
       "corporate": "Korporativ"
     }
+  },
+  "builderPage": {
+    "title": "CV Redaktoru",
+    "subtitle": "Məlumatlarını daxil et, canlı olaraq CV-nin necə görünəcəyini izlə.",
+    "sections": {
+      "personalInfo": "Şəxsi məlumatlar",
+      "summary": "Xülasə",
+      "experience": "İş təcrübəsi",
+      "education": "Təhsil",
+      "skills": "Bacarıqlar",
+      "languages": "Dillər",
+      "projects": "Layihələr",
+      "certifications": "Sertifikatlar"
+    },
+    "fields": {
+      "fullName": "Ad Soyad",
+      "jobTitle": "Vəzifə",
+      "email": "E-poçt",
+      "phone": "Telefon",
+      "location": "Ünvan",
+      "website": "Veb sayt",
+      "photo": "Foto",
+      "uploadPhoto": "Foto yüklə",
+      "removePhoto": "Fotonu sil",
+      "summary": "Özün haqqında qısa məlumat",
+      "company": "Şirkət",
+      "role": "Vəzifə",
+      "institution": "Təhsil müəssisəsi",
+      "degree": "Dərəcə",
+      "field": "İxtisas",
+      "startDate": "Başlama tarixi",
+      "endDate": "Bitmə tarixi",
+      "current": "Hazırda davam edir",
+      "description": "Təsvir",
+      "highlights": "Nailiyyətlər",
+      "addHighlight": "Nailiyyət əlavə et",
+      "skillName": "Bacarıq adı",
+      "level": "Səviyyə",
+      "languageName": "Dil",
+      "projectName": "Layihə adı",
+      "url": "Link",
+      "certName": "Sertifikat adı",
+      "issuer": "Verən qurum",
+      "date": "Tarix"
+    },
+    "actions": {
+      "add": "Əlavə et",
+      "remove": "Sil",
+      "livePreview": "Canlı Önizləmə",
+      "autosaved": "Avtomatik saxlanıldı"
+    }
   }
 }

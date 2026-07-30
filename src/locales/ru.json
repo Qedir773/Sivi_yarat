@@ -183,5 +183,56 @@
       "executive": "Руководитель",
       "corporate": "Корпоративный"
     }
+  },
+  "builderPage": {
+    "title": "Редактор резюме",
+    "subtitle": "Введите данные и смотрите, как резюме обновляется в реальном времени.",
+    "sections": {
+      "personalInfo": "Личная информация",
+      "summary": "Резюме",
+      "experience": "Опыт работы",
+      "education": "Образование",
+      "skills": "Навыки",
+      "languages": "Языки",
+      "projects": "Проекты",
+      "certifications": "Сертификаты"
+    },
+    "fields": {
+      "fullName": "ФИО",
+      "jobTitle": "Должность",
+      "email": "Эл. почта",
+      "phone": "Телефон",
+      "location": "Местоположение",
+      "website": "Веб-сайт",
+      "photo": "Фото",
+      "uploadPhoto": "Загрузить фото",
+      "removePhoto": "Удалить фото",
+      "summary": "Краткая информация о себе",
+      "company": "Компания",
+      "role": "Должность",
+      "institution": "Учебное заведение",
+      "degree": "Степень",
+      "field": "Специальность",
+      "startDate": "Дата начала",
+      "endDate": "Дата окончания",
+      "current": "Продолжается сейчас",
+      "description": "Описание",
+      "highlights": "Достижения",
+      "addHighlight": "Добавить достижение",
+      "skillName": "Название навыка",
+      "level": "Уровень",
+      "languageName": "Язык",
+      "projectName": "Название проекта",
+      "url": "Ссылка",
+      "certName": "Название сертификата",
+      "issuer": "Выдавшая организация",
+      "date": "Дата"
+    },
+    "actions": {
+      "add": "Добавить",
+      "remove": "Удалить",
+      "livePreview": "Живой просмотр",
+      "autosaved": "Автосохранено"
+    }
   }
 }

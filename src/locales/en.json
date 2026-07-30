@@ -183,5 +183,56 @@
       "executive": "Executive",
       "corporate": "Corporate"
     }
+  },
+  "builderPage": {
+    "title": "CV Builder",
+    "subtitle": "Enter your details and watch your CV update live.",
+    "sections": {
+      "personalInfo": "Personal info",
+      "summary": "Summary",
+      "experience": "Work experience",
+      "education": "Education",
+      "skills": "Skills",
+      "languages": "Languages",
+      "projects": "Projects",
+      "certifications": "Certifications"
+    },
+    "fields": {
+      "fullName": "Full name",
+      "jobTitle": "Job title",
+      "email": "Email",
+      "phone": "Phone",
+      "location": "Location",
+      "website": "Website",
+      "photo": "Photo",
+      "uploadPhoto": "Upload photo",
+      "removePhoto": "Remove photo",
+      "summary": "Brief summary about yourself",
+      "company": "Company",
+      "role": "Role",
+      "institution": "Institution",
+      "degree": "Degree",
+      "field": "Field of study",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "current": "Currently ongoing",
+      "description": "Description",
+      "highlights": "Highlights",
+      "addHighlight": "Add highlight",
+      "skillName": "Skill name",
+      "level": "Level",
+      "languageName": "Language",
+      "projectName": "Project name",
+      "url": "Link",
+      "certName": "Certificate name",
+      "issuer": "Issuer",
+      "date": "Date"
+    },
+    "actions": {
+      "add": "Add",
+      "remove": "Remove",
+      "livePreview": "Live Preview",
+      "autosaved": "Autosaved"
+    }
   }
 }
