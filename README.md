@@ -18,8 +18,10 @@ Pulsuz, local-first, açıq mənbəli komponentlərlə qurulan professional CV B
 - Framer Motion (animasiyalar)
 - html2canvas (PNG export)
 - React Hook Form + Zod (CV redaktoru formu və validasiya)
+- react-easy-crop (foto kəsmə/zoom/rotate)
+- docx (DOCX export) + brauzerin native print-to-PDF-i (PDF export)
 
-Növbəti fazalarda əlavə olunacaq: Dexie/IndexedDB (genişləndirilmiş local storage), pdf-lib/docx (PDF/DOCX export), react-easy-crop (foto kəsmə/zoom/rotate), dnd-kit (drag & drop), Zustand (admin panel state).
+Növbəti fazalarda əlavə olunacaq: Dexie/IndexedDB (genişləndirilmiş local storage), dnd-kit (drag & drop), Zustand (admin panel state), real Payment Provider inteqrasiyası.
 
 ## Development
 
@@ -43,19 +45,23 @@ src/
     ui/           shadcn/ui primitiv komponentləri (Button, Dialog, Sheet, s.)
     layout/       Header, Footer, ThemeProvider və s.
     templates/    shared.tsx (bütün şablonlar üçün ortaq bloklar) + gallery.tsx
-    editor/       cv-editor.tsx — CV redaktoru orkestratoru (form + canlı preview)
+    editor/       cv-editor.tsx (orkestrator), photo-crop-dialog.tsx, ats-panel.tsx
     forms/        Hər CVData bölməsi üçün ayrıca form komponenti (RHF+Zod)
+    admin/        admin-panel.tsx — şablon Free/Pro toggle + Pro qiymət redaktəsi
     cv/           CV render komponentləri (gələcək faza)
-    pricing/      Pricing UI (gələcək faza)
-    admin/        Admin panel UI (gələcək faza)
-  features/       Domain-səviyyəli məntiq (cv, templates, export, ats, pricing, ads)
+  features/       Domain-səviyyəli məntiq
+    ats/          analyze.ts — client-side ATS bal hesablama (completeness + açar söz uyğunluğu)
   lib/
-    db/           node:sqlite client + template pricing sorğuları
+    db/           node:sqlite client + template_pricing və site_settings (Pro qiymət) sorğuları
     templates/    Filesystem auto-discovery (discovery.ts) + dinamik komponent loader
     storage/      localStorage draft saxlama (cv-draft.ts)
     validation/   Zod sxemləri (cv-schema.ts) + form<->CVData çevrilməsi
+    image/        crop-image.ts — canvas əsaslı foto kəsmə/döndürmə
+    export/       docx-export.ts — CVData -> Word sənədi
     mock/         Şablon preview-ları üçün nümunə CV datası
-    export, security, utils
+    security, utils
+  app/
+    admin/        actions.ts (Server Actions) + page.tsx
   store/          Zustand store-ları (gələcək faza)
   types/          Paylaşılan TypeScript tipləri
   config/         site.ts və digər config-driven ayarlar
@@ -91,4 +97,6 @@ Hazırda məcburi environment variable yoxdur. `.env.example` faylı gələcək 
 - [x] Phase 2 — Landing page
 - [x] Phase 3 — Template system
 - [x] Phase 4 — CV data editor (React Hook Form + Zod), canlı preview, localStorage autosave
-- [ ] Phase 5+ — PDF/DOCX export, geniş ATS analizi, foto kəsmə/zoom, pricing, admin panel
+- [x] Phase 5 — PDF export (print-to-PDF), DOCX export (docx), foto kəsmə/zoom/rotate (react-easy-crop)
+- [x] Phase 6 — Genişləndirilmiş ATS analizi (client-side bal + açar söz uyğunluğu), Pro qiymət (DB-driven) + Pricing səhifəsi, Admin panel (/admin)
+- [ ] Phase 7+ — Dexie/IndexedDB (çoxlu CV), drag & drop, real Payment Provider

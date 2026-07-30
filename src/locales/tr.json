@@ -206,6 +206,7 @@
       "website": "Web sitesi",
       "photo": "Fotoğraf",
       "uploadPhoto": "Fotoğraf yükle",
+      "editPhoto": "Düzenle",
       "removePhoto": "Fotoğrafı kaldır",
       "summary": "Kendin hakkında kısa bilgi",
       "company": "Şirket",
@@ -232,7 +233,49 @@
       "add": "Ekle",
       "remove": "Kaldır",
       "livePreview": "Canlı Önizleme",
-      "autosaved": "Otomatik kaydedildi"
+      "autosaved": "Otomatik kaydedildi",
+      "cancel": "İptal",
+      "downloadPdf": "PDF indir",
+      "downloadDocx": "DOCX indir"
+    },
+    "photoCrop": {
+      "title": "Fotoğrafı kırp",
+      "zoom": "Yakınlaştırma",
+      "rotateLeft": "Sola döndür",
+      "rotateRight": "Sağa döndür",
+      "confirm": "Onayla"
+    },
+    "ats": {
+      "title": "ATS Analizi",
+      "subtitle": "CV'nin ATS sistemleri için ne kadar uygun olduğunu kontrol et.",
+      "jobDescriptionLabel": "İş ilanı metni (opsiyonel)",
+      "jobDescriptionPlaceholder": "Daha doğru bir eşleşme için iş ilanı metnini buraya yapıştır...",
+      "analyze": "Analiz et",
+      "score": "Genel puan",
+      "matchedKeywords": "Eşleşen anahtar kelimeler",
+      "missingKeywords": "Eksik anahtar kelimeler",
+      "issues": "Tespit edilen sorunlar",
+      "noIssues": "Herhangi bir sorun bulunamadı — CV iyi durumda."
     }
+  },
+  "pricingPage": {
+    "title": "Basit, şeffaf fiyatlandırma",
+    "subtitle": "Temel CV oluşturmak her zaman ücretsizdir. Ek özellikler için Pro'ya geç.",
+    "perMonth": "AZN/ay",
+    "freeCta": "Ücretsiz başla",
+    "proCta": "Yakında",
+    "proNotice": "Ödeme sistemi henüz entegre edilmedi — Pro fiyatı yalnızca bilgilendirme amaçlıdır."
+  },
+  "adminPage": {
+    "title": "Yönetim Paneli",
+    "subtitle": "Şablon fiyatlandırması ve Pro planı yapılandırması.",
+    "templatesSectionTitle": "Şablonlar",
+    "templateName": "Ad",
+    "templateCategory": "Kategori",
+    "templateStatus": "Durum",
+    "pricingSectionTitle": "Pro Planı",
+    "proPriceLabel": "Pro fiyatı (AZN/ay)",
+    "save": "Kaydet",
+    "saved": "Kaydedildi"
   }
 }

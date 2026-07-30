@@ -206,6 +206,7 @@
       "website": "Website",
       "photo": "Photo",
       "uploadPhoto": "Upload photo",
+      "editPhoto": "Edit",
       "removePhoto": "Remove photo",
       "summary": "Brief summary about yourself",
       "company": "Company",
@@ -232,7 +233,49 @@
       "add": "Add",
       "remove": "Remove",
       "livePreview": "Live Preview",
-      "autosaved": "Autosaved"
+      "autosaved": "Autosaved",
+      "cancel": "Cancel",
+      "downloadPdf": "Download PDF",
+      "downloadDocx": "Download DOCX"
+    },
+    "photoCrop": {
+      "title": "Crop photo",
+      "zoom": "Zoom",
+      "rotateLeft": "Rotate left",
+      "rotateRight": "Rotate right",
+      "confirm": "Confirm"
+    },
+    "ats": {
+      "title": "ATS Analysis",
+      "subtitle": "Check how well your CV matches ATS systems.",
+      "jobDescriptionLabel": "Job description text (optional)",
+      "jobDescriptionPlaceholder": "Paste the job description here for a more accurate match...",
+      "analyze": "Analyze",
+      "score": "Overall score",
+      "matchedKeywords": "Matched keywords",
+      "missingKeywords": "Missing keywords",
+      "issues": "Issues found",
+      "noIssues": "No issues found — your CV looks good."
     }
+  },
+  "pricingPage": {
+    "title": "Simple, transparent pricing",
+    "subtitle": "Building your core CV is always free. Upgrade to Pro for extra features.",
+    "perMonth": "AZN/mo",
+    "freeCta": "Start free",
+    "proCta": "Coming soon",
+    "proNotice": "Payments aren't wired up yet — the Pro price is informational only."
+  },
+  "adminPage": {
+    "title": "Admin Panel",
+    "subtitle": "Template pricing and Pro plan configuration.",
+    "templatesSectionTitle": "Templates",
+    "templateName": "Name",
+    "templateCategory": "Category",
+    "templateStatus": "Status",
+    "pricingSectionTitle": "Pro Plan",
+    "proPriceLabel": "Pro price (AZN/mo)",
+    "save": "Save",
+    "saved": "Saved"
   }
 }

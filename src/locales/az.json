@@ -206,6 +206,7 @@
       "website": "Veb sayt",
       "photo": "Foto",
       "uploadPhoto": "Foto yüklə",
+      "editPhoto": "Redaktə et",
       "removePhoto": "Fotonu sil",
       "summary": "Özün haqqında qısa məlumat",
       "company": "Şirkət",
@@ -232,7 +233,49 @@
       "add": "Əlavə et",
       "remove": "Sil",
       "livePreview": "Canlı Önizləmə",
-      "autosaved": "Avtomatik saxlanıldı"
+      "autosaved": "Avtomatik saxlanıldı",
+      "cancel": "İmtina",
+      "downloadPdf": "PDF yüklə",
+      "downloadDocx": "DOCX yüklə"
+    },
+    "photoCrop": {
+      "title": "Fotonu kəs",
+      "zoom": "Yaxınlaşdırma",
+      "rotateLeft": "Sola çevir",
+      "rotateRight": "Sağa çevir",
+      "confirm": "Təsdiqlə"
+    },
+    "ats": {
+      "title": "ATS Analizi",
+      "subtitle": "CV-nin ATS sistemləri üçün nə dərəcədə uyğun olduğunu yoxla.",
+      "jobDescriptionLabel": "İş elanının mətni (istəyə bağlı)",
+      "jobDescriptionPlaceholder": "Uyğunluğu daha dəqiq ölçmək üçün iş elanının mətnini bura yapışdır...",
+      "analyze": "Analiz et",
+      "score": "Ümumi bal",
+      "matchedKeywords": "Uyğun açar sözlər",
+      "missingKeywords": "Çatışmayan açar sözlər",
+      "issues": "Aşkar edilən problemlər",
+      "noIssues": "Heç bir problem tapılmadı — CV yaxşı vəziyyətdədir."
     }
+  },
+  "pricingPage": {
+    "title": "Sadə, şəffaf qiymətləndirmə",
+    "subtitle": "Əsas CV yaratmaq həmişə pulsuzdur. Əlavə funksiyalar üçün Pro-ya keç.",
+    "perMonth": "AZN/ay",
+    "freeCta": "Pulsuz başla",
+    "proCta": "Tezliklə",
+    "proNotice": "Ödəniş sistemi hələ qoşulmayıb — Pro qiyməti yalnız məlumat xarakterlidir."
+  },
+  "adminPage": {
+    "title": "Admin Panel",
+    "subtitle": "Şablon qiymətləndirməsi və Pro planının konfiqurasiyası.",
+    "templatesSectionTitle": "Şablonlar",
+    "templateName": "Ad",
+    "templateCategory": "Kateqoriya",
+    "templateStatus": "Status",
+    "pricingSectionTitle": "Pro Planı",
+    "proPriceLabel": "Pro qiyməti (AZN/ay)",
+    "save": "Yadda saxla",
+    "saved": "Yadda saxlanıldı"
   }
 }

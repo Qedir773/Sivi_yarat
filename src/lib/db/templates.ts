@@ -53,3 +53,14 @@ export function getTemplatePricing(): Record<string, boolean> {
 
   return pricing;
 }
+
+/** Server-only: admin panel writes here to flip a template's Free/Pro flag. */
+export function setTemplatePricing(templateId: string, isPro: boolean): void {
+  const db = getDb();
+  ensureSchema(db);
+  seedIfEmpty(db);
+
+  db.prepare(
+    "INSERT INTO template_pricing (template_id, is_pro) VALUES (?, ?) ON CONFLICT(template_id) DO UPDATE SET is_pro = excluded.is_pro",
+  ).run(templateId, isPro ? 1 : 0);
+}

@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Controller, type Control, type UseFormRegister } from "react-hook-form";
-import { Upload, X } from "lucide-react";
+import { Pencil, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PhotoCropDialog } from "@/components/editor/photo-crop-dialog";
 import type { CVFormValues } from "@/lib/validation/cv-schema";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
@@ -22,15 +23,13 @@ export function PersonalInfoForm({
 }) {
   const { builderPage } = dict;
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [cropSource, setCropSource] = useState<string | null>(null);
 
-  function handleFileChange(
-    event: React.ChangeEvent<HTMLInputElement>,
-    onChange: (value: string) => void,
-  ) {
+  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => onChange(reader.result as string);
+    reader.onload = () => setCropSource(reader.result as string);
     reader.readAsDataURL(file);
     event.target.value = "";
   }
@@ -90,21 +89,39 @@ export function PersonalInfoForm({
                   <Upload /> {builderPage.fields.uploadPhoto}
                 </Button>
                 {field.value ? (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => field.onChange("")}
-                  >
-                    <X /> {builderPage.fields.removePhoto}
-                  </Button>
+                  <>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCropSource(field.value ?? null)}
+                    >
+                      <Pencil /> {builderPage.fields.editPhoto}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => field.onChange("")}
+                    >
+                      <X /> {builderPage.fields.removePhoto}
+                    </Button>
+                  </>
                 ) : null}
                 <input
                   ref={fileInputRef}
                   type="file"
                   accept="image/*"
                   className="hidden"
-                  onChange={(event) => handleFileChange(event, field.onChange)}
+                  onChange={handleFileChange}
+                />
+                <PhotoCropDialog
+                  imageSrc={cropSource}
+                  onOpenChange={(open) => !open && setCropSource(null)}
+                  onConfirm={(dataUrl) => {
+                    field.onChange(dataUrl);
+                    setCropSource(null);
+                  }}
                 />
               </div>
             )}

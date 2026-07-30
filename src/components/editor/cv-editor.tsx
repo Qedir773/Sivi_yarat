@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Download, FileText } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { PersonalInfoForm } from "@/components/forms/personal-info-form";
 import { SummaryForm } from "@/components/forms/summary-form";
 import { ExperienceForm } from "@/components/forms/experience-form";
@@ -19,6 +21,8 @@ import {
 } from "@/lib/validation/cv-schema";
 import { loadDraft, saveDraft } from "@/lib/storage/cv-draft";
 import { getTemplateComponent } from "@/lib/templates/component-loader";
+import { generateCvDocx, downloadBlob } from "@/lib/export/docx-export";
+import { AtsPanel } from "@/components/editor/ats-panel";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
 
@@ -32,6 +36,8 @@ export function CvEditor({ templateId }: { templateId: string }) {
     defaultValues: emptyFormValues(),
     mode: "onBlur",
   });
+
+  const [isExportingDocx, setIsExportingDocx] = useState(false);
 
   const hasLoadedDraft = useRef(false);
   useEffect(() => {
@@ -52,6 +58,17 @@ export function CvEditor({ templateId }: { templateId: string }) {
 
   const cvData = formValuesToCVData(values);
 
+  async function handleDownloadDocx() {
+    setIsExportingDocx(true);
+    try {
+      const blob = await generateCvDocx(cvData);
+      const filename = `${cvData.personalInfo.fullName || "cv"}.docx`;
+      downloadBlob(blob, filename);
+    } finally {
+      setIsExportingDocx(false);
+    }
+  }
+
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
       <div className="mb-8">
@@ -69,13 +86,30 @@ export function CvEditor({ templateId }: { templateId: string }) {
           <LanguagesForm control={control} register={register} />
           <ProjectsForm control={control} register={register} />
           <CertificationsForm control={control} register={register} />
+          <AtsPanel cvData={cvData} />
         </div>
 
         <div className="lg:sticky lg:top-20 lg:h-fit">
-          <p className="mb-2 text-sm font-medium text-muted-foreground">
-            {builderPage.actions.livePreview}
-          </p>
-          <div className="overflow-hidden rounded-xl border shadow-sm">
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <p className="text-sm font-medium text-muted-foreground">
+              {builderPage.actions.livePreview}
+            </p>
+            <div className="flex gap-2">
+              <Button type="button" size="sm" variant="outline" onClick={() => window.print()}>
+                <FileText /> {builderPage.actions.downloadPdf}
+              </Button>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                onClick={handleDownloadDocx}
+                disabled={isExportingDocx}
+              >
+                <Download /> {builderPage.actions.downloadDocx}
+              </Button>
+            </div>
+          </div>
+          <div id="cv-print-area" className="overflow-hidden rounded-xl border shadow-sm">
             {/* getTemplateComponent caches by id in a module-level map, so the same
                 templateId always resolves to the identical component reference —
                 safe despite the rule's generic "don't build components in render" check. */}

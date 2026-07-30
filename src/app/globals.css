@@ -128,3 +128,26 @@
     @apply font-sans;
   }
 }
+
+/* Print-to-PDF: only the live CV preview (#cv-print-area) survives printing,
+   so "Save as PDF" in the browser print dialog produces a clean, text-selectable
+   A4 page instead of the whole app chrome. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #cv-print-area,
+  #cv-print-area * {
+    visibility: visible;
+  }
+  #cv-print-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
