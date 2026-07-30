@@ -255,7 +255,7 @@
       "dialogTitle": "AI ilə Təkmilləşdirilmiş Mətn",
       "loadingModel": "AI modeli yüklənir (yalnız ilk dəfə)...",
       "generating": "Mətn təkmilləşdirilir...",
-      "note": "Nəticə kiçik, brauzerdaxili AI modelindən gəlir — tətbiq etməzdən əvvəl yoxlayıb lazım gələrsə redaktə edin.",
+      "note": "Nəticə, quraşdırılmış Gemini açarınız varsa ondan, əks halda brauzerdaxili pulsuz AI modelindən avtomatik gəlir — tətbiq etməzdən əvvəl yoxlayıb lazım gələrsə redaktə edin.",
       "apply": "Tətbiq et",
       "cancel": "İmtina"
     },
@@ -299,8 +299,8 @@
   },
   "coverLetterPage": {
     "title": "Motivasiya Məktubu Generatoru",
-    "subtitle": "Vakansiya elanına uyğun peşəkar motivasiya məktubu yaradın — brauzerinizdə, lokal AI modeli ilə, heç bir ödəniş olmadan.",
-    "aiNotice": "Nəticə kiçik, brauzerdaxili AI modelindən gəlir — mütləq özünüz oxuyub redaktə edin.",
+    "subtitle": "Vakansiya elanına uyğun peşəkar motivasiya məktubu yaradın — Gemini açarınız varsa ondan, yoxdursa brauzerdaxili pulsuz AI modelindən avtomatik istifadə olunur.",
+    "aiNotice": "Nəticə, quraşdırılmış Gemini açarınız varsa ondan, əks halda brauzerdaxili pulsuz AI modelindən avtomatik gəlir — mütləq özünüz oxuyub redaktə edin.",
     "fullNameLabel": "Ad Soyad",
     "jobTitleLabel": "Müraciət etdiyiniz vəzifə",
     "companyLabel": "Şirkət adı",

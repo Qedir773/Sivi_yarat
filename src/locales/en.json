@@ -255,7 +255,7 @@
       "dialogTitle": "AI-Enhanced Text",
       "loadingModel": "Loading AI model (first time only)...",
       "generating": "Enhancing text...",
-      "note": "The result comes from a small in-browser AI model — review and edit it if needed before applying.",
+      "note": "The result comes from your configured Gemini key when available, otherwise it automatically falls back to a free in-browser AI model — review and edit it if needed before applying.",
       "apply": "Apply",
       "cancel": "Cancel"
     },
@@ -299,8 +299,8 @@
   },
   "coverLetterPage": {
     "title": "Cover Letter Generator",
-    "subtitle": "Generate a professional cover letter tailored to a job posting — in your browser, with a local AI model, completely free.",
-    "aiNotice": "The result comes from a small in-browser AI model — always review and edit it yourself.",
+    "subtitle": "Generate a professional cover letter tailored to a job posting — automatically uses your configured Gemini key when available, otherwise a free in-browser AI model.",
+    "aiNotice": "The result comes from your configured Gemini key when available, otherwise a free in-browser AI model — always review and edit it yourself.",
     "fullNameLabel": "Full name",
     "jobTitleLabel": "Position you're applying for",
     "companyLabel": "Company name",
