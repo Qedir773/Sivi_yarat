@@ -44,12 +44,14 @@ export function CoverLetterGenerator() {
   const [result, setResult] = useState("");
   const [stage, setStage] = useState<GenerationStage>("idle");
   const [copied, setCopied] = useState(false);
+  const [error, setError] = useState(false);
 
   const isBusy = stage !== "idle";
 
   async function handleGenerate() {
     setStage("loading-model");
     setCopied(false);
+    setError(false);
     try {
       const provider = getTextGenerationProvider();
       setStage("generating");
@@ -62,6 +64,8 @@ export function CoverLetterGenerator() {
         { role: "user", content: buildPrompt({ fullName, jobTitle, company, jobDescription, keyPoints }) },
       ]);
       setResult(output);
+    } catch {
+      setError(true);
     } finally {
       setStage("idle");
     }
@@ -138,6 +142,7 @@ export function CoverLetterGenerator() {
                 ? coverLetterPage.generating
                 : coverLetterPage.generate}
           </Button>
+          {error && <p className="text-sm text-destructive">{coverLetterPage.generateError}</p>}
         </CardContent>
       </Card>
 

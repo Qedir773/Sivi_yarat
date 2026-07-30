@@ -256,6 +256,7 @@
       "loadingModel": "Loading AI model (first time only)...",
       "generating": "Enhancing text...",
       "note": "The result comes from your configured Gemini key when available, otherwise it automatically falls back to a free in-browser AI model — review and edit it if needed before applying.",
+      "error": "The AI service hit a temporary issue (e.g. rate limit) — please try again in a moment.",
       "apply": "Apply",
       "cancel": "Cancel"
     },
@@ -312,6 +313,7 @@
     "loadingModel": "Loading AI model (first time only)...",
     "generating": "Generating text...",
     "resultLabel": "Generated text (you can edit it)",
+    "generateError": "The AI service hit a temporary issue (e.g. rate limit) — please try again in a moment.",
     "copy": "Copy",
     "copied": "Copied!",
     "download": "Download (.txt)"

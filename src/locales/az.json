@@ -256,6 +256,7 @@
       "loadingModel": "AI modeli yüklənir (yalnız ilk dəfə)...",
       "generating": "Mətn təkmilləşdirilir...",
       "note": "Nəticə, quraşdırılmış Gemini açarınız varsa ondan, əks halda brauzerdaxili pulsuz AI modelindən avtomatik gəlir — tətbiq etməzdən əvvəl yoxlayıb lazım gələrsə redaktə edin.",
+      "error": "AI xidmətində müvəqqəti problem yarandı (məsələn, sorğu limiti) — bir azdan yenidən cəhd edin.",
       "apply": "Tətbiq et",
       "cancel": "İmtina"
     },
@@ -312,6 +313,7 @@
     "loadingModel": "AI modeli yüklənir (yalnız ilk dəfə)...",
     "generating": "Mətn generasiya olunur...",
     "resultLabel": "Yaradılan mətn (redaktə edə bilərsiniz)",
+    "generateError": "AI xidmətində müvəqqəti problem yarandı (məsələn, sorğu limiti) — bir azdan yenidən cəhd edin.",
     "copy": "Kopyala",
     "copied": "Kopyalandı!",
     "download": "Yüklə (.txt)"

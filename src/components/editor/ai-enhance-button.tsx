@@ -17,7 +17,7 @@ import { siteConfig } from "@/config/site";
 
 const dict = getDictionary(siteConfig.defaultLocale);
 
-type Stage = "idle" | "loading-model" | "generating" | "done";
+type Stage = "idle" | "loading-model" | "generating" | "done" | "error";
 
 interface AiEnhanceButtonProps {
   currentText: string;
@@ -48,8 +48,7 @@ export function AiEnhanceButton({ currentText, onApply }: AiEnhanceButtonProps) 
       setResult(output);
       setStage("done");
     } catch {
-      setStage("idle");
-      setOpen(false);
+      setStage("error");
     }
   }
 
@@ -79,6 +78,8 @@ export function AiEnhanceButton({ currentText, onApply }: AiEnhanceButtonProps) 
               <Loader2 className="size-6 animate-spin" />
               {stage === "loading-model" ? aiEnhance.loadingModel : aiEnhance.generating}
             </div>
+          ) : stage === "error" ? (
+            <p className="py-8 text-center text-sm text-destructive">{aiEnhance.error}</p>
           ) : (
             <>
               <p className="text-sm text-muted-foreground">{aiEnhance.note}</p>

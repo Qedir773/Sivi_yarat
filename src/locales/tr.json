@@ -256,6 +256,7 @@
       "loadingModel": "AI modeli yükleniyor (yalnızca ilk seferde)...",
       "generating": "Metin geliştiriliyor...",
       "note": "Sonuç, varsa yapılandırılmış Gemini anahtarınızdan, yoksa tarayıcı içi ücretsiz AI modelinden otomatik olarak geliyor — uygulamadan önce kontrol edip gerekirse düzenleyin.",
+      "error": "AI hizmetinde geçici bir sorun oluştu (örn. istek limiti) — lütfen biraz sonra tekrar deneyin.",
       "apply": "Uygula",
       "cancel": "İptal"
     },
@@ -312,6 +313,7 @@
     "loadingModel": "AI modeli yükleniyor (yalnızca ilk seferde)...",
     "generating": "Metin oluşturuluyor...",
     "resultLabel": "Oluşturulan metin (düzenleyebilirsin)",
+    "generateError": "AI hizmetinde geçici bir sorun oluştu (örn. istek limiti) — lütfen biraz sonra tekrar deneyin.",
     "copy": "Kopyala",
     "copied": "Kopyalandı!",
     "download": "İndir (.txt)"
