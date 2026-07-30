@@ -319,8 +319,6 @@
     "subtitle": "Template pricing and Pro plan configuration.",
     "templatesSectionTitle": "Templates",
     "orderColumn": "Order",
-    "moveUp": "Move up",
-    "moveDown": "Move down",
     "templateName": "Name",
     "templateCategory": "Category",
     "templateStatus": "Status",

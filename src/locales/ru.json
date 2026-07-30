@@ -319,8 +319,6 @@
     "subtitle": "Настройка цен шаблонов и плана Pro.",
     "templatesSectionTitle": "Шаблоны",
     "orderColumn": "Порядок",
-    "moveUp": "Переместить вверх",
-    "moveDown": "Переместить вниз",
     "templateName": "Название",
     "templateCategory": "Категория",
     "templateStatus": "Статус",

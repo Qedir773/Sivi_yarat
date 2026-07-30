@@ -49,20 +49,25 @@ export interface DragHandleProps {
 
 interface SortableRowProps {
   id: string;
+  /** Wrapper element — "tr" lets this render as a direct <tbody> child
+   * instead of an invalid <div>. Defaults to "div" for the CV form lists. */
+  as?: "div" | "tr";
+  className?: string;
   children: (dragHandle: DragHandleProps) => ReactNode;
 }
 
-export function SortableRow({ id, children }: SortableRowProps) {
+export function SortableRow({ id, as = "div", className, children }: SortableRowProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.6 : 1,
   };
+  const Tag = as;
 
   return (
-    <div ref={setNodeRef} style={style}>
+    <Tag ref={setNodeRef} style={style} className={className}>
       {children({ attributes, listeners })}
-    </div>
+    </Tag>
   );
 }
