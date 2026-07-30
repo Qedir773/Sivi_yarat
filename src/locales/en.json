@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "templates": "Templates",
+    "pricing": "Pricing",
+    "howItWorks": "How it works",
+    "faq": "FAQ",
+    "myCvs": "My CVs",
+    "createCv": "Create CV"
+  },
+  "footer": {
+    "privacy": "Privacy policy",
+    "terms": "Terms of use",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "getStarted": "Start building your CV",
+    "browseTemplates": "Browse templates",
+    "toggleTheme": "Toggle theme",
+    "lightMode": "Light mode",
+    "darkMode": "Dark mode",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  }
+}

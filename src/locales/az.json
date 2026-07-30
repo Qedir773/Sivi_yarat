@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "templates": "Şablonlar",
+    "pricing": "Qiymətlər",
+    "howItWorks": "Necə işləyir",
+    "faq": "FAQ",
+    "myCvs": "CV-lərim",
+    "createCv": "CV yarat"
+  },
+  "footer": {
+    "privacy": "Məxfilik siyasəti",
+    "terms": "İstifadə şərtləri",
+    "faq": "FAQ",
+    "contact": "Əlaqə",
+    "rights": "Bütün hüquqlar qorunur."
+  },
+  "common": {
+    "getStarted": "CV yaratmağa başla",
+    "browseTemplates": "Şablonlara bax",
+    "toggleTheme": "Rejimi dəyiş",
+    "lightMode": "İşıqlı rejim",
+    "darkMode": "Qaranlıq rejim",
+    "openMenu": "Menyunu aç",
+    "closeMenu": "Menyunu bağla"
+  }
+}

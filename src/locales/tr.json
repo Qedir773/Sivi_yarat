@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "templates": "Şablonlar",
+    "pricing": "Fiyatlandırma",
+    "howItWorks": "Nasıl çalışır",
+    "faq": "SSS",
+    "myCvs": "CV'lerim",
+    "createCv": "CV oluştur"
+  },
+  "footer": {
+    "privacy": "Gizlilik politikası",
+    "terms": "Kullanım şartları",
+    "faq": "SSS",
+    "contact": "İletişim",
+    "rights": "Tüm hakları saklıdır."
+  },
+  "common": {
+    "getStarted": "CV oluşturmaya başla",
+    "browseTemplates": "Şablonlara göz at",
+    "toggleTheme": "Temayı değiştir",
+    "lightMode": "Aydınlık mod",
+    "darkMode": "Karanlık mod",
+    "openMenu": "Menüyü aç",
+    "closeMenu": "Menüyü kapat"
+  }
+}
