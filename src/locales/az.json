@@ -328,7 +328,8 @@
     "pricingSectionTitle": "Pro Planı",
     "proPriceLabel": "Pro qiyməti (AZN/ay)",
     "save": "Yadda saxla",
-    "saved": "Yadda saxlanıldı"
+    "saved": "Yadda saxlanıldı",
+    "saveError": "Yadda saxlanmadı — sessiyanız bitmiş ola bilər, səhifəni yeniləyin."
   },
   "legal": {
     "privacy": {

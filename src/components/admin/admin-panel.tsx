@@ -33,6 +33,10 @@ export function AdminPanel({ templates, pricing, proPrice }: AdminPanelProps) {
   const [orderedTemplates, setOrderedTemplates] = useState(templates);
   const [priceInput, setPriceInput] = useState(proPrice.toString());
   const [priceSaved, setPriceSaved] = useState(false);
+  const [templatesSaved, setTemplatesSaved] = useState(false);
+  const [pricingSaved, setPricingSaved] = useState(false);
+  const [templatesError, setTemplatesError] = useState<string | null>(null);
+  const [pricingError, setPricingError] = useState<string | null>(null);
   const [, startTransition] = useTransition();
 
   function handleTogglePro(templateId: string, isPro: boolean) {
@@ -41,11 +45,15 @@ export function AdminPanel({ templates, pricing, proPrice }: AdminPanelProps) {
     // rewind so the UI reflects reality instead of a phantom state.
     const previous = pricingState[templateId];
     setPricingState((prev) => ({ ...prev, [templateId]: isPro }));
+    setPricingSaved(false);
+    setPricingError(null);
     startTransition(async () => {
       try {
         await updateTemplatePricing(templateId, isPro);
+        setPricingSaved(true);
       } catch {
         setPricingState((prev) => ({ ...prev, [templateId]: previous }));
+        setPricingError(adminPage.saveError);
       }
     });
   }
@@ -56,11 +64,15 @@ export function AdminPanel({ templates, pricing, proPrice }: AdminPanelProps) {
     reordered.splice(toIndex, 0, moved);
     const previous = orderedTemplates;
     setOrderedTemplates(reordered);
+    setTemplatesSaved(false);
+    setTemplatesError(null);
     startTransition(async () => {
       try {
         await updateTemplateOrder(reordered.map((template) => template.id));
+        setTemplatesSaved(true);
       } catch {
         setOrderedTemplates(previous);
+        setTemplatesError(adminPage.saveError);
       }
     });
   }
@@ -121,6 +133,28 @@ export function AdminPanel({ templates, pricing, proPrice }: AdminPanelProps) {
             <CardTitle>{adminPage.templatesSectionTitle}</CardTitle>
           </CardHeader>
           <CardContent>
+            <div className="mb-3 flex flex-wrap items-center gap-2 text-sm">
+              {templatesSaved ? (
+                <span className="text-emerald-600" role="status" aria-live="polite">
+                  {adminPage.saved}
+                </span>
+              ) : null}
+              {templatesError ? (
+                <span className="text-destructive" role="alert">
+                  {templatesError}
+                </span>
+              ) : null}
+              {pricingSaved ? (
+                <span className="text-emerald-600" role="status" aria-live="polite">
+                  {adminPage.saved}
+                </span>
+              ) : null}
+              {pricingError ? (
+                <span className="text-destructive" role="alert">
+                  {pricingError}
+                </span>
+              ) : null}
+            </div>
             <div className="overflow-x-auto">
               <SortableFieldList
                 ids={orderedTemplates.map((template) => template.id)}

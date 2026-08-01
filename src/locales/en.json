@@ -325,6 +325,7 @@
     "pricingSectionTitle": "Pro Plan",
     "proPriceLabel": "Pro price (AZN/mo)",
     "save": "Save",
-    "saved": "Saved"
+    "saved": "Saved",
+    "saveError": "Save failed — your session may have expired. Refresh the page."
   }
 }

@@ -325,6 +325,7 @@
     "pricingSectionTitle": "Pro Planı",
     "proPriceLabel": "Pro fiyatı (AZN/ay)",
     "save": "Kaydet",
-    "saved": "Kaydedildi"
+    "saved": "Kaydedildi",
+    "saveError": "Kaydedilemedi — oturumunuz sona ermiş olabilir. Sayfayı yenileyin."
   }
 }
