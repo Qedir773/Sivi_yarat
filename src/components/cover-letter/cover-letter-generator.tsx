@@ -51,11 +51,15 @@ export function CoverLetterGenerator() {
 
   // Avtomatik hündürlük tənzimləmə — bütün yaradılmış mətn həmişə görünsün,
   // brauzerin field-sizing-content dəstəyindən asılı olmayaraq.
-  useEffect(() => {
+  function resizeResult() {
     const el = resultRef.current;
     if (!el) return;
     el.style.height = "auto";
     el.style.height = `${el.scrollHeight}px`;
+  }
+
+  useEffect(() => {
+    resizeResult();
   }, [result]);
 
   async function handleGenerate() {
@@ -65,14 +69,17 @@ export function CoverLetterGenerator() {
     try {
       const provider = getTextGenerationProvider();
       setStage("generating");
-      const output = await provider.generate([
-        {
-          role: "system",
-          content:
-            "Sən peşəkar HR mütəxəssisisən. İstifadəçinin verdiyi məlumatlara əsasən Azərbaycan dilində qısa, peşəkar və səmimi bir motivasiya məktubu (cover letter) yaz. Yalnız məktubun mətnini qaytar, əlavə izahat və başlıq yazma.",
-        },
-        { role: "user", content: buildPrompt({ fullName, jobTitle, company, jobDescription, keyPoints }) },
-      ]);
+      const output = await provider.generate(
+        [
+          {
+            role: "system",
+            content:
+              "Sən peşəkar HR mütəxəssisisən. İstifadəçinin verdiyi məlumatlara əsasən Azərbaycan dilində qısa, peşəkar və səmimi bir motivasiya məktubu (cover letter) yaz. Yalnız məktubun mətnini qaytar, əlavə izahat və başlıq yazma.",
+          },
+          { role: "user", content: buildPrompt({ fullName, jobTitle, company, jobDescription, keyPoints }) },
+        ],
+        { maxNewTokens: 800 },
+      );
       setResult(output);
     } catch {
       setError(true);
@@ -166,8 +173,11 @@ export function CoverLetterGenerator() {
               ref={resultRef}
               rows={14}
               value={result}
-              onChange={(e) => setResult(e.target.value)}
-              className="field-sizing-fixed resize-none overflow-hidden"
+              onChange={(e) => {
+                setResult(e.target.value);
+                resizeResult();
+              }}
+              className="!field-sizing-fixed resize-none overflow-hidden"
             />
             <div className="flex gap-2">
               <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
