@@ -23,11 +23,20 @@ function buildPrompt(fields: {
   jobDescription: string;
   keyPoints: string;
 }) {
+  // Brauzerdaxili modelin kontekst pəncərəsi məhduddur (Qwen2.5-0.5B üçün
+  // 4096 token), ona görə çox uzun vakansiya elanı prompt-u şişirdib
+  // generation üçün token qoymaya bilər — vakansiya mətnini 800 simvola
+  // qədər kəsirik ki, həm kontekstə yer qalsın, həm model tam məktub yaza bilsin.
+  const truncatedJobDescription =
+    fields.jobDescription.length > 800
+      ? `${fields.jobDescription.slice(0, 800).trimEnd()}…`
+      : fields.jobDescription;
+
   return [
     `Ad Soyad: ${fields.fullName || "—"}`,
     `Müraciət etdiyi vəzifə: ${fields.jobTitle || "—"}`,
     `Şirkət: ${fields.company || "—"}`,
-    fields.jobDescription ? `Vakansiya elanı:\n${fields.jobDescription}` : "",
+    truncatedJobDescription ? `Vakansiya elanı:\n${truncatedJobDescription}` : "",
     fields.keyPoints ? `Vurğulanmalı bacarıq/nailiyyətlər:\n${fields.keyPoints}` : "",
   ]
     .filter(Boolean)
@@ -78,8 +87,9 @@ export function CoverLetterGenerator() {
           },
           { role: "user", content: buildPrompt({ fullName, jobTitle, company, jobDescription, keyPoints }) },
         ],
-        { maxNewTokens: 800 },
+        { maxNewTokens: 1500 },
       );
+      console.log("[cover-letter] raw AI output:", JSON.stringify(output));
       setResult(output);
     } catch {
       setError(true);
