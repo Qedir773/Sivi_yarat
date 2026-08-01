@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { cache } from "react";
 
 const TEMPLATES_DIR = join(process.cwd(), "src", "templates");
 
@@ -32,11 +33,19 @@ function isTemplateConfig(value: unknown): value is TemplateConfig {
 }
 
 /**
- * Scans src/templates/* for template.json files. Dropping a new folder
- * with a valid template.json + Template.tsx there is enough for it to be
- * discovered on the next rebuild — no registry code to edit.
+ * Reads every `template.json` under src/templates/*.
+ *
+ * Wrapped with React.cache() so multiple components in the same render tree
+ * share a single filesystem scan. This addresses the original perf issue:
+ * before the wrapper, /templates, /v2/templates, /admin, etc. each did 18+
+ * readFileSync calls per render.
+ *
+ * Note: we don't use unstable_cache here because Next.js 16's
+ * `unstable_cache` always returns a Promise and forces callers to await,
+ * which would ripple through every page. React.cache is the right tool
+ * for per-request memoization of sync work.
  */
-export function discoverTemplates(): TemplateConfig[] {
+function _discoverTemplates(): TemplateConfig[] {
   if (!existsSync(TEMPLATES_DIR)) return [];
 
   const entries = readdirSync(TEMPLATES_DIR, { withFileTypes: true });
@@ -59,3 +68,5 @@ export function discoverTemplates(): TemplateConfig[] {
 
   return configs.sort((a, b) => a.id.localeCompare(b.id));
 }
+
+export const discoverTemplates: () => TemplateConfig[] = cache(_discoverTemplates);

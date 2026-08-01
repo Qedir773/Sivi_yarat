@@ -29,11 +29,13 @@ export function AiEnhanceButton({ currentText, onApply }: AiEnhanceButtonProps) 
   const [open, setOpen] = useState(false);
   const [stage, setStage] = useState<Stage>("idle");
   const [result, setResult] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   async function handleOpen() {
     setOpen(true);
     setStage("loading-model");
     setResult("");
+    setErrorMessage(null);
     try {
       const provider = getTextGenerationProvider();
       setStage("generating");
@@ -47,7 +49,12 @@ export function AiEnhanceButton({ currentText, onApply }: AiEnhanceButtonProps) 
       ]);
       setResult(output);
       setStage("done");
-    } catch {
+    } catch (error) {
+      // Surface the actual reason so users (and admins) know whether it's a
+      // config issue (no GEMINI_API_KEY) or a transient failure.
+      setErrorMessage(
+        error instanceof Error ? error.message : aiEnhance.error,
+      );
       setStage("error");
     }
   }
@@ -79,7 +86,9 @@ export function AiEnhanceButton({ currentText, onApply }: AiEnhanceButtonProps) 
               {stage === "loading-model" ? aiEnhance.loadingModel : aiEnhance.generating}
             </div>
           ) : stage === "error" ? (
-            <p className="py-8 text-center text-sm text-destructive">{aiEnhance.error}</p>
+            <p className="py-8 text-center text-sm text-destructive" role="alert">
+              {errorMessage ?? aiEnhance.error}
+            </p>
           ) : (
             <>
               <p className="text-sm text-muted-foreground">{aiEnhance.note}</p>

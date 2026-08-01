@@ -16,6 +16,7 @@ import {
 import { Card3D, FadeIn3D, StaggerContainer, StaggerItem } from "@/components/motion/primitives";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
+import { safeFilenameWithExt } from "@/lib/filename";
 import { sampleCV, samplePhotoUrls } from "@/lib/mock/sample-cv";
 import { getTemplateComponent } from "@/lib/templates/component-loader";
 import type { TemplateConfig } from "@/lib/templates/discovery";
@@ -81,7 +82,7 @@ export function TemplatesGallery({ templates, pricing }: GalleryProps) {
       });
       const link = document.createElement("a");
       link.href = canvas.toDataURL("image/png");
-      link.download = `${previewTemplate.config.id}.png`;
+      link.download = safeFilenameWithExt(previewTemplate.config.id, "png", "template");
       link.click();
     } finally {
       setIsExporting(false);

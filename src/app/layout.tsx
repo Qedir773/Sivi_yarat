@@ -5,15 +5,11 @@ import {
   Playfair_Display,
   Poppins,
   Montserrat,
-  Fira_Code,
-  Inter,
 } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { ThemeProvider } from "@/components/layout/theme-provider";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Sidebar } from "@/components/layout/sidebar";
-import { Footer } from "@/components/layout/footer";
+import { publicEnv } from "@/lib/public-env";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,23 +37,13 @@ const montserrat = Montserrat({
   subsets: ["latin"],
 });
 
-const firaCode = Fira_Code({
-  variable: "--font-fira-code",
-  subsets: ["latin"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: new URL(publicEnv.siteUrl),
   openGraph: {
     title: siteConfig.name,
     description: siteConfig.description,
@@ -67,6 +53,15 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Root layout — only the html/body shell, theme provider, and font
+ * variables. Per-route chrome (sidebar/footer) is supplied by each
+ * route group's own layout:
+ *   - (site)/layout.tsx → V1 sidebar + footer
+ *   - (v2)/layout.tsx  → V2 sidebar + footer
+ * That way V2 can render its own shell without V1 ever appearing
+ * in the DOM.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -76,8 +71,14 @@ export default function RootLayout({
     <html
       lang={siteConfig.defaultLocale}
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${playfairDisplay.variable} ${poppins.variable} ${montserrat.variable} ${firaCode.variable} ${inter.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${playfairDisplay.variable} ${poppins.variable} ${montserrat.variable} h-full antialiased`}
     >
+      <head>
+        {/* Tells the browser what color to paint the address bar on mobile,
+            reducing the white-flash before next-themes applies the saved theme. */}
+        <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+      </head>
       <body className="flex min-h-full flex-col">
         <ThemeProvider
           attribute="class"
@@ -85,15 +86,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <TooltipProvider>
-            <div className="grid-bg flex min-h-screen flex-1">
-              <Sidebar />
-              <div className="flex min-w-0 flex-1 flex-col">
-                <main className="flex-1">{children}</main>
-                <Footer />
-              </div>
-            </div>
-          </TooltipProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>

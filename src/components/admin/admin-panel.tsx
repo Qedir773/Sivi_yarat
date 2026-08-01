@@ -36,9 +36,17 @@ export function AdminPanel({ templates, pricing, proPrice }: AdminPanelProps) {
   const [, startTransition] = useTransition();
 
   function handleTogglePro(templateId: string, isPro: boolean) {
+    // Optimistic update — flip locally first, then ask the server to confirm.
+    // If the server action throws (e.g. auth fails after token expiry), we
+    // rewind so the UI reflects reality instead of a phantom state.
+    const previous = pricingState[templateId];
     setPricingState((prev) => ({ ...prev, [templateId]: isPro }));
-    startTransition(() => {
-      updateTemplatePricing(templateId, isPro);
+    startTransition(async () => {
+      try {
+        await updateTemplatePricing(templateId, isPro);
+      } catch {
+        setPricingState((prev) => ({ ...prev, [templateId]: previous }));
+      }
     });
   }
 
@@ -46,18 +54,28 @@ export function AdminPanel({ templates, pricing, proPrice }: AdminPanelProps) {
     const reordered = [...orderedTemplates];
     const [moved] = reordered.splice(fromIndex, 1);
     reordered.splice(toIndex, 0, moved);
+    const previous = orderedTemplates;
     setOrderedTemplates(reordered);
-    startTransition(() => {
-      updateTemplateOrder(reordered.map((template) => template.id));
+    startTransition(async () => {
+      try {
+        await updateTemplateOrder(reordered.map((template) => template.id));
+      } catch {
+        setOrderedTemplates(previous);
+      }
     });
   }
 
   function handleSavePrice() {
     const parsed = Number(priceInput);
     if (Number.isNaN(parsed) || parsed < 0) return;
-    startTransition(() => {
-      updateProPrice(parsed);
-      setPriceSaved(true);
+    startTransition(async () => {
+      try {
+        await updateProPrice(parsed);
+        setPriceSaved(true);
+      } catch {
+        // Server rejected (auth or validation) — leave UI untouched so the
+        // user sees their previous valid value still in place.
+      }
     });
   }
 

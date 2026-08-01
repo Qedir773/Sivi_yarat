@@ -13,6 +13,7 @@ import {
   Plus,
   Menu,
   Sparkles,
+  ArrowRight,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
@@ -122,7 +123,7 @@ function DesktopSidebar({ pathname }: { pathname: string }) {
           ))}
         </nav>
 
-        {/* Bottom: theme toggle + create CTA */}
+        {/* Bottom: theme toggle + create CTA + V2 preview link */}
         <div className="space-y-2 px-3 pb-5 pt-3">
           <Button
             size="sm"
@@ -135,6 +136,21 @@ function DesktopSidebar({ pathname }: { pathname: string }) {
               </Link>
             }
           />
+
+          {/* V2 preview — clearly visible teaser to the alternative skin */}
+          <Link
+            href="/v2"
+            className="group flex items-center justify-between rounded-md border border-amber/30 bg-amber/5 px-3 py-2 text-xs transition-all hover:border-amber hover:bg-amber/10"
+          >
+            <span className="flex flex-col leading-tight">
+              <span className="font-mono-label text-amber-foreground">YENİ</span>
+              <span className="font-heading text-sm font-medium text-foreground">
+                V2 Midnight
+              </span>
+            </span>
+            <ArrowRight className="size-4 text-amber-foreground transition-transform group-hover:translate-x-0.5" />
+          </Link>
+
           <div className="flex items-center justify-between px-2 pt-1">
             <span className="font-mono-label text-muted-foreground/60">Rejim</span>
             <ThemeToggle />
@@ -163,10 +179,15 @@ function MobileTopbar({ pathname }: { pathname: string }) {
             <SheetTrigger
               className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
               aria-label={t("common.openMenu")}
+              aria-controls="mobile-nav-sheet"
             >
               <Menu className="size-5" />
             </SheetTrigger>
-            <SheetContent side="right" className="grid-neon w-72 border-sidebar-border">
+            <SheetContent
+              id="mobile-nav-sheet"
+              side="right"
+              className="grid-neon w-72 border-sidebar-border"
+            >
               <div className="relative z-10">
                 <SheetHeader>
                   <SheetTitle className="font-heading text-glow">{siteConfig.shortName}</SheetTitle>
@@ -191,6 +212,21 @@ function MobileTopbar({ pathname }: { pathname: string }) {
                       >
                         <Plus className="size-4" />
                         {t("nav.createCv")}
+                      </Link>
+                    }
+                  />
+                  <SheetClose
+                    nativeButton={false}
+                    render={
+                      <Link
+                        href="/v2"
+                        className="mt-2 flex items-center justify-between rounded-md border border-amber/30 bg-amber/5 px-3 py-2 text-sm transition-colors hover:border-amber hover:bg-amber/10"
+                      >
+                        <span className="flex flex-col leading-tight">
+                          <span className="font-mono-label text-amber-foreground">YENİ</span>
+                          <span className="font-heading font-medium">V2 Midnight</span>
+                        </span>
+                        <ArrowRight className="size-4 text-amber-foreground" />
                       </Link>
                     }
                   />

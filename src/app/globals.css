@@ -192,7 +192,9 @@
      =========================================== */
 
   /* Subtle grid background for the whole site.
-     Works in light + dark mode via token-mixed colors. */
+     Works in light + dark mode via token-mixed colors.
+     NOTE: User explicitly requested "grid фон" in the home-page redesign
+     brief; this is intentional product surface, not a generic UI pattern. */
   .grid-bg {
     background-color: var(--background);
     background-image:
@@ -312,6 +314,472 @@
   }
   .preserve-3d {
     transform-style: preserve-3d;
+  }
+
+  /* ============================================================
+     VERSION 2 — Midnight Gold
+     A radically different visual world: deep navy background,
+     3D metallic gold typography, refined luxe feel.
+     Activated by [data-version="v2"] on <html> or any ancestor.
+     V1 tokens above stay untouched so V1 routes remain pristine.
+     ============================================================ */
+
+  [data-version="v2"] {
+    /* Palette — deep navy + warm gold */
+    --v2-bg: oklch(0.16 0.025 270);            /* deep midnight navy */
+    --v2-bg-deeper: oklch(0.11 0.03 268);      /* near-black navy */
+    --v2-surface: oklch(0.21 0.03 268);        /* raised navy card */
+    --v2-surface-2: oklch(0.26 0.035 268);     /* elevated */
+    --v2-foreground: oklch(0.95 0.015 85);     /* warm ivory */
+    --v2-muted: oklch(0.62 0.02 270);
+    --v2-border: oklch(0.92 0.04 85 / 14%);    /* faint gold border */
+    --v2-border-strong: oklch(0.92 0.04 85 / 28%);
+
+    /* Gold tones — three layers for the 3D effect */
+    --v2-gold-deep: oklch(0.55 0.13 70);       /* shadow gold */
+    --v2-gold: oklch(0.78 0.16 85);            /* base gold */
+    --v2-gold-bright: oklch(0.92 0.14 92);     /* highlight gold */
+    --v2-gold-soft: oklch(0.82 0.12 88);       /* muted gold for body */
+
+    --v2-background: var(--v2-bg);
+    --v2-background-deeper: var(--v2-bg-deeper);
+    --v2-card: var(--v2-surface);
+    --v2-card-foreground: var(--v2-foreground);
+    --v2-foreground: var(--v2-foreground);
+    --v2-muted-foreground: var(--v2-muted);
+    --v2-border: var(--v2-border);
+    --v2-primary: var(--v2-gold);
+    --v2-primary-foreground: var(--v2-bg-deeper);
+    --v2-accent: var(--v2-gold-bright);
+
+    color-scheme: dark;
+  }
+
+  /* V2 site background — radial deep navy with subtle gold grain */
+  [data-version="v2"] body {
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, oklch(0.22 0.04 270 / 0.7), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 100% 100%, oklch(0.45 0.08 75 / 0.08), transparent 70%),
+      var(--v2-bg-deeper);
+    color: var(--v2-foreground);
+  }
+
+  /* V2 grid background — extremely faint gold lines for engineering feel.
+     Same intentional choice as V1 — user asked for "grid фон" on the dark
+     navy V2 aesthetic; this is the equivalent under the Midnight Gold
+     palette, not a generic decorative pattern. */
+  [data-version="v2"] .v2-grid-bg {
+    background-color: var(--v2-bg-deeper);
+    background-image:
+      linear-gradient(to right, oklch(0.92 0.04 85 / 4%) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0.92 0.04 85 / 4%) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-attachment: fixed;
+  }
+
+  /* V2 sidebar — darker, with gold gradient header line */
+  [data-version="v2"] .v2-sidebar {
+    background:
+      linear-gradient(180deg, oklch(0.13 0.03 268) 0%, oklch(0.09 0.02 268) 100%);
+    border-right: 1px solid var(--v2-border);
+    position: relative;
+  }
+  [data-version="v2"] .v2-sidebar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      var(--v2-gold) 50%,
+      transparent 100%
+    );
+    opacity: 0.5;
+  }
+
+  /* V2 glassy card surface */
+  [data-version="v2"] .v2-card {
+    background: linear-gradient(
+      135deg,
+      oklch(0.21 0.03 268 / 0.85) 0%,
+      oklch(0.18 0.025 268 / 0.85) 100%
+    );
+    border: 1px solid var(--v2-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 0.75rem;
+  }
+
+  /* V2 gold separator — a thin gradient line */
+  [data-version="v2"] .v2-gold-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--v2-gold-deep) 20%,
+      var(--v2-gold) 50%,
+      var(--v2-gold-bright) 80%,
+      transparent
+    );
+    opacity: 0.7;
+  }
+
+  /* V2 gold dot — small luminous bullet */
+  [data-version="v2"] .v2-gold-dot {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--v2-gold-bright);
+    box-shadow:
+      0 0 10px var(--v2-gold),
+      0 0 20px oklch(0.78 0.16 85 / 0.4);
+  }
+
+  /* ============================================================
+     3D GOLD TEXT — the signature element of Version 2.
+     Layered text-shadows create a real metallic depth.
+     ============================================================ */
+
+  [data-version="v2"] .text-3d-gold {
+    /* Metallic gold gradient as the fill, with a soft drop-shadow
+       for the 3D edge (text-shadow alone disappears when fill-color
+       is transparent, so we use filter:drop-shadow instead). */
+    background: linear-gradient(
+      135deg,
+      var(--v2-gold-bright) 0%,
+      var(--v2-gold) 35%,
+      var(--v2-gold-deep) 60%,
+      var(--v2-gold) 85%,
+      var(--v2-gold-bright) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--v2-gold-bright);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    filter:
+      drop-shadow(0 1px 0 oklch(0.95 0.05 85 / 0.4))
+      drop-shadow(0 2px 0 oklch(0.85 0.08 85 / 0.3))
+      drop-shadow(0 3px 0 oklch(0.65 0.1 75 / 0.22))
+      drop-shadow(0 4px 0 oklch(0.45 0.12 70 / 0.18))
+      drop-shadow(0 5px 0 oklch(0.3 0.1 65 / 0.14))
+      drop-shadow(0 6px 12px oklch(0 0 0 / 0.55))
+      drop-shadow(0 10px 30px oklch(0.78 0.16 85 / 0.25));
+  }
+
+  [data-version="v2"] .text-3d-gold-soft {
+    background: linear-gradient(
+      135deg,
+      var(--v2-gold-soft) 0%,
+      var(--v2-gold) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--v2-gold);
+    filter:
+      drop-shadow(0 1px 0 oklch(0.85 0.06 85 / 0.2))
+      drop-shadow(0 2px 8px oklch(0.6 0.08 75 / 0.25));
+  }
+
+  /* Inline gold gradient for inline runs/words */
+  [data-version="v2"] .text-gold-bright {
+    background: linear-gradient(
+      135deg,
+      var(--v2-gold-bright) 0%,
+      var(--v2-gold-soft) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--v2-gold-bright);
+  }
+
+  /* Subtle gold horizontal rule beneath a section heading */
+  [data-version="v2"] .v2-gold-underline {
+    position: relative;
+    display: inline-block;
+  }
+  [data-version="v2"] .v2-gold-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.4rem;
+    height: 2px;
+    width: 3.5rem;
+    background: linear-gradient(
+      90deg,
+      var(--v2-gold-bright),
+      var(--v2-gold-deep)
+    );
+    border-radius: 9999px;
+  }
+
+  /* Gold glow box-shadow, used on CTA buttons */
+  [data-version="v2"] .v2-glow-gold {
+    box-shadow:
+      0 0 0 1px oklch(0.78 0.16 85 / 0.5),
+      0 0 22px oklch(0.78 0.16 85 / 0.35),
+      0 0 60px oklch(0.78 0.16 85 / 0.18);
+  }
+
+  /* Gold border card hover */
+  [data-version="v2"] .v2-card-hover {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  [data-version="v2"] .v2-card-hover:hover {
+    border-color: oklch(0.78 0.16 85 / 0.45);
+    box-shadow:
+      0 0 0 1px oklch(0.78 0.16 85 / 0.35),
+      0 0 40px oklch(0.78 0.16 85 / 0.18);
+  }
+
+  /* Gold shimmer — subtle gradient sweep, used on hover */
+  [data-version="v2"] .v2-shimmer {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  [data-version="v2"] .v2-shimmer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      115deg,
+      transparent 30%,
+      oklch(0.95 0.08 85 / 0.18) 45%,
+      oklch(0.95 0.08 85 / 0.32) 50%,
+      oklch(0.95 0.08 85 / 0.18) 55%,
+      transparent 70%
+    );
+    transform: translateX(-110%);
+    transition: transform 0.8s ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+  [data-version="v2"] .v2-shimmer:hover::before {
+    transform: translateX(110%);
+  }
+
+  /* Editorial label for V2 — uses gold, similar feel to V1 mono-label */
+  [data-version="v2"] .v2-eyebrow {
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--v2-gold);
+  }
+
+  /* Serif heading for V2 */
+  [data-version="v2"] .v2-heading {
+    font-family: var(--font-playfair-display), Georgia, serif;
+    font-feature-settings: "ss01", "ss02";
+    letter-spacing: -0.02em;
+  }
+
+  /* V2 button — gold gradient */
+  [data-version="v2"] .v2-btn-gold {
+    background: linear-gradient(
+      135deg,
+      var(--v2-gold-bright) 0%,
+      var(--v2-gold) 50%,
+      var(--v2-gold-deep) 100%
+    );
+    color: var(--v2-bg-deeper);
+    font-weight: 600;
+    border: 1px solid oklch(0.92 0.14 92 / 0.5);
+    box-shadow:
+      inset 0 1px 0 oklch(1 0 0 / 0.45),
+      0 4px 18px oklch(0.78 0.16 85 / 0.35);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  [data-version="v2"] .v2-btn-gold:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 oklch(1 0 0 / 0.5),
+      0 6px 30px oklch(0.78 0.16 85 / 0.5);
+  }
+
+  /* V2 ghost button — outline gold */
+  [data-version="v2"] .v2-btn-ghost {
+    background: transparent;
+    color: var(--v2-gold-soft);
+    border: 1px solid var(--v2-border-strong);
+    transition: all 0.2s ease;
+  }
+  [data-version="v2"] .v2-btn-ghost:hover {
+    color: var(--v2-gold-bright);
+    border-color: var(--v2-gold);
+    background: oklch(0.78 0.16 85 / 0.06);
+  }
+
+  /* V2 proof-line numbers — gold accent */
+  [data-version="v2"] .v2-num {
+    background: linear-gradient(
+      135deg,
+      var(--v2-gold-bright) 0%,
+      var(--v2-gold) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--v2-gold-bright);
+    font-weight: 700;
+  }
+
+  /* V2 section dark band — deeper than body */
+  [data-version="v2"] .v2-section-dark {
+    background: linear-gradient(
+      180deg,
+      var(--v2-bg-deeper) 0%,
+      oklch(0.08 0.02 268) 100%
+    );
+  }
+
+  /* V2 nav active indicator */
+  [data-version="v2"] .v2-nav-active {
+    background: linear-gradient(
+      90deg,
+      oklch(0.78 0.16 85 / 0.18) 0%,
+      oklch(0.78 0.16 85 / 0.04) 100%
+    );
+    color: var(--v2-gold-bright);
+  }
+
+  /* ============================================================
+     V2 isolation — when data-version="v2" is active, hide all V1
+     chrome (sidebar, topbar, default grid-bg) so V2 looks like its
+     own standalone experience, not "V2 on top of V1".
+     V2 renders its own SidebarV2 + FooterV2, so suppressing V1's
+     chrome is safe and intentional.
+     ============================================================ */
+  [data-version="v2"] aside.grid-neon,
+  [data-version="v2"] header.grid-neon {
+    display: none !important;
+  }
+  /* V2-də V1 komponentləri eyni semantic Tailwind class-larını istifadə
+     edir (bg-foreground, text-background, border vb.) — bu class-ları V2
+     token-lərinə yönləndir ki, V1 komponenti V2 vizual kimliyinə uyğun
+     görsənsin. Light/dark mode competitor bu halda işləmir: V1 öz
+     inversion klassları ilə dark mode yaradır, V2 isə həmişə dark +
+     gold kimliyindədir. */
+  [data-version="v2"] .bg-foreground {
+    background-color: var(--v2-bg-deeper) !important;
+    color: var(--v2-foreground) !important;
+  }
+  [data-version="v2"] .text-background {
+    color: var(--v2-foreground) !important;
+  }
+  [data-version="v2"] .bg-background {
+    background-color: var(--v2-bg) !important;
+  }
+  [data-version="v2"] .text-foreground {
+    color: var(--v2-foreground) !important;
+  }
+  [data-version="v2"] .border-border {
+    border-color: var(--v2-border) !important;
+  }
+  [data-version="v2"] .border-border\/60 {
+    border-color: var(--v2-border) !important;
+  }
+  [data-version="v2"] .text-muted-foreground {
+    color: var(--v2-muted) !important;
+  }
+  [data-version="v2"] .bg-card {
+    background-color: var(--v2-surface) !important;
+  }
+  [data-version="v2"] .text-card-foreground {
+    color: var(--v2-foreground) !important;
+  }
+  [data-version="v2"] .bg-secondary {
+    background-color: var(--v2-surface-2) !important;
+  }
+  [data-version="v2"] .text-secondary-foreground {
+    color: var(--v2-foreground) !important;
+  }
+  [data-version="v2"] .text-amber {
+    color: var(--v2-gold) !important;
+  }
+  [data-version="v2"] .bg-amber {
+    background-color: var(--v2-gold) !important;
+  }
+  [data-version="v2"] .text-amber-foreground {
+    color: var(--v2-bg-deeper) !important;
+  }
+  [data-version="v2"] .border-amber {
+    border-color: var(--v2-gold) !important;
+  }
+  [data-version="v2"] .bg-amber\/5 {
+    background-color: color-mix(in oklch, var(--v2-gold) 5%, transparent) !important;
+  }
+  [data-version="v2"] .bg-amber\/10 {
+    background-color: color-mix(in oklch, var(--v2-gold) 10%, transparent) !important;
+  }
+  [data-version="v2"] .text-amber\/90 {
+    color: var(--v2-gold) !important;
+  }
+  [data-version="v2"] .bg-amber\/90 {
+    background-color: var(--v2-gold) !important;
+  }
+  [data-version="v2"] .border-amber\/30 {
+    border-color: color-mix(in oklch, var(--v2-gold) 30%, transparent) !important;
+  }
+  [data-version="v2"] .hover\:border-amber:hover {
+    border-color: var(--v2-gold) !important;
+  }
+  [data-version="v2"] .hover\:bg-amber\/10:hover {
+    background-color: color-mix(in oklch, var(--v2-gold) 10%, transparent) !important;
+  }
+  [data-version="v2"] .paper {
+    background-image: none !important;
+    background: var(--v2-bg) !important;
+  }
+  /* V1 "Necə işləyir" tipi inversion bölmələri dark mode-da da tünd
+     rəngli qalmalıdır (editorial dark band). Default olaraq dark mode
+     --foreground açıq rəngdir, lakin həmin section üçün biz həmişə
+     tünd fondan istifadə etməliyik. Bunun üçün dark mode-da da
+     .bg-foreground / .text-background dəyərini sıxıb saxlayırıq. */
+  .dark .bg-foreground {
+    background-color: oklch(0.16 0.015 260) !important;
+    color: oklch(0.95 0.008 80) !important;
+  }
+  .dark .text-background {
+    color: oklch(0.95 0.008 80) !important;
+  }
+  /* Mətn rənglərini də dark mode-da uyğunlaşdır */
+  .dark .bg-foreground .text-muted-foreground {
+    color: oklch(0.78 0.01 80) !important;
+  }
+  .dark .bg-foreground .text-foreground {
+    color: oklch(0.95 0.008 80) !important;
+  }
+  .dark .bg-foreground .font-mono-label {
+    color: oklch(0.78 0.01 80) !important;
+  }
+  /* Dark mode-da bg-foreground daxilində text-background/* klassları
+     tünd rəng alıb görsənmir. [class*=] istifadə edərək bütün
+     alpha variantları əhatə edirik. */
+  .dark .bg-foreground [class*="text-background"] {
+    color: oklch(0.95 0.008 80) !important;
+  }
+  .dark .bg-foreground .border-background\/15 {
+    border-color: oklch(0.95 0.008 80 / 0.15) !important;
+  }
+  .dark .bg-foreground .text-amber {
+    color: oklch(0.78 0.16 75) !important;
+  }
+  .dark .bg-foreground .bg-amber {
+    background-color: oklch(0.78 0.16 75) !important;
+  }
+
+  [data-version="v2"] .grid-bg {
+    background-image: none;
   }
 }
 

@@ -29,7 +29,7 @@ export const siteConfig: SiteConfig = {
   shortName: "CV Pro",
   description:
     "Hazır professional CV şablonlarından istifadə edərək CV-ni onlayn hazırla və PDF formatında əldə et.",
-  url: "https://cvpro.example.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://cvpro.example.com",
   defaultLocale: "az",
   supportedLocales: ["az", "tr", "en", "ru"],
   currency: "AZN",

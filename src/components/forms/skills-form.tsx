@@ -70,8 +70,11 @@ export function SkillsForm({
                       name={`skills.${index}.level`}
                       render={({ field: f }) => (
                         <Select
-                          value={String(f.value)}
-                          onValueChange={(value) => f.onChange(Number(value))}
+                          value={String(f.value ?? "")}
+                          onValueChange={(value) => {
+                            const parsed = Number(value);
+                            f.onChange(Number.isFinite(parsed) ? parsed : 1);
+                          }}
                         >
                           <SelectTrigger className="w-full">
                             <SelectValue />

@@ -12,14 +12,17 @@ const ROTATE_INTERVAL_MS = 3500;
  * the actual product instead of a generic static mockup card. */
 export function HeroTemplateShowcase({ templateIds }: { templateIds: string[] }) {
   const [index, setIndex] = useState(0);
+  // Pause auto-rotate on hover/focus so a curious visitor can inspect a
+  // template without the carousel jumping away from them.
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (templateIds.length <= 1) return;
+    if (templateIds.length <= 1 || paused) return;
     const timer = setInterval(() => {
       setIndex((current) => (current + 1) % templateIds.length);
     }, ROTATE_INTERVAL_MS);
     return () => clearInterval(timer);
-  }, [templateIds.length]);
+  }, [templateIds.length, paused]);
 
   if (templateIds.length === 0) return null;
 
@@ -33,7 +36,13 @@ export function HeroTemplateShowcase({ templateIds }: { templateIds: string[] })
   };
 
   return (
-    <div className="mx-auto w-full max-w-sm">
+    <div
+      className="mx-auto w-full max-w-sm"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
       <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl border bg-card shadow-2xl shadow-primary/10">
         <div
           key={activeId}

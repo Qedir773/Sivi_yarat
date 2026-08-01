@@ -25,6 +25,7 @@ import { getSavedCv, updateSavedCvData } from "@/lib/storage/cv-database";
 import { getTemplateComponent } from "@/lib/templates/component-loader";
 import { generateCvDocx, downloadBlob } from "@/lib/export/docx-export";
 import { downloadCvAsPdf } from "@/lib/export/pdf-export";
+import { safeFilenameWithExt } from "@/lib/filename";
 import { downloadCvAsImage } from "@/lib/export/image-export";
 import { AtsPanel } from "@/components/editor/ats-panel";
 import { getDictionary } from "@/locales";
@@ -85,7 +86,7 @@ export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: stri
     setIsExportingDocx(true);
     try {
       const blob = await generateCvDocx(cvData);
-      const filename = `${cvData.personalInfo.fullName || "cv"}.docx`;
+      const filename = safeFilenameWithExt(cvData.personalInfo.fullName || "", "docx");
       downloadBlob(blob, filename);
     } finally {
       setIsExportingDocx(false);
@@ -96,7 +97,7 @@ export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: stri
     if (!previewRef.current) return;
     setIsExportingPdf(true);
     try {
-      const filename = `${cvData.personalInfo.fullName || "cv"}.pdf`;
+      const filename = safeFilenameWithExt(cvData.personalInfo.fullName || "", "pdf");
       await downloadCvAsPdf(previewRef.current, filename);
     } finally {
       setIsExportingPdf(false);
@@ -107,7 +108,7 @@ export function CvEditor({ templateId, cvId }: { templateId: string; cvId?: stri
     if (!previewRef.current) return;
     setIsExportingImage(true);
     try {
-      const filename = `${cvData.personalInfo.fullName || "cv"}.png`;
+      const filename = safeFilenameWithExt(cvData.personalInfo.fullName || "", "png");
       await downloadCvAsImage(previewRef.current, filename);
     } finally {
       setIsExportingImage(false);

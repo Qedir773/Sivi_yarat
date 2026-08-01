@@ -1,23 +1,28 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { setTemplatePricing, setTemplateOrder } from "@/lib/db/templates";
 import { setProPrice } from "@/lib/db/settings";
+import { requireAdmin } from "@/lib/admin-auth";
 
 export async function updateTemplatePricing(templateId: string, isPro: boolean) {
+  await requireAdmin();
   setTemplatePricing(templateId, isPro);
-  revalidatePath("/admin");
-  revalidatePath("/templates");
+  revalidateTag("templates", "max");
+  revalidateTag("pricing", "max");
 }
 
 export async function updateTemplateOrder(orderedIds: string[]) {
+  await requireAdmin();
   setTemplateOrder(orderedIds);
-  revalidatePath("/admin");
-  revalidatePath("/templates");
+  revalidateTag("templates", "max");
 }
 
 export async function updateProPrice(price: number) {
-  setProPrice(price);
-  revalidatePath("/admin");
-  revalidatePath("/pricing");
+  await requireAdmin();
+  if (!Number.isFinite(price) || price < 0) {
+    throw new Error("Invalid price");
+  }
+  setProPrice(Math.round(price));
+  revalidateTag("pricing", "max");
 }

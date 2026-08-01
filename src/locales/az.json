@@ -22,7 +22,10 @@
     "lightMode": "İşıqlı rejim",
     "darkMode": "Qaranlıq rejim",
     "openMenu": "Menyunu aç",
-    "closeMenu": "Menyunu bağla"
+    "closeMenu": "Menyunu bağla",
+    "closeDialog": "Dialoqu bağla",
+    "scrollUp": "Yuxarı",
+    "scrollDown": "Aşağı"
   },
   "home": {
     "hero": {
@@ -326,5 +329,61 @@
     "proPriceLabel": "Pro qiyməti (AZN/ay)",
     "save": "Yadda saxla",
     "saved": "Yadda saxlanıldı"
+  },
+  "legal": {
+    "privacy": {
+      "title": "Məxfilik siyasəti",
+      "intro": "CV Pro istifadəçi məlumatlarınızı necə idarə etdiyini aşağıda tapa bilərsiniz.",
+      "sections": [
+        {
+          "heading": "Məlumatların saxlanması",
+          "body": "Bütün CV məlumatlarınız yalnız brauzerinizin lokal yaddaşında (IndexedDB və localStorage) saxlanılır. Heç bir serverə göndərilmir və üçüncü tərəflərlə paylaşılmır."
+        },
+        {
+          "heading": "Çerezlər (Cookies)",
+          "body": "Yalnız admin paneli üçün sessiya çerezi və tema seçimi üçün zəruri çerezlər istifadə olunur. Reklam və ya izləmə çerezi yoxdur."
+        },
+        {
+          "heading": "AI inteqrasiyaları",
+          "body": "AI ilə Gücləndir və Motivasiya Məktubu funksiyaları, quraşdırılmış Gemini açarınız varsa Google-a, əks halda yalnız brauzerinizdə işləyən lokal modelə sorğu göndərir."
+        },
+        {
+          "heading": "Əlaqə",
+          "body": "Məxfilik sualları üçün info@cvpro.example.com ünvanına yazın."
+        }
+      ]
+    },
+    "terms": {
+      "title": "İstifadə şərtləri",
+      "intro": "CV Pro istifadə edərək aşağıdakı şərtləri qəbul etmiş olursunuz.",
+      "sections": [
+        {
+          "heading": "Xidmətin təsviri",
+          "body": "CV Pro, CV yaratmaq və PDF/şəkil formatında ixrac etmək üçün pulsuz bir onlayn alətdir. Pro planı əlavə funksiyalar təklif edir."
+        },
+        {
+          "heading": "İstifadəçi məsuliyyəti",
+          "body": "Yaratdığınız CV-lərin məzmunu üçün tam məsuliyyət daşıyırsınız. CV Pro-nu qanunsuz məqsədlər üçün istifadə etmək qadağandır."
+        },
+        {
+          "heading": "Məzmunun saxlanması",
+          "body": "Biz sizin CV məlumatlarınızı serverdə saxlamırıq. Silsəniz və ya brauzerin təmizlənsə, məlumatlar geri qaytarıla bilməz."
+        },
+        {
+          "heading": "Zəmanətin istisna edilməsi",
+          "body": "CV Pro 'olduğu kimi' təqdim olunur. Heç bir birbaşa və ya dolayı zəmanət verilmir."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Əlaqə",
+      "intro": "Suallarınız, təklifləriniz və ya problemləriniz üçün bizimlə əlaqə saxlayın.",
+      "emailLabel": "E-poçt",
+      "emailValue": "info@cvpro.example.com",
+      "responseLabel": "Cavab müddəti",
+      "responseValue": "Adətən 1-3 iş günü ərzində.",
+      "supportLabel": "Dəstək mövzusu",
+      "supportValue": "Texniki problemlər, hesab məsələləri, geri əlaqə."
+    }
   }
 }

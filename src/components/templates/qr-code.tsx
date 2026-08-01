@@ -29,6 +29,12 @@ export function QrCode({ url, size = 96, className }: QrCodeProps) {
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={dataUrl} alt="QR" width={size} height={size} className={className} />
+    <img
+      src={dataUrl}
+      alt={`QR kod: ${url}`}
+      width={size}
+      height={size}
+      className={className}
+    />
   );
 }

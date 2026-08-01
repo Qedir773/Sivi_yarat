@@ -9,6 +9,11 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PhotoCropDialog } from "@/components/editor/photo-crop-dialog";
 import type { CVFormValues } from "@/lib/validation/cv-schema";
+import {
+  MAX_PHOTO_BYTES,
+  validatePhotoFile,
+  verifyImageBytes,
+} from "@/lib/file-validation";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
 
@@ -28,8 +33,29 @@ export function PersonalInfoForm({
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
+
+    const validation = validatePhotoFile(file);
+    if (!validation.ok) {
+      const reason =
+        validation.reason === "too_large"
+          ? `Fayl ${Math.round(MAX_PHOTO_BYTES / 1024 / 1024)} MB-dan böyükdür`
+          : "Yalnız JPEG, PNG, WebP və ya GIF şəkillər dəstəklənir";
+      window.alert(reason);
+      event.target.value = "";
+      return;
+    }
+
     const reader = new FileReader();
-    reader.onload = () => setCropSource(reader.result as string);
+    reader.onload = async () => {
+      const dataUrl = reader.result as string;
+      // Second-pass: ensure bytes really decode as an image (catches forged MIME).
+      const real = await verifyImageBytes(dataUrl);
+      if (!real) {
+        window.alert("Fayl şəkil kimi oxunmur — başqa fayl seçin");
+        return;
+      }
+      setCropSource(dataUrl);
+    };
     reader.readAsDataURL(file);
     event.target.value = "";
   }
@@ -111,7 +137,7 @@ export function PersonalInfoForm({
                 <input
                   ref={fileInputRef}
                   type="file"
-                  accept="image/*"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
                   className="hidden"
                   onChange={handleFileChange}
                 />

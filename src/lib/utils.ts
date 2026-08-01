@@ -5,9 +5,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+/**
+ * Generate a cryptographically random UUID. Throws in environments where the
+ * Web Crypto API is unavailable (very old browsers / Node < 19) — modern
+ * targets are guaranteed to support it.
+ */
 export function newId(): string {
-  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
-    return crypto.randomUUID()
+  if (typeof crypto === "undefined" || typeof crypto.randomUUID !== "function") {
+    throw new Error("crypto.randomUUID is unavailable in this environment")
   }
-  return Math.random().toString(36).slice(2)
+  return crypto.randomUUID()
 }

@@ -165,6 +165,9 @@ export function Card3D({
   glow?: boolean;
   intensity?: number;
 }) {
+  // `intensity` is our motion-config knob; it's already destructured above
+  // and is not present in HTMLMotionProps<"div">, so `rest` is DOM-safe.
+  void intensity;
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
