@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, Copy, Download, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,8 +45,18 @@ export function CoverLetterGenerator() {
   const [stage, setStage] = useState<GenerationStage>("idle");
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState(false);
+  const resultRef = useRef<HTMLTextAreaElement>(null);
 
   const isBusy = stage !== "idle";
+
+  // Avtomatik hündürlük tənzimləmə — bütün yaradılmış mətn həmişə görünsün,
+  // brauzerin field-sizing-content dəstəyindən asılı olmayaraq.
+  useEffect(() => {
+    const el = resultRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  }, [result]);
 
   async function handleGenerate() {
     setStage("loading-model");
@@ -152,7 +162,13 @@ export function CoverLetterGenerator() {
             <CardTitle>{coverLetterPage.resultLabel}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Textarea rows={14} value={result} onChange={(e) => setResult(e.target.value)} />
+            <Textarea
+              ref={resultRef}
+              rows={14}
+              value={result}
+              onChange={(e) => setResult(e.target.value)}
+              className="field-sizing-fixed resize-none overflow-hidden"
+            />
             <div className="flex gap-2">
               <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
                 {copied ? <Check className="text-emerald-600" /> : <Copy />}
