@@ -83,13 +83,14 @@ export function CoverLetterGenerator() {
           {
             role: "system",
             content:
-              "Sən peşəkar HR mütəxəssisisən. İstifadəçinin verdiyi məlumatlara əsasən Azərbaycan dilində qısa, peşəkar və səmimi bir motivasiya məktubu (cover letter) yaz. Yalnız məktubun mətnini qaytar, əlavə izahat və başlıq yazma.",
+              "Sən peşəkar HR mütəxəssisisən. İstifadəçinin verdiyi məlumatlara əsasən Azərbaycan dilində tam, peşəkar və səmimi bir motivasiya məktubu yaz. Məktub 3-5 cümlədən ibarət olsun, salamlaşma, əsas motivasiya və bağışlıqla bitsin. Yalnız məktubun mətnini qaytar, əlavə izahat yazma.",
           },
           { role: "user", content: buildPrompt({ fullName, jobTitle, company, jobDescription, keyPoints }) },
         ],
         { maxNewTokens: 1500 },
       );
       console.log("[cover-letter] raw AI output:", JSON.stringify(output));
+      console.log("[cover-letter] output length:", output.length, "chars");
       setResult(output);
     } catch {
       setError(true);
