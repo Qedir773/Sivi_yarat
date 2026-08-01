@@ -1,14 +1,6 @@
 import Link from "next/link";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
 
@@ -19,47 +11,87 @@ export function PricingTeaser() {
   const plans = [pricing.free, pricing.pro] as const;
 
   return (
-    <section className="border-t bg-muted/30">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight">
-            {pricing.title}
-          </h2>
-          <p className="mt-3 text-muted-foreground">{pricing.subtitle}</p>
+    <section className="relative border-t paper">
+      <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:py-32">
+        {/* Header — same editorial pattern as other sections */}
+        <div className="grid grid-cols-1 gap-8 border-b pb-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <span className="font-mono-label text-muted-foreground">
+              Bölmə 05 — Qiymət
+            </span>
+            <h2 className="font-heading mt-4 text-4xl font-medium leading-tight text-balance sm:text-5xl">
+              {pricing.title}
+            </h2>
+          </div>
+          <p className="font-heading text-2xl italic leading-snug text-muted-foreground text-balance lg:col-span-6 lg:col-start-7 lg:text-3xl">
+            {pricing.subtitle}
+          </p>
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
-          {plans.map((plan, i) => (
-            <Card
-              key={plan.title}
-              className={i === 1 ? "border-primary/50 shadow-lg" : undefined}
-            >
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <CardTitle className="text-xl">{plan.title}</CardTitle>
-                  {i === 1 && <Badge>Pro</Badge>}
+        {/* Plans — side-by-side comparison, no card chrome */}
+        <div className="mt-14 grid grid-cols-1 lg:grid-cols-2 lg:gap-0">
+          {plans.map((plan, i) => {
+            const isPro = i === 1;
+            return (
+              <div
+                key={plan.title}
+                className={`relative grid grid-cols-12 gap-6 px-2 py-10 lg:px-10 ${
+                  i === 0 ? "lg:border-r" : ""
+                }`}
+              >
+                {/* Left rail: title + badge */}
+                <div className="col-span-12 lg:col-span-4">
+                  <div className="flex items-baseline gap-3">
+                    <h3 className="font-heading text-3xl font-medium leading-none sm:text-4xl">
+                      {plan.title}
+                    </h3>
+                    {isPro && (
+                      <span className="font-mono-label rounded-sm bg-amber px-2 py-1 text-amber-foreground">
+                        Pro
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {plan.description}
+                  </p>
+
+                  {isPro && (
+                    <p className="font-mono-label mt-6 text-muted-foreground">
+                      Tezliklə
+                    </p>
+                  )}
                 </div>
-                <CardDescription>{plan.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <ul className="space-y-2">
+
+                {/* Features column */}
+                <ul className="col-span-12 space-y-3 lg:col-span-8">
                   {plan.features.map((feature) => (
                     <li
                       key={feature}
-                      className="flex items-center gap-2 text-sm"
+                      className="flex items-start gap-3 border-b border-border/60 pb-3 last:border-b-0"
                     >
-                      <Check className="size-4 shrink-0 text-primary" />
-                      {feature}
+                      <Check
+                        className={`mt-0.5 size-4 shrink-0 ${isPro ? "text-amber" : "text-foreground"}`}
+                        strokeWidth={2}
+                      />
+                      <span className="text-sm leading-snug">{feature}</span>
                     </li>
                   ))}
                 </ul>
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+            );
+          })}
         </div>
 
         <div className="mt-10 flex justify-center">
-          <Button nativeButton={false} render={<Link href="/pricing">{pricing.cta}</Link>} />
+          <Button
+            variant="outline"
+            nativeButton={false}
+            render={
+              <Link href="/pricing" className="gap-2">
+                {pricing.cta}
+              </Link>
+            }
+          />
         </div>
       </div>
     </section>
