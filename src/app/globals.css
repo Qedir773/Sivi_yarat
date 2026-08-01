@@ -41,6 +41,14 @@
   --color-card: var(--card);
   --color-amber: var(--amber);
   --color-amber-foreground: var(--amber-foreground);
+  --color-neon: var(--neon);
+  --color-neon-foreground: var(--neon-foreground);
+  --color-neon-2: var(--neon-2);
+  --color-neon-2-foreground: var(--neon-2-foreground);
+  --color-neon-3: var(--neon-3);
+  --color-neon-3-foreground: var(--neon-3-foreground);
+  --color-violet: var(--neon-2);
+  --color-violet-foreground: var(--neon-2-foreground);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -71,12 +79,19 @@
   --input: oklch(0.18 0.02 260 / 14%);
   --ring: oklch(0.42 0.18 263);
   --chart-1: oklch(0.42 0.18 263);
-  --chart-2: oklch(0.72 0.16 75); /* amber */
+  --chart-2: oklch(0.72 0.16 75);
   --chart-3: oklch(0.55 0.12 180);
   --chart-4: oklch(0.35 0.08 30);
   --chart-5: oklch(0.25 0.05 260);
   --amber: oklch(0.78 0.16 75);
   --amber-foreground: oklch(0.22 0.08 60);
+  /* Neon tokens (light mode: vibrant cyan) */
+  --neon: oklch(0.72 0.2 200);
+  --neon-foreground: oklch(0.18 0.02 260);
+  --neon-2: oklch(0.6 0.25 295); /* violet accent */
+  --neon-2-foreground: oklch(0.98 0 0);
+  --neon-3: oklch(0.78 0.2 340); /* magenta accent */
+  --neon-3-foreground: oklch(0.18 0.02 260);
   --radius: 0.5rem;
   --sidebar: oklch(0.985 0.012 80);
   --sidebar-foreground: oklch(0.18 0.02 260);
@@ -115,14 +130,21 @@
   --chart-5: oklch(0.85 0.05 80);
   --amber: oklch(0.78 0.16 75);
   --amber-foreground: oklch(0.16 0.015 260);
-  --sidebar: oklch(0.21 0.02 260);
+  /* Neon tokens (dark mode: electric) */
+  --neon: oklch(0.85 0.2 200); /* electric cyan */
+  --neon-foreground: oklch(0.12 0.02 260);
+  --neon-2: oklch(0.72 0.26 295); /* electric violet */
+  --neon-2-foreground: oklch(0.98 0 0);
+  --neon-3: oklch(0.82 0.22 340); /* electric magenta */
+  --neon-3-foreground: oklch(0.12 0.02 260);
+  --sidebar: oklch(0.13 0.015 260);
   --sidebar-foreground: oklch(0.95 0.008 80);
-  --sidebar-primary: oklch(0.72 0.16 75);
-  --sidebar-primary-foreground: oklch(0.16 0.015 260);
-  --sidebar-accent: oklch(0.32 0.03 75);
+  --sidebar-primary: oklch(0.78 0.18 200);
+  --sidebar-primary-foreground: oklch(0.12 0.02 260);
+  --sidebar-accent: oklch(0.2 0.025 280);
   --sidebar-accent-foreground: oklch(0.95 0.008 80);
-  --sidebar-border: oklch(0.95 0.008 80 / 12%);
-  --sidebar-ring: oklch(0.72 0.16 75);
+  --sidebar-border: oklch(0.78 0.18 200 / 18%);
+  --sidebar-ring: oklch(0.78 0.18 200);
 }
 
 @layer base {
@@ -163,6 +185,133 @@
     background-image:
       radial-gradient(circle at 20% 30%, oklch(from var(--primary) l c h / 0.025) 0, transparent 50%),
       radial-gradient(circle at 80% 70%, oklch(from var(--amber) l c h / 0.04) 0, transparent 55%);
+  }
+
+  /* ===========================================
+     NEON AESTHETIC — Sidebar + grid background
+     =========================================== */
+
+  /* Subtle grid background for the whole site.
+     Works in light + dark mode via token-mixed colors. */
+  .grid-bg {
+    background-color: var(--background);
+    background-image:
+      linear-gradient(to right, color-mix(in oklch, var(--foreground) 5%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 5%, transparent) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-attachment: fixed;
+  }
+
+  /* Heavier grid for sidebar/dark surfaces */
+  .grid-neon {
+    background-color: var(--sidebar);
+    background-image:
+      linear-gradient(to right, color-mix(in oklch, var(--neon) 18%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklch, var(--neon) 18%, transparent) 1px, transparent 1px);
+    background-size: 28px 28px;
+    position: relative;
+  }
+  .grid-neon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 20%, color-mix(in oklch, var(--neon) 14%, transparent), transparent 50%),
+      radial-gradient(circle at 80% 80%, color-mix(in oklch, var(--violet) 14%, transparent), transparent 55%);
+    pointer-events: none;
+  }
+
+  /* Neon glow effects */
+  .glow-neon {
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--neon) 40%, transparent),
+      0 0 18px color-mix(in oklch, var(--neon) 30%, transparent),
+      0 0 36px color-mix(in oklch, var(--neon) 14%, transparent);
+  }
+  .glow-violet {
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--neon-2) 40%, transparent),
+      0 0 18px color-mix(in oklch, var(--neon-2) 30%, transparent),
+      0 0 36px color-mix(in oklch, var(--neon-2) 14%, transparent);
+  }
+  .glow-magenta {
+    box-shadow:
+      0 0 0 1px color-mix(in oklch, var(--neon-3) 40%, transparent),
+      0 0 18px color-mix(in oklch, var(--neon-3) 30%, transparent),
+      0 0 36px color-mix(in oklch, var(--neon-3) 14%, transparent);
+  }
+  .text-glow {
+    text-shadow:
+      0 0 12px color-mix(in oklch, var(--neon) 50%, transparent),
+      0 0 24px color-mix(in oklch, var(--neon) 25%, transparent);
+  }
+  .text-glow-violet {
+    text-shadow:
+      0 0 12px color-mix(in oklch, var(--neon-2) 50%, transparent),
+      0 0 24px color-mix(in oklch, var(--neon-2) 25%, transparent);
+  }
+  /* Neon underline — animated gradient line under headings */
+  .neon-underline {
+    position: relative;
+  }
+  .neon-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.35rem;
+    height: 3px;
+    width: 3rem;
+    background: linear-gradient(
+      90deg,
+      var(--neon),
+      var(--neon-2),
+      var(--neon-3)
+    );
+    border-radius: 9999px;
+    box-shadow: 0 0 12px color-mix(in oklch, var(--neon) 50%, transparent);
+  }
+  /* Neon dot bullet */
+  .neon-dot {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--neon);
+    box-shadow: 0 0 10px var(--neon), 0 0 20px color-mix(in oklch, var(--neon) 40%, transparent);
+  }
+  .neon-dot-violet {
+    background: var(--neon-2);
+    box-shadow: 0 0 10px var(--neon-2), 0 0 20px color-mix(in oklch, var(--neon-2) 40%, transparent);
+  }
+  .neon-dot-magenta {
+    background: var(--neon-3);
+    box-shadow: 0 0 10px var(--neon-3), 0 0 20px color-mix(in oklch, var(--neon-3) 40%, transparent);
+  }
+  /* Neon divider */
+  .neon-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--neon),
+      var(--neon-2),
+      var(--neon-3),
+      transparent
+    );
+    opacity: 0.6;
+  }
+
+  /* 3D perspective context for motion containers */
+  .perspective-near {
+    perspective: 600px;
+    perspective-origin: center top;
+  }
+  .perspective-far {
+    perspective: 1200px;
+    perspective-origin: center top;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
   }
 }
 

@@ -12,7 +12,7 @@ import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Header } from "@/components/layout/header";
+import { Sidebar } from "@/components/layout/sidebar";
 import { Footer } from "@/components/layout/footer";
 
 const geistSans = Geist({
@@ -86,9 +86,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <div className="grid-bg flex min-h-screen flex-1">
+              <Sidebar />
+              <div className="flex min-w-0 flex-1 flex-col">
+                <main className="flex-1">{children}</main>
+                <Footer />
+              </div>
+            </div>
           </TooltipProvider>
         </ThemeProvider>
       </body>

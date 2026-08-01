@@ -17,8 +17,11 @@ export function CtaBanner() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Massive editorial pull-quote feel */}
           <div className="lg:col-span-9">
-            <span className="font-mono-label text-amber">Son çağırış</span>
-            <h2 className="font-heading mt-6 text-5xl font-medium leading-[1.02] tracking-tight text-balance sm:text-6xl lg:text-7xl xl:text-[5rem]">
+            <span className="font-mono-label flex items-center gap-2 text-neon">
+              <span className="size-1.5 rounded-full bg-neon glow-neon" />
+              Son çağırış
+            </span>
+            <h2 className="font-heading neon-underline mt-6 text-5xl font-medium leading-[1.02] tracking-tight text-balance sm:text-6xl lg:text-7xl xl:text-[5rem]">
               {finalCta.title}
             </h2>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-background/70">
@@ -30,9 +33,10 @@ export function CtaBanner() {
           <div className="flex flex-col items-start gap-8 lg:col-span-3 lg:items-end lg:text-right">
             <Button
               size="lg"
+              className="gap-2 bg-amber text-amber-foreground hover:bg-amber/90"
               nativeButton={false}
               render={
-                <Link href="/builder" className="gap-2 bg-amber text-amber-foreground hover:bg-amber/90">
+                <Link href="/builder">
                   {t("common.getStarted")}
                   <ArrowUpRight className="size-4" />
                 </Link>

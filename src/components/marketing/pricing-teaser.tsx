@@ -14,12 +14,13 @@ export function PricingTeaser() {
     <section className="relative border-t paper">
       <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:py-32">
         {/* Header — same editorial pattern as other sections */}
-        <div className="grid grid-cols-1 gap-8 border-b pb-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid grid-cols-1 gap-8 border-b border-border/60 pb-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <span className="font-mono-label text-muted-foreground">
+            <span className="font-mono-label flex items-center gap-2 text-muted-foreground">
+              <span className="neon-dot-magenta" />
               Bölmə 05 — Qiymət
             </span>
-            <h2 className="font-heading mt-4 text-4xl font-medium leading-tight text-balance sm:text-5xl">
+            <h2 className="font-heading neon-underline mt-4 text-4xl font-medium leading-tight text-balance sm:text-5xl">
               {pricing.title}
             </h2>
           </div>

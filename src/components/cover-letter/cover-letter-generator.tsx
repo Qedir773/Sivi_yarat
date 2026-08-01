@@ -1,16 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { Check, Copy, Download, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { FadeIn3D, PopIn, StaggerContainer, StaggerItem } from "@/components/motion/primitives";
 import { getTextGenerationProvider } from "@/features/ai/registry";
 import { downloadBlob } from "@/lib/export/docx-export";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 const dict = getDictionary(siteConfig.defaultLocale);
 
@@ -110,97 +114,152 @@ export function CoverLetterGenerator() {
   }
 
   return (
-    <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-      <div className="mb-8">
-        <h1 className="text-3xl font-semibold tracking-tight">{coverLetterPage.title}</h1>
-        <p className="mt-2 text-muted-foreground">{coverLetterPage.subtitle}</p>
-      </div>
-
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Sparkles className="size-5 text-primary" />
+    <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 perspective-far">
+      <FadeIn3D as="div">
+        <div className="mb-8">
+          <span className="font-mono-label flex items-center gap-2 text-muted-foreground">
+            <span className="neon-dot-magenta" />
+            Motivasiya Məktubu
+          </span>
+          <h1 className="font-heading neon-underline mt-3 text-4xl font-medium leading-tight tracking-tight">
             {coverLetterPage.title}
-          </CardTitle>
-          <p className="text-sm text-muted-foreground">{coverLetterPage.aiNotice}</p>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="space-y-1.5">
-              <Label htmlFor="cl-fullname">{coverLetterPage.fullNameLabel}</Label>
-              <Input id="cl-fullname" value={fullName} onChange={(e) => setFullName(e.target.value)} />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="cl-jobtitle">{coverLetterPage.jobTitleLabel}</Label>
-              <Input id="cl-jobtitle" value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} />
-            </div>
-            <div className="space-y-1.5 sm:col-span-2">
-              <Label htmlFor="cl-company">{coverLetterPage.companyLabel}</Label>
-              <Input id="cl-company" value={company} onChange={(e) => setCompany(e.target.value)} />
-            </div>
-          </div>
+          </h1>
+          <p className="mt-3 text-muted-foreground">{coverLetterPage.subtitle}</p>
+        </div>
+      </FadeIn3D>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="cl-jobdesc">{coverLetterPage.jobDescriptionLabel}</Label>
-            <Textarea
-              id="cl-jobdesc"
-              rows={5}
-              placeholder={coverLetterPage.jobDescriptionPlaceholder}
-              value={jobDescription}
-              onChange={(e) => setJobDescription(e.target.value)}
-            />
-          </div>
-
-          <div className="space-y-1.5">
-            <Label htmlFor="cl-keypoints">{coverLetterPage.keyPointsLabel}</Label>
-            <Textarea
-              id="cl-keypoints"
-              rows={3}
-              placeholder={coverLetterPage.keyPointsPlaceholder}
-              value={keyPoints}
-              onChange={(e) => setKeyPoints(e.target.value)}
-            />
-          </div>
-
-          <Button type="button" onClick={handleGenerate} disabled={isBusy}>
-            {isBusy ? <Loader2 className="animate-spin" /> : <Sparkles />}
-            {stage === "loading-model"
-              ? coverLetterPage.loadingModel
-              : stage === "generating"
-                ? coverLetterPage.generating
-                : coverLetterPage.generate}
-          </Button>
-          {error && <p className="text-sm text-destructive">{coverLetterPage.generateError}</p>}
-        </CardContent>
-      </Card>
-
-      {result ? (
-        <Card>
+      <FadeIn3D as="div" delay={0.1}>
+        <Card className="mb-6 border-border/60">
           <CardHeader>
-            <CardTitle>{coverLetterPage.resultLabel}</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              <PopIn>
+                <span className="flex size-7 items-center justify-center rounded-md bg-neon/10 text-neon glow-neon">
+                  <Sparkles className="size-4" />
+                </span>
+              </PopIn>
+              {coverLetterPage.title}
+            </CardTitle>
+            <p className="text-sm text-muted-foreground">{coverLetterPage.aiNotice}</p>
           </CardHeader>
-          <CardContent className="space-y-3">
-            <Textarea
-              ref={resultRef}
-              rows={14}
-              value={result}
-              onChange={(e) => {
-                setResult(e.target.value);
-                resizeResult();
-              }}
-              className="!field-sizing-fixed resize-none overflow-hidden"
-            />
-            <div className="flex gap-2">
-              <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
-                {copied ? <Check className="text-emerald-600" /> : <Copy />}
-                {copied ? coverLetterPage.copied : coverLetterPage.copy}
+          <CardContent className="space-y-4">
+            <StaggerContainer as="div" className="space-y-4">
+              <StaggerItem variant="up" as="div">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="cl-fullname">{coverLetterPage.fullNameLabel}</Label>
+                    <Input id="cl-fullname" value={fullName} onChange={(e) => setFullName(e.target.value)} />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="cl-jobtitle">{coverLetterPage.jobTitleLabel}</Label>
+                    <Input id="cl-jobtitle" value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} />
+                  </div>
+                  <div className="space-y-1.5 sm:col-span-2">
+                    <Label htmlFor="cl-company">{coverLetterPage.companyLabel}</Label>
+                    <Input id="cl-company" value={company} onChange={(e) => setCompany(e.target.value)} />
+                  </div>
+                </div>
+              </StaggerItem>
+
+              <StaggerItem variant="up" as="div">
+                <div className="space-y-1.5">
+                  <Label htmlFor="cl-jobdesc">{coverLetterPage.jobDescriptionLabel}</Label>
+                  <Textarea
+                    id="cl-jobdesc"
+                    rows={5}
+                    placeholder={coverLetterPage.jobDescriptionPlaceholder}
+                    value={jobDescription}
+                    onChange={(e) => setJobDescription(e.target.value)}
+                  />
+                </div>
+              </StaggerItem>
+
+              <StaggerItem variant="up" as="div">
+                <div className="space-y-1.5">
+                  <Label htmlFor="cl-keypoints">{coverLetterPage.keyPointsLabel}</Label>
+                  <Textarea
+                    id="cl-keypoints"
+                    rows={3}
+                    placeholder={coverLetterPage.keyPointsPlaceholder}
+                    value={keyPoints}
+                    onChange={(e) => setKeyPoints(e.target.value)}
+                  />
+                </div>
+              </StaggerItem>
+            </StaggerContainer>
+
+            <motion.div
+              className="flex flex-wrap items-center gap-3"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: EASE, delay: 0.4 }}
+            >
+              <Button
+                type="button"
+                onClick={handleGenerate}
+                disabled={isBusy}
+                className="bg-neon text-neon-foreground hover:bg-neon/90 glow-neon disabled:opacity-60 disabled:glow-none"
+              >
+                {isBusy ? <Loader2 className="animate-spin" /> : <Sparkles />}
+                {stage === "loading-model"
+                  ? coverLetterPage.loadingModel
+                  : stage === "generating"
+                    ? coverLetterPage.generating
+                    : coverLetterPage.generate}
               </Button>
-              <Button type="button" variant="outline" size="sm" onClick={handleDownload}>
-                <Download /> {coverLetterPage.download}
-              </Button>
-            </div>
+              {isBusy && (
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="font-mono-label text-muted-foreground"
+                >
+                  AI işləyir...
+                </motion.span>
+              )}
+            </motion.div>
+            {error && <p className="text-sm text-destructive">{coverLetterPage.generateError}</p>}
           </CardContent>
         </Card>
+      </FadeIn3D>
+
+      {result ? (
+        <motion.div
+          initial={{ opacity: 0, y: 32, rotateX: -8, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+          transition={{ duration: 0.7, ease: EASE }}
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          <Card className="border-neon/30 shadow-[0_0_50px_-12px_oklch(0.78_0.18_200/0.35)]">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <PopIn>
+                  <span className="size-2 rounded-full bg-neon glow-neon" />
+                </PopIn>
+                {coverLetterPage.resultLabel}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <Textarea
+                ref={resultRef}
+                rows={14}
+                value={result}
+                onChange={(e) => {
+                  setResult(e.target.value);
+                  resizeResult();
+                }}
+                className="!field-sizing-fixed resize-none overflow-hidden"
+              />
+              <div className="flex gap-2">
+                <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
+                  {copied ? <Check className="text-emerald-600" /> : <Copy />}
+                  {copied ? coverLetterPage.copied : coverLetterPage.copy}
+                </Button>
+                <Button type="button" variant="outline" size="sm" onClick={handleDownload}>
+                  <Download /> {coverLetterPage.download}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
       ) : null}
     </section>
   );

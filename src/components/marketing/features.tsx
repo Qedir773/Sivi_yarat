@@ -58,12 +58,13 @@ export function Features() {
     <section className="relative">
       <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:py-32">
         {/* Section header — asymmetric editorial */}
-        <div className="grid grid-cols-1 gap-8 border-b pb-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid grid-cols-1 gap-8 border-b border-border/60 pb-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
-            <span className="font-mono-label text-muted-foreground">
+            <span className="font-mono-label flex items-center gap-2 text-muted-foreground">
+              <span className="neon-dot" />
               Bölmə 02 — Niyə biz?
             </span>
-            <h2 className="font-heading mt-4 text-4xl font-medium leading-tight text-balance sm:text-5xl">
+            <h2 className="font-heading neon-underline mt-4 text-4xl font-medium leading-tight text-balance sm:text-5xl">
               {features.title}
             </h2>
           </div>

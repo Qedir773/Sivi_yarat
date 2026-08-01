@@ -17,10 +17,11 @@ export function TemplatesTeaser() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Header column */}
           <div className="lg:col-span-4">
-            <span className="font-mono-label text-muted-foreground">
+            <span className="font-mono-label flex items-center gap-2 text-muted-foreground">
+              <span className="neon-dot" />
               Bölmə 04 — Şablonlar
             </span>
-            <h2 className="font-heading mt-4 text-4xl font-medium leading-tight text-balance sm:text-5xl">
+            <h2 className="font-heading neon-underline mt-4 text-4xl font-medium leading-tight text-balance sm:text-5xl">
               {templates.title}
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
@@ -29,9 +30,10 @@ export function TemplatesTeaser() {
 
             <Button
               variant="outline"
+              className="mt-8 gap-2 border-neon/40 hover:border-neon hover:bg-neon/10 hover:text-neon"
               nativeButton={false}
               render={
-                <Link href="/templates" className="mt-8 gap-2">
+                <Link href="/templates">
                   {templates.cta}
                   <ArrowRight className="size-4" />
                 </Link>

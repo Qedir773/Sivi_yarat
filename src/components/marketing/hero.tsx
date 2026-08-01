@@ -18,10 +18,13 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden paper">
-      {/* Editorial issue marker */}
-      <div className="border-b">
+      {/* Editorial issue marker with neon divider */}
+      <div className="border-b border-border/60">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 text-xs text-muted-foreground sm:px-6">
-          <span className="font-mono-label">Bölmə 01 — Giriş</span>
+          <span className="font-mono-label flex items-center gap-2">
+            <span className="neon-dot" />
+            Bölmə 01 — Giriş
+          </span>
           <span className="hidden font-mono-label sm:inline">Peşəkar CV · Pulsuz · Gizli</span>
         </div>
       </div>
@@ -30,14 +33,14 @@ export function Hero() {
         <div className="lg:col-span-7">
           {/* Eyebrow */}
           <div className="flex items-center gap-3">
-            <span className="inline-flex size-1.5 rounded-full bg-amber" />
+            <span className="neon-dot" />
             <span className="font-mono-label text-muted-foreground">
               {hero.eyebrow}
             </span>
           </div>
 
-          {/* Big serif headline */}
-          <h1 className="font-heading mt-6 text-5xl font-medium leading-[0.95] text-balance sm:text-6xl lg:text-7xl xl:text-[5.5rem]">
+          {/* Big serif headline with neon underline */}
+          <h1 className="font-heading neon-underline mt-6 text-5xl font-medium leading-[0.95] text-balance sm:text-6xl lg:text-7xl xl:text-[5.5rem]">
             {hero.title}
           </h1>
 
@@ -50,9 +53,10 @@ export function Hero() {
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <Button
               size="lg"
+              className="gap-2 bg-neon text-neon-foreground hover:bg-neon/90 glow-neon"
               nativeButton={false}
               render={
-                <Link href="/builder" className="gap-2">
+                <Link href="/builder">
                   {t("common.getStarted")}
                   <ArrowUpRight className="size-4" />
                 </Link>
@@ -63,7 +67,7 @@ export function Hero() {
               variant="ghost"
               nativeButton={false}
               render={
-                <Link href="/templates" className="text-foreground">
+                <Link href="/templates" className="text-foreground hover:bg-neon/10 hover:text-neon">
                   {t("common.browseTemplates")}
                 </Link>
               }
@@ -71,26 +75,36 @@ export function Hero() {
           </div>
 
           {/* Inline proof strip */}
-          <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 border-t pt-6 text-sm text-muted-foreground">
-            <span className="font-mono-label text-foreground">Sosial sübut</span>
+          <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-border/60 pt-6 text-sm text-muted-foreground">
+            <span className="font-mono-label flex items-center gap-2 text-foreground">
+              <span className="neon-dot-violet" />
+              Sosial sübut
+            </span>
             <span>
-              <strong className="text-foreground">5+</strong> peşəkar şablon
+              <strong className="text-neon text-glow">15</strong> peşəkar şablon
             </span>
             <span aria-hidden className="text-border">·</span>
             <span>
-              <strong className="text-foreground">4</strong> dil: az, tr, en, ru
+              <strong className="text-neon-2 text-glow-violet">4</strong> dil: az, tr, en, ru
             </span>
             <span aria-hidden className="text-border">·</span>
             <span>
-              Məlumatlar <strong className="text-foreground">brauzerdə</strong> qalır
+              Məlumatlar <strong className="text-neon-3 text-glow">brauzerdə</strong> qalır
             </span>
           </div>
         </div>
 
         {/* Template showcase column */}
         <div className="relative lg:col-span-5">
-          <div className="absolute -top-3 left-0 right-0 flex items-center justify-between">
-            <span className="font-mono-label text-muted-foreground">Canlı şablon</span>
+          <HeroTemplateShowcase templateIds={templateIds} />
+
+          {/* Indicator row — sits below the showcase so it never overlaps the
+              template preview itself. Replaces the old floating top label. */}
+          <div className="mt-4 flex items-center justify-between">
+            <span className="font-mono-label flex items-center gap-2 text-muted-foreground">
+              <span className="neon-dot" />
+              Canlı şablon
+            </span>
             <span className="font-mono-label inline-flex items-center gap-1.5 text-amber-foreground">
               <span className="relative flex size-1.5">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-amber opacity-75" />
@@ -99,16 +113,21 @@ export function Hero() {
               Avtomatik
             </span>
           </div>
-          <HeroTemplateShowcase templateIds={templateIds} />
 
-          {/* Floating testimonial/quote */}
-          <div className="absolute -bottom-6 -left-4 hidden max-w-[14rem] rounded-lg border bg-card/95 p-4 shadow-lg backdrop-blur sm:block lg:-left-8">
-            <p className="font-heading text-sm italic leading-snug">
-              "Beş dəqiqəyə hazır CV — işəgötürən dərhal cavab verdi."
-            </p>
-            <p className="mt-2 font-mono-label text-muted-foreground">
-              — Nigar, Bakı
-            </p>
+          {/* Floating testimonial/quote — placed below the showcase so it
+              never overlaps the template preview, even on shorter viewports. */}
+          <div className="mt-6 hidden rounded-lg border border-neon/30 bg-card/90 p-4 shadow-lg backdrop-blur sm:block">
+            <div className="flex items-start gap-3">
+              <span className="mt-0.5 size-2 shrink-0 rounded-full bg-neon glow-neon" />
+              <div>
+                <p className="font-heading text-sm italic leading-snug">
+                  "Beş dəqiqəyə hazır CV — işəgötürən dərhal cavab verdi."
+                </p>
+                <p className="mt-2 font-mono-label text-muted-foreground">
+                  — Nigar, Bakı
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

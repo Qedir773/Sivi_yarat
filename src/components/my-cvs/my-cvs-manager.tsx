@@ -16,6 +16,13 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
+  Card3D,
+  FadeIn3D,
+  PopIn,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/motion/primitives";
+import {
   listSavedCvs,
   createSavedCv,
   duplicateSavedCv,
@@ -72,107 +79,140 @@ export function MyCvsManager({ templates }: { templates: TemplateConfig[] }) {
   }
 
   return (
-    <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-      <div className="mb-8">
-        <h1 className="text-3xl font-semibold tracking-tight">{myCvsPage.title}</h1>
-        <p className="mt-2 text-muted-foreground">{myCvsPage.subtitle}</p>
-      </div>
+    <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 perspective-far">
+      <FadeIn3D as="div">
+        <div className="mb-8">
+          <span className="font-mono-label flex items-center gap-2 text-muted-foreground">
+            <span className="neon-dot-violet" />
+            CV-lərim
+          </span>
+          <h1 className="font-heading neon-underline mt-3 text-4xl font-medium leading-tight tracking-tight">
+            {myCvsPage.title}
+          </h1>
+          <p className="mt-3 text-muted-foreground">{myCvsPage.subtitle}</p>
+        </div>
+      </FadeIn3D>
 
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>{myCvsPage.createNew}</CardTitle>
-        </CardHeader>
-        <CardContent className="flex flex-wrap items-end gap-3">
-          <div className="min-w-48 flex-1 space-y-1.5">
-            <Label htmlFor="new-cv-name">{myCvsPage.nameLabel}</Label>
-            <Input
-              id="new-cv-name"
-              placeholder={myCvsPage.namePlaceholder}
-              value={newName}
-              onChange={(event) => setNewName(event.target.value)}
-            />
-          </div>
-          <div className="w-56 space-y-1.5">
-            <Label>{myCvsPage.templateLabel}</Label>
-            <Select value={newTemplateId} onValueChange={(value) => value && setNewTemplateId(value)}>
-              <SelectTrigger className="w-full">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {templates.map((tpl) => (
-                  <SelectItem key={tpl.id} value={tpl.id}>
-                    {tpl.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <Button type="button" onClick={handleCreate} disabled={!newName.trim()}>
-            <FilePlus /> {myCvsPage.create}
-          </Button>
-        </CardContent>
-      </Card>
+      <FadeIn3D as="div" delay={0.1}>
+        <Card className="mb-6 border-border/60">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <PopIn>
+                <span className="flex size-6 items-center justify-center rounded bg-neon/10 text-neon">
+                  <FilePlus className="size-3.5" />
+                </span>
+              </PopIn>
+              {myCvsPage.createNew}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-wrap items-end gap-3">
+            <div className="min-w-48 flex-1 space-y-1.5">
+              <Label htmlFor="new-cv-name">{myCvsPage.nameLabel}</Label>
+              <Input
+                id="new-cv-name"
+                placeholder={myCvsPage.namePlaceholder}
+                value={newName}
+                onChange={(event) => setNewName(event.target.value)}
+              />
+            </div>
+            <div className="w-56 space-y-1.5">
+              <Label>{myCvsPage.templateLabel}</Label>
+              <Select value={newTemplateId} onValueChange={(value) => value && setNewTemplateId(value)}>
+                <SelectTrigger className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {templates.map((tpl) => (
+                    <SelectItem key={tpl.id} value={tpl.id}>
+                      {tpl.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <Button
+              type="button"
+              onClick={handleCreate}
+              disabled={!newName.trim()}
+              className="bg-neon text-neon-foreground hover:bg-neon/90 disabled:opacity-50"
+            >
+              <FilePlus /> {myCvsPage.create}
+            </Button>
+          </CardContent>
+        </Card>
+      </FadeIn3D>
 
       {cvs && cvs.length === 0 ? (
-        <p className="text-center text-muted-foreground">{myCvsPage.empty}</p>
+        <FadeIn3D as="div">
+          <div className="rounded-xl border border-dashed bg-card/50 py-16 text-center">
+            <p className="text-muted-foreground">{myCvsPage.empty}</p>
+            <p className="mt-2 font-mono-label text-muted-foreground/60">
+              ↑ Yuxarıdakı formada CV yarat
+            </p>
+          </div>
+        </FadeIn3D>
       ) : null}
 
-      <div className="space-y-3">
+      <StaggerContainer className="space-y-3" as="div">
         {(cvs ?? []).map((cv) => (
-          <Card key={cv.id}>
-            <CardContent className="flex flex-wrap items-center justify-between gap-3 py-1">
-              <div className="min-w-0">
-                <p className="truncate font-medium">{cv.name}</p>
-                <p className="truncate text-sm text-muted-foreground">
-                  {templateName(cv.templateId)} · {myCvsPage.updatedAt} {formatUpdatedAt(cv.updatedAt)}
-                </p>
-              </div>
-              <div className="flex shrink-0 items-center gap-2">
-                {pendingDeleteId === cv.id ? (
-                  <>
-                    <span className="text-sm text-muted-foreground">{myCvsPage.confirmDelete}</span>
-                    <Button type="button" size="sm" variant="destructive" onClick={() => handleDelete(cv.id)}>
-                      {myCvsPage.confirmYes}
-                    </Button>
-                    <Button type="button" size="sm" variant="ghost" onClick={() => setPendingDeleteId(null)}>
-                      {myCvsPage.confirmNo}
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <Button
-                      size="sm"
-                      nativeButton={false}
-                      render={
-                        <Link href={`/builder?template=${cv.templateId}&cv=${cv.id}`}>
-                          {myCvsPage.open}
-                        </Link>
-                      }
-                    />
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleDuplicate(cv.id)}
-                    >
-                      <Copy /> {myCvsPage.duplicate}
-                    </Button>
-                    <Button
-                      type="button"
-                      size="icon-sm"
-                      variant="ghost"
-                      aria-label={myCvsPage.delete}
-                      onClick={() => setPendingDeleteId(cv.id)}
-                    >
-                      <Trash2 />
-                    </Button>
-                  </>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+          <StaggerItem key={cv.id} variant="right" as="div">
+            <Card3D className="rounded-xl" intensity={3}>
+              <Card>
+                <CardContent className="flex flex-wrap items-center justify-between gap-3 py-1">
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{cv.name}</p>
+                    <p className="truncate text-sm text-muted-foreground">
+                      {templateName(cv.templateId)} · {myCvsPage.updatedAt} {formatUpdatedAt(cv.updatedAt)}
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-2">
+                    {pendingDeleteId === cv.id ? (
+                      <>
+                        <span className="text-sm text-muted-foreground">{myCvsPage.confirmDelete}</span>
+                        <Button type="button" size="sm" variant="destructive" onClick={() => handleDelete(cv.id)}>
+                          {myCvsPage.confirmYes}
+                        </Button>
+                        <Button type="button" size="sm" variant="ghost" onClick={() => setPendingDeleteId(null)}>
+                          {myCvsPage.confirmNo}
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button
+                          size="sm"
+                          nativeButton={false}
+                          render={
+                            <Link href={`/builder?template=${cv.templateId}&cv=${cv.id}`}>
+                              {myCvsPage.open}
+                            </Link>
+                          }
+                        />
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleDuplicate(cv.id)}
+                        >
+                          <Copy /> {myCvsPage.duplicate}
+                        </Button>
+                        <Button
+                          type="button"
+                          size="icon-sm"
+                          variant="ghost"
+                          aria-label={myCvsPage.delete}
+                          onClick={() => setPendingDeleteId(cv.id)}
+                        >
+                          <Trash2 />
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </Card3D>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
     </section>
   );
 }

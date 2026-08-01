@@ -13,11 +13,14 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { Card3D, FadeIn3D, StaggerContainer, StaggerItem } from "@/components/motion/primitives";
 import { getDictionary } from "@/locales";
 import { siteConfig } from "@/config/site";
 import { sampleCV, samplePhotoUrls } from "@/lib/mock/sample-cv";
 import { getTemplateComponent } from "@/lib/templates/component-loader";
 import type { TemplateConfig } from "@/lib/templates/discovery";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 const dict = getDictionary(siteConfig.defaultLocale);
 
@@ -86,13 +89,26 @@ export function TemplatesGallery({ templates, pricing }: GalleryProps) {
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-      <div className="mx-auto max-w-2xl text-center">
-        <h1 className="text-3xl font-semibold tracking-tight">{templatesPage.title}</h1>
-        <p className="mt-3 text-muted-foreground">{templatesPage.subtitle}</p>
-      </div>
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 perspective-far">
+      <FadeIn3D as="div">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="font-mono-label flex items-center justify-center gap-2 text-muted-foreground">
+            <span className="neon-dot" />
+            Şablonlar
+          </span>
+          <h1 className="font-heading neon-underline mx-auto mt-3 inline-block text-4xl font-medium leading-tight tracking-tight sm:text-5xl">
+            {templatesPage.title}
+          </h1>
+          <p className="mt-4 text-muted-foreground">{templatesPage.subtitle}</p>
+        </div>
+      </FadeIn3D>
 
-      <div className="mt-10 flex flex-wrap justify-center gap-2">
+      <motion.div
+        className="mt-10 flex flex-wrap justify-center gap-2"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: EASE, delay: 0.2 }}
+      >
         <Button
           size="sm"
           variant={activeCategory === "all" ? "default" : "outline"}
@@ -110,21 +126,23 @@ export function TemplatesGallery({ templates, pricing }: GalleryProps) {
             {categoryLabel(categoryId)}
           </Button>
         ))}
-      </div>
+      </motion.div>
 
-      <div className="mt-10 grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-4">
+      <StaggerContainer
+        key={activeCategory}
+        className="mt-10 grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-4 perspective-near"
+        as="div"
+      >
         {filtered.map((tpl, index) => {
           const TemplateComponent = getTemplateComponent(tpl.id);
           const isPro = pricing[tpl.id] ?? tpl.premium;
           return (
-            <motion.div
-              key={tpl.id}
-              layout
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="group overflow-hidden rounded-xl border bg-card transition-all hover:-translate-y-0.5 hover:shadow-lg"
-            >
+            <StaggerItem key={tpl.id} variant="up" as="div">
+              <Card3D
+                className="group h-full overflow-hidden rounded-xl border bg-card"
+                intensity={6}
+                glow
+              >
               <div className="relative aspect-[1/1.414] w-full overflow-hidden bg-neutral-100">
                 <div className="absolute top-0 left-0 w-[250%] origin-top-left scale-[0.4] transition-transform duration-300 group-hover:scale-[0.42]">
                   <TemplateComponent data={cvDataForIndex(index)} />
@@ -159,10 +177,11 @@ export function TemplatesGallery({ templates, pricing }: GalleryProps) {
                   {isPro ? templatesPage.pro : templatesPage.free}
                 </Badge>
               </div>
-            </motion.div>
+              </Card3D>
+            </StaggerItem>
           );
         })}
-      </div>
+      </StaggerContainer>
 
       <Dialog
         open={previewTemplate !== null}
